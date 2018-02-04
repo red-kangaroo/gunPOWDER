@@ -1522,6 +1522,17 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
 	    return actionCast(SPELL_POISONITEM, 0, 0, 0);
 	}
     }
+	
+	if (canCastSpell(SPELL_MINDACID))
+    {
+	ITEM		*item;
+	
+	item = getEquippedItem(ITEMSLOT_RHAND);
+	if (!item || (item && !item->getDefinition() == ITEM_MINDACIDHAND))
+	{
+	    return actionCast(SPELL_MINDACID, 0, 0, 0);
+	}
+    }
     
     if (!hasIntrinsic(INTRINSIC_REGENERATION) && canCastSpell(SPELL_REGENERATE))
     {
@@ -1539,6 +1550,13 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
 	if (target && canSense(target))
 	    return actionCast(SPELL_FLAMESTRIKE, diffx, diffy, 0);
     }
+	
+	if (canCastSpell(SPELL_ACIDICMIST) && mob_shouldCast() &&
+	!aiCanTargetResist(target, ELEMENT_ACID))
+    {
+	if (target && canSense(target))
+	    return actionCast(SPELL_ACIDICMIST, diffx, diffy, 0);
+    }
 
     // Fire elementals get a special surprise :>
     if (target && target->getDefinition() == MOB_FIREELEMENTAL &&
@@ -1546,6 +1564,14 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
 	canSense(target))
     {
 	return actionCast(SPELL_DOWNPOUR, diffx, diffy, 0);
+    }
+	
+	// As do living frosts.
+	if (target && target->getDefinition() == MOB_LIVINGFROST &&
+	canCastSpell(SPELL_BLIZZARD) && mob_shouldCast() &&
+	canSense(target))
+    {
+	return actionCast(SPELL_BLIZZARD, diffx, diffy, 0);
     }
 
     // If the target is in a pit, consider drowning...
@@ -2145,17 +2171,22 @@ MOB::aiDoSpellAttack(int dx, int dy, int range)
 	    return actionCast(SPELL_STICKYFLAMES, dx, dy, 0);
     }
 
-#if 0
-    // I have retreated from allowing this.  It is too close to
-    // one-shot kills - anything less than half health can be killed
-    // by two purple tridudes doing a fetch/disintegrate pair.
     if (range == 1 && mob_shouldCast() && canCastSpell(SPELL_DISINTEGRATE) &&
 	!aiCanTargetResist(target, ELEMENT_ACID))
     {
 	// Yep, I'm evil.
 	return actionCast(SPELL_DISINTEGRATE, dx, dy, 0);
     }
-#endif
+	
+	if (range == 1 && mob_shouldCast() && canCastSpell(SPELL_PETRIFY))
+    {
+	if (target && 
+	   (!target->hasIntrinsic(INTRINSIC_UNCHANGING) ||
+		!target->hasIntrinsic(INTRINSIC_RESISTSTONING) ))
+	{
+	    return actionCast(SPELL_PETRIFY, dx, dy, 0);
+	}
+    }
 
     if (range == 1 && mob_shouldCast() && canCastSpell(SPELL_FLASH) &&
 	target && !target->hasIntrinsic(INTRINSIC_BLIND))
