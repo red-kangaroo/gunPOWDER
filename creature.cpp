@@ -378,8 +378,7 @@ MOB::create(MOB_NAMES definition)
 	    ITEM_NAMES armlist[] =
 	    {
 		ITEM_PLATEMAIL,
-		ITEM_SPLINTMAIL,
-		ITEM_BANDEDMAIL,
+		ITEM_SCALEMAIL,
 		ITEM_CHAINMAIL
 	    };
 	    weapon = weplist[rand_choice(sizeof(weplist)/sizeof(ITEM_NAMES))];
@@ -458,8 +457,8 @@ MOB::create(MOB_NAMES definition)
 		ITEM_ROBE,
 		ITEM_CHAINMAIL,
 		ITEM_MITHRILMAIL,
-		ITEM_BANDEDMAIL,
-		ITEM_SPLINTMAIL,
+		ITEM_SCALEMAIL,
+		ITEM_DRAGONSCALEMAIL,
 		ITEM_PLATEMAIL,
 		ITEM_CRYSTALPLATE
 	    };
@@ -613,7 +612,7 @@ MOB::create(MOB_NAMES definition)
 		if (*glb_spellbookdefs[book].spells)
 		{
 		    // Note the funny use of continue
-		    // inside swtich to abort adding spells/skills
+		    // inside switch to abort adding spells/skills
 		    switch (piety_chosengod())
 		    {
 			case GOD_BARB:
@@ -3523,7 +3522,6 @@ MOB::getArmourSkillLevel(const ITEM *armour) const
 
 	    case MATERIAL_GOLD:
 	    case MATERIAL_GLASS:
-	    case MATERIAL_MITHRIL:
 	    case MATERIAL_SILVER:
 	    case MATERIAL_STONE:
 	    case MATERIAL_FLESH:
@@ -3739,7 +3737,14 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
     {
 	if (!src->canSense(this))    
 	{
+	  if (modifier > 7)
+	  {
+	    modifier /= 2;
+	  }
+	  else
+	  {
 	    modifier -= 4;
+	  }
 	}
 
 	// If we are the natural foe of the attacker, +4
@@ -3776,6 +3781,10 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	{
 	    multiplier++;
 	}
+	/*
+	 * Daggers with SKILL_WEAPON_SNEAKATTACK get bonus multiplier++ for each condition of target:
+	 *  cannot see them, asleep, paralyzed, off-balance
+	 */
     }
     else
     {
@@ -3815,8 +3824,14 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	(!hasIntrinsic(INTRINSIC_PARALYSED) || hasIntrinsic(INTRINSIC_FREEDOM)))
     {
 	abletomove = true;
-	// Check for dodging: Flat 10%.
-	if (!forcehit && hasSkill(SKILL_DODGE) && skillProc(SKILL_DODGE))
+	// Check for dodging:
+	//   5% for plate mails
+	//  10% for scale mails
+	//  15% for normal chain mail or robe
+	//  20% for mithril chain mail or studded leather
+	//  25% for tunic
+	//  30% for naked
+	if (!forcehit && hasSkill(SKILL_DODGE) /*&& skillProc(SKILL_DODGE)*/)
 	{
 	    const char *dodgelist[] = 
 	    { 
@@ -3845,7 +3860,13 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	    return true;
 	}
 
-	// Check for moving target: 20% if moved last turn.
+	// Check for moving target: must have moved last turn and
+	//   5% for plate mails
+	//  15% for scale mails
+	//  25% for normal chain mail or robe
+	//  35% for mithril chain mail or studded leather
+	//  45% for tunic
+	//  50% for naked
 	if (!forcehit && 
 	    (style == ATTACKSTYLE_THROWN || 
 	     style == ATTACKSTYLE_SPELL || 
