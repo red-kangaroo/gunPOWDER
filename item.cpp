@@ -3038,7 +3038,23 @@ ITEM::actionDip(MOB *dipper, ITEM *dippee,
 				0, this, dipper, dippee);
 		    dipper->reportMessage(buf);
 
-		    if (dippee->getMagicType() == MAGICTYPE_WAND)
+			if (dippee->getDefinition() == ITEM_SHORTSWORD)
+			{
+			// Short sword becomes vorpal.
+			dipper->formatAndReport("%IU hungrily <I:drink> the liquid!", dippee);
+
+			dippee->myDefinition = ITEM_VORPALSWORD;
+			newpotion = ITEM::create(ITEM_BOTTLE, false, true);
+
+			markIdentified();
+			// Delete self
+			delete this;
+
+			possible = true;
+			consumed = true;
+			}
+	
+		    else if (dippee->getMagicType() == MAGICTYPE_WAND)
 		    {
 			// Dipping a wand into a mana potion recharges it.
 			dipper->formatAndReport("%IU hungrily <I:drink> the liquid!", dippee);

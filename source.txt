@@ -2103,14 +2103,14 @@ INTRINSIC TELEPORT
 
 INTRINSIC TELEFIXED
 {
-    name	"position fixed"
+    name	"anchored"
     gaintxt	"%U <feel> localized."
     losetxt	"%U <feel> more mobile."
 }
 
 INTRINSIC POSITIONREVEALED
 {
-    name	"position revealed"
+    name	"revealed"
     gaintxt	"%U <feel> like someone is always watching."
     losetxt	"%U <feel> inconspicuous."
 }
@@ -2139,7 +2139,7 @@ INTRINSIC REGENERATION
 
 INTRINSIC NOREGEN
 {
-    name	"non-regeneratable"
+    name	"unhealing"
     gaintxt	"%U <stop> self-repairing."
     losetxt	"%U <start> to self-repair."
 }
@@ -2156,7 +2156,7 @@ INTRINSIC BLEED
 
 INTRINSIC MAGICDRAIN
 {
-    name	"magic drained"
+    name	"manaburned"
     gaintxt	"%R mind slows."
     losetxt	"%R mind races."
     survivepoly		true
@@ -2172,14 +2172,14 @@ INTRINSIC REFLECTION
 
 INTRINSIC SEARCH
 {
-    name	"search"
+    name	"searching"
     gaintxt	"%U <be> aware!"
     losetxt	"%U <stop> paying attention."
 }
 
 INTRINSIC VULNSILVER
 {
-    name	"vulnerable to silver"
+    name	"allergic to silver"
     gaintxt	"%U <begin> to fear silver."
     losetxt	"%U no longer <fear> silver."
 }
@@ -2221,7 +2221,7 @@ INTRINSIC VULNSHOCK
 
 INTRINSIC VULNPHYSICAL
 {
-    name	"vulnerable to physical attacks"
+    name	"frail"
     gaintxt	"%R skin bruises easily."
     losetxt	"%R skin seems slightly less soft."
 }
@@ -2511,7 +2511,7 @@ INTRINSIC UNIQUE
 
 INTRINSIC AMNESIA
 {
-    name	"amnesic"
+    name	"amnesiac"
     gaintxt	"%U <forget> what %U <be> doing."
     losetxt	"Memories flood %R mind."
     survivepoly		true
@@ -2530,7 +2530,7 @@ INTRINSIC OFFBALANCE
 
 INTRINSIC LICHFORM
 {
-    name	"imbued with evil"
+    name	"dark transcendence"
     gaintxt	"%U <be> imbued with evil!"
     losetxt	"%U <feel> evil recede..."
     maxcount		2
@@ -2583,7 +2583,7 @@ INTRINSIC SKILL_ENDUREHUNGER
 
 INTRINSIC SKILL_BUTCHERY
 {
-    name	"butchery skill"
+    name	"butchering skill"
     gaintxt	"%U <know> how to butcher corpses."
     losetxt	"%U no longer <know> how to butcher corpses."
     isskill	true
@@ -2591,7 +2591,7 @@ INTRINSIC SKILL_BUTCHERY
 
 INTRINSIC SKILL_CLEANKILL
 {
-    name	"clean kill skill"
+    name	"hunting skill"
     gaintxt	"%U <know> how to kill cleanly."
     losetxt	"%U no longer <know> how to kill cleanly."
     isskill	true
@@ -3571,7 +3571,7 @@ SKILL MOVINGTARGET
     name	"Moving Target"
     intrinsic	SKILL_MOVINGTARGET
     god		ROGUE
-    proc	20
+    proc	50
 }
 
 SKILL SEARCH
@@ -3967,7 +3967,6 @@ SPELL STICKYFLAMES
     intrinsic		SPELL_STICKYFLAMES
     god			WIZARD
     tile		STICKYFLAMES
-    prereq		FLASH
 
     publish		true
 }
@@ -4018,7 +4017,6 @@ SPELL FROSTBOLT
     intrinsic		SPELL_FROSTBOLT
     god			WIZARD
 
-    prereq		MAGICMISSILE
     prereq		CHILL
 
     tile		FROSTBOLT
@@ -4062,8 +4060,7 @@ SPELL FIREBALL
     intrinsic		SPELL_FIREBALL
     god			WIZARD
 
-    prereq		FLASH
-    prereq		MAGICMISSILE
+    prereq		STICKYFLAMES
 
     tile		FIREBALL
 
@@ -4095,7 +4092,6 @@ SPELL LIGHTNINGBOLT
     intrinsic		SPELL_LIGHTNINGBOLT
     god			WIZARD
 
-    prereq		MAGICMISSILE
     prereq		SPARK
 
     tile		LIGHTNINGBOLT
@@ -4173,6 +4169,7 @@ SPELL CORROSIVEEXPLOSION
     god			WIZARD
 
     prereq		ACIDICMIST
+	prereq		ACIDPOOL
 
     tile		CORROSIVEEXPLOSION
 }
@@ -4187,7 +4184,7 @@ SPELL ACIDPOOL
     intrinsic		SPELL_ACIDPOOL
     god			WIZARD
 
-    prereq		ACIDICMIST
+    prereq		ACIDSPLASH
 
     tile		ACIDPOOL
 }
@@ -4240,7 +4237,8 @@ SPELL REGENERATE
 
     needsdir		false
     needstarget		true
-
+	
+    prereq		HEAL
     tile		REGENERATE
 
     publish		true
@@ -4257,9 +4255,6 @@ SPELL SLOWPOISON
 
     needsdir		false
     needstarget		true
-
-    prereq		REGENERATE
-
     tile		SLOWPOISON
 
     publish		true
@@ -4842,7 +4837,6 @@ SPELL POISONBOLT
     god			WIZARD
     god			NECRO
 
-    prereq		MAGICMISSILE
     prereq		POISONITEM
 
     tile		POISONBOLT
@@ -4873,7 +4867,6 @@ SPELL BINDSOUL
     god			WIZARD
     god			NECRO
 
-    prereq		GHASTIFY
     tile		BINDSOUL
 }
 
@@ -4948,7 +4941,7 @@ SPELL FINGEROFDEATH
     god			WIZARD
     god			NECRO
 
-    prereq		POISONBOLT
+    prereq		FORCEBOLT
     prereq		GHASTIFY
 
     tile		FINGEROFDEATH
@@ -5061,8 +5054,8 @@ ATTACK INHALE_SMOKE
     damage	1d2
 
     inflict_intrinsic	BLIND
-    inflict_chance	10
-    inflict_duration	2d3
+    inflict_chance	50
+    inflict_duration	1d4
     inflict_resistance	BLIND
 }
 
@@ -5079,7 +5072,7 @@ ATTACK INHALE_POISONSMOKE
 
     inflict_intrinsic	POISON_HARSH
     inflict_chance	50
-    inflict_duration	2
+    inflict_duration	1d3
     inflict_resistance	RESISTPOISON
 }
 
@@ -5092,7 +5085,7 @@ ATTACK INHALE_ACIDSMOKE
 
 ATTACK FROGBITE
 {
-    verb	"bite"
+    verb	"lick"
     damage	1d4+4
 }
 
@@ -5135,9 +5128,16 @@ ATTACK FIREBREATH
     deathtext	"You were roasted like a marshmallow"
     damage	3d5
     element	FIRE
+	
+	inflict_intrinsic	AFLAME
+    inflict_duration	2d2
+    inflict_chance	    50
+	inflict_resistance	RESISTFIRE
+	
     explode_chance	50
     explode_attack	FIREBREATHBALL
     explode_name	"the fireball"
+	
     stopathit	1
     range	5
     bonustohit	5
@@ -5160,6 +5160,11 @@ ATTACK ICEBREATH
     element	COLD
     range	5
     bonustohit	5
+	
+	inflict_intrinsic	SLOW
+    inflict_duration	2d2
+    inflict_chance	    50
+	inflict_resistance	RESISTCOLD
 }
 
 ATTACK GREENDRAGONBITE
@@ -5176,7 +5181,7 @@ ATTACK LIGHTNINGBREATH
 {
     verb	"shock"
     deathtext	"You were lit up like a Christmas tree"
-    damage	3d5
+    damage	5d5
     element	SHOCK
     reflect	1
     range	5
@@ -5193,6 +5198,20 @@ ATTACK ACIDBREATH
     explode_chance	100
     explode_smoke	ACID
     explode_name	"the acid ball"
+    range	5
+    bonustohit	5
+}
+
+ATTACK POISONBREATH
+{
+    verb		"choke"
+    damage		1d3
+    stopathit	1
+	
+    explode_chance	100
+    explode_smoke	POISON
+    explode_name	"the venom ball"
+	
     range	5
     bonustohit	5
 }
@@ -5308,7 +5327,7 @@ ATTACK SPELL_DARK_RITUAL_NORTH
     damage	1d6
     alwayshit	true
 
-    inflict_intrinsic	POISON_HARSH
+    inflict_intrinsic	POISON_DEADLY
     inflict_duration	5d3
     inflict_chance	100
     inflict_resistance	RESISTPOISON
@@ -5388,6 +5407,7 @@ ATTACK SLEEPWAND
 {
     verb	"sedate"
     damage	1
+	
     inflict_intrinsic	ASLEEP
     inflict_duration	2d5+5
     inflict_chance	100
@@ -5396,7 +5416,7 @@ ATTACK SLEEPWAND
 
 ATTACK DIGEARTHELEMENTAL
 {
-    verb	"disintegrate"
+    verb	"excavate"
     damage	1d50+50
 }
 
@@ -5408,15 +5428,15 @@ ATTACK DOUSEFIREELEMENTAL
 
 ATTACK HOLYWATER
 {
-    verb	"burn"
-    damage	2d4
+    verb	"sear"
+    damage	1d50+50
 }
 
 ATTACK CEILINGROCKS
 {
     verb	"bonk"
     damage	2d4
-    deathtext	"You were buried in rubble"
+    deathtext	"You were buried in rubble."
 }
 
 ATTACK PUNCH
@@ -5460,26 +5480,25 @@ ATTACK TRIPLECLUB
 ATTACK MACE
 {
     verb		"smash"
-    damage		1d6+1
+    damage		2d4
 }
 
 ATTACK WARHAMMER
 {
     verb		"smash"
-    damage		2d4+3
+    damage		3d4
 }
 
 ATTACK EARTHHAMMER
 {
     verb		"smash"
-    damage		2d4+5
+    damage		3d4+3
 }
 
 ATTACK KNIFE
 {
     verb		"jab"
-    bonustohit		1
-    damage		1d3
+    damage		1d3+1
 }
 
 ATTACK KNIFETHROWN
@@ -5500,15 +5519,15 @@ ATTACK DAGGER
 ATTACK DAGGERTHROWN
 {
     verb		"stab"
-    bonustohit		2
-    damage		1d4+2
+    bonustohit		1
+    damage		1d4
     range		5
 }
 
 ATTACK SPEAR
 {
     verb		"stab"
-    damage		1d9+1
+    damage		1d12
 }
 
 ATTACK SPEARTHROWN
@@ -5525,6 +5544,12 @@ ATTACK SHORTSWORD
     damage		1d6
 }
 
+ATTACK VORPALSWORD
+{
+    verb		"shred"
+    damage		1d10
+}
+
 ATTACK LONGSWORD
 {
     verb		"slash"
@@ -5534,16 +5559,17 @@ ATTACK LONGSWORD
 ATTACK RAPIER
 {
     verb		"stab"
-    damage		1d7
+    damage		1d6
     bonustohit		2
 }
 
 ATTACK LIGHTNINGRAPIER
 {
-    verb		"stab"
-    damage		1d12
+    verb		"shock"
+    damage		1d6
     element		SHOCK
     bonustohit		4
+	sameattack  RAPIER
 }
 
 ATTACK ZAPLIGHTNINGRAPIER
@@ -5556,7 +5582,7 @@ ATTACK ZAPLIGHTNINGRAPIER
 ATTACK ICEMACE
 {
     verb		"chill"
-    damage		2
+    damage		1d2
     element		COLD
     sameattack		MACE
 
@@ -5577,12 +5603,24 @@ ATTACK IRONSHODSTAFF
     damage		2d2+2
 }
 
+ATTACK LEADFILLEDSTAFF
+{
+    verb		"hit"
+    damage		2d3
+}
+
 ATTACK TORCH
 {
     verb		"burn"
-    damage		1d5
+    damage		1d3
     element		FIRE
-    bonustohit		-1
+	sameattack  TORCH_2
+}
+
+ATTACK TORCH_2
+{
+    verb		"club"
+    damage		1d4
 }
 
 ATTACK TORCHTHROWN
@@ -5595,6 +5633,14 @@ ATTACK TORCHTHROWN
 }
 
 ATTACK ARROWTHROWN
+{
+    verb		"pierce"
+    damage		2d3
+    bonustohit		1
+    range		6
+}
+
+ATTACK IRONARROWTHROWN
 {
     verb		"pierce"
     damage		2d4
@@ -5650,6 +5696,10 @@ ATTACK DEMON_SWORD
     element		FIRE
     bonustohit		1
     sameattack		LONGSWORD
+	
+	inflict_intrinsic	AFLAME
+    inflict_chance	20
+    inflict_duration	1d3
 }
 
 ATTACK FREEZING_SWORD
@@ -5659,6 +5709,10 @@ ATTACK FREEZING_SWORD
     element		COLD
     bonustohit		1
     sameattack		LONGSWORD
+	
+	inflict_intrinsic	SLOW
+    inflict_chance	20
+    inflict_duration	1d4+2
 }
 
 ATTACK MINDACID
@@ -5666,6 +5720,7 @@ ATTACK MINDACID
     verb		"confuse"
     damage		2
     element		ACID
+	
     inflict_intrinsic	CONFUSED
     inflict_duration	3d5+10
     inflict_chance	100
@@ -5761,7 +5816,7 @@ ATTACK GREENSNAKEBITE
 ATTACK GRIDBUGZAP
 {
     verb		"zap"
-    damage		3d2-2
+    damage		1d3
     bonustohit		1
     element		SHOCK
 }
@@ -5769,9 +5824,13 @@ ATTACK GRIDBUGZAP
 ATTACK SHITOMICHU
 {
     verb		"chu"
-    deathtext		"You were kissed to death"
+    deathtext		"You were kissed to death."
     damage		2d6
     bonustohit		-2
+	
+	inflict_intrinsic	VULNPHYSICAL
+    inflict_duration	2d5
+    inflict_chance	20
 }
 
 ATTACK LIGHTWAND
@@ -5785,7 +5844,7 @@ ATTACK LIGHTWAND
 ATTACK LIGHTBLAST
 {
     verb		"blind"
-    deathtext		"You followed the light - sadly it was the light that killed you"
+    deathtext		"You followed the light - sadly it was the light that killed you."
     damage		1d4
     element		LIGHT
 }
@@ -5800,7 +5859,7 @@ ATTACK SPELL_FLASH
 ATTACK SUNFIREBLAST
 {
     verb		"blind"
-    deathtext		"You looked too long into the sun"
+    deathtext		"You looked too long into the sun."
     damage		7d7+21
     element		LIGHT
     alwayshit		true
@@ -5809,7 +5868,7 @@ ATTACK SUNFIREBLAST
 ATTACK FLAMESTRIKE
 {
     verb		"immolate"
-    deathtext		"You angered the wrong god"
+    deathtext		"You angered the wrong god."
     damage		6d6
     element		FIRE
     alwayshit		true
@@ -5818,7 +5877,7 @@ ATTACK FLAMESTRIKE
 ATTACK SURROUNDSMITE
 {
     verb		"smite"
-    deathtext		"You stood too close to a god's avatar"
+    deathtext		"You stood too close to a god's avatar."
     damage		6d3
     alwayshit		true
 }
@@ -5833,13 +5892,13 @@ ATTACK SLUGSLIME
 ATTACK BROWNSLUG
 {
     verb		"slime"
-    damage		1d4
+    damage		1d6
     element		ACID
 }
 
 ATTACK DEATHSLUG
 {
-    verb		"stab"
+    verb		"slam"
     damage		2d6
     nextattack		SLUGSLIME
 }
@@ -5848,6 +5907,7 @@ ATTACK SCORPION
 {
     verb		"sting"
     damage		1d3
+	
     inflict_intrinsic	POISON_NORMAL
     inflict_duration	5d3
     inflict_chance	50
@@ -5856,13 +5916,18 @@ ATTACK SCORPION
 ATTACK CAVESPIDER
 {
     verb		"bite"
-    damage		2d3
+    damage		1d3
+	
+	inflict_intrinsic	POISON_MILD
+    inflict_duration	2d3
+    inflict_chance	50
 }
 
 ATTACK GIANTSPIDER
 {
     verb		"bite"
     damage		2d3
+	
     inflict_intrinsic	POISON_HARSH
     inflict_duration	5d3
     inflict_chance	50
@@ -5920,14 +5985,14 @@ ATTACK TRICERATOPHORN
 
 ATTACK TRICERATOPHORN_2
 {
-    verb		"gouge"
+    verb		"trample"
     damage		2d6+4
     nextattack		TRICERATOPHORN_3
 }
 
 ATTACK TRICERATOPHORN_3
 {
-    verb		"gouge"
+    verb		"kick"
     damage		2d6+4
 }
 
@@ -5963,6 +6028,10 @@ ATTACK FIREELEMENTAL
     verb		"burn"
     damage		2d10
     element		FIRE
+	
+	inflict_intrinsic	AFLAME
+    inflict_chance	50
+    inflict_duration	2d4
 }
 
 ATTACK WATERELEMENTAL
@@ -5991,33 +6060,33 @@ ATTACK FLESHGOLEM_2
 ATTACK STONEGOLEM
 {
     verb		"punch"
-    damage		8
+    damage		2d6
     nextattack		STONEGOLEM_2
 }
 
 ATTACK STONEGOLEM_2
 {
     verb		"punch"
-    damage		8
+    damage		2d6
 }
 
 ATTACK IRONGOLEM
 {
     verb		"punch"
-    damage		2d4+8
+    damage		2d10
     nextattack		IRONGOLEM_2
 }
 
 ATTACK IRONGOLEM_2
 {
     verb		"punch"
-    damage		2d4+8
+    damage		2d10
 }
 
 ATTACK GHOST
 {
     verb		"frighten"
-    deathtext		"You were scared to death"
+    deathtext		"You were scared to death."
     damage		2d3
 
     inflict_intrinsic	PARALYSED
@@ -6035,8 +6104,8 @@ ATTACK CRETAN_MINOTAUR
 
 ATTACK CRETAN_MINOTAUR_2
 {
-    verb		"bite"
-    damage		2d8
+    verb		"punch"
+    damage		2d5
     nextattack		CRETAN_MINOTAUR_3
 }
 
@@ -6044,6 +6113,13 @@ ATTACK CRETAN_MINOTAUR_3
 {
     verb		"punch"
     damage		2d5
+	nextattack		CRETAN_MINOTAUR_4
+}
+
+ATTACK CRETAN_MINOTAUR_4
+{
+    verb		"kick"
+    damage		2d8
 }
 
 ATTACK BAEZELBUB_BITE
@@ -6071,7 +6147,7 @@ ATTACK BEAZELBUG_SWORD
 ATTACK GLASSSHARDS
 {
     verb		"pierce"
-    deathtext		"You had a painful last meal"
+    deathtext		"You had a painful last meal."
     damage		2d4
 }
 
@@ -6085,7 +6161,7 @@ ATTACK ACIDICCORPSE
 {
     verb		"burn"
 
-    deathtext		"You had a terminal case of heartburn"
+    deathtext		"You had a terminal case of heartburn."
     damage		2d3
     element		ACID
 }
@@ -6094,7 +6170,7 @@ ATTACK SILVERITEM
 {
     verb		"sear"
 
-    deathtext		"You suffered from metal poisoning"
+    deathtext		"You suffered from metal poisoning."
     damage		2d3
 }
 
@@ -6102,14 +6178,14 @@ ATTACK GOLDITEM
 {
     verb		"sear"
 
-    deathtext		"Your greed for gold proved unwise"
+    deathtext		"Your greed for gold proved unwise."
     damage		2d3
 }
 
 ATTACK ACIDPOTION
 {
     verb		"burn"
-    deathtext		"You realized too late that one shouldn't quaff anything found in a dungeon"
+    deathtext		"You realized too late that one shouldn't quaff everything found in a dungeon."
     damage		4d2
     element		ACID
 }
@@ -6187,6 +6263,10 @@ ATTACK TRAP_SPIKEDPIT
     verb		"impale"
     damage		3d5
     deathtext		"You were punished by Vlad"
+	
+	inflict_intrinsic	POISON_NORMAL
+    inflict_duration	2d5
+    inflict_chance	20
 }
 
 ATTACK DOORSLAM
@@ -6218,14 +6298,18 @@ ATTACK SPELL_SANDBLAST
 ATTACK SPELL_SANDSTORM
 {
     verb		"blast"
-    damage		3d7
+    damage		1d7
     element		PHYSICAL
     alwayshit		true
 
     inflict_intrinsic	BLIND
-    inflict_chance	20
+    inflict_chance	100
     inflict_duration	2d3
     inflict_resistance	BLIND
+	
+	inflict_intrinsic	BLEED
+    inflict_chance	100
+    inflict_duration	2d7
 }
 
 ATTACK SPELL_FORCEWALL
@@ -6260,8 +6344,8 @@ ATTACK SPELL_LIGHTNING
 ATTACK SPELL_MAGICMISSILE
 {
     verb		"strike"
-    damage		1d2+2
-    bonustohit		5
+    damage		1d4
+    alwayshit		true
 }
 
 ATTACK SPELL_CHILL
@@ -6315,7 +6399,7 @@ ATTACK SPELL_CORROSIVEEXPLOSION
 ATTACK SPELL_BLIZZARD
 {
     verb		"freeze"
-    damage		6d3
+    damage		6d6
     element		COLD
     alwayshit		true
 
@@ -6329,7 +6413,7 @@ ATTACK SPELL_BLIZZARD
 ATTACK SPELL_BLIZZARD_PUMMEL
 {
     verb		"pelt"
-    damage		6d3
+    damage		6d6
 }
 
 ATTACK SPELL_DISINTEGRATE
@@ -6817,12 +6901,22 @@ MOBTYPE ELEMENTAL
 
 MOBTYPE GOD
 {
-    name		"god"
+    name		"God"
 }
 
 MOBTYPE TRIDUDE
 {
-    name		"tridude"
+    name		"Tridude"
+}
+
+MOBTYPE REPTILE
+{
+    name		"Reptile"
+}
+
+MOBTYPE TURTLE
+{
+    name		"Turtle"
 }
 
 DEFINE MOB
@@ -6949,7 +7043,7 @@ MOB GREENDRAGON
     name		"green dragon"
     movetype		STD_FLY
     attack		GREENDRAGONBITE
-    hp			1d10+35
+    hp			1d10+30
     hitdie		8
     mpdie		1
     explevel		12
@@ -6964,6 +7058,9 @@ MOB GREENDRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	
+	breathattack	POISONBREATH
+    breathsubstance	"venom"
 }
 
 MOB WHITEDRAGON
@@ -6971,7 +7068,7 @@ MOB WHITEDRAGON
     tile		WHITEDRAGON
     name		"white dragon"
     movetype		STD_FLY
-    attack		LONGSWORD
+    attack		ICEMACE
     hp			1d10+30
     hitdie		8
     mpdie		1
@@ -6997,7 +7094,7 @@ MOB REDDRAGON
     tile		REDDRAGON
     name		"red dragon"
     movetype		STD_FLY
-    attack		LONGSWORD
+    attack		FLAMING_SWORD
     hp			1d10+30
     hitdie		8
     mpdie		1
@@ -7023,7 +7120,7 @@ MOB BLUEDRAGON
     tile		BLUEDRAGON
     name		"blue dragon"
     movetype		STD_FLY
-    attack		LONGSWORD
+    attack		LIGHTNINGRAPIER
     hp			1d10+30
     hitdie		8
     mpdie		1
@@ -7095,15 +7192,14 @@ MOB COCKATRICE
     mobtype		UNUSUAL
     edible		FLESH
     edible		WATER
+	edible      STONE
     slotset		BIRD
-
-    gender		MALE
 }
 
 MOB DAEMON
 {
     tile		DAEMON
-    name		"daemon"
+    name		"fire daemon"
     movetype		STD_FLY
     attack		DEMON_SWORD
     hp			5d10+20
@@ -7128,6 +7224,8 @@ MOB DAEMON
     edible		WATER
 
     intrinsic		SPELL_SUMMON_IMP
+	intrinsic		SPELL_STICKYFLAMES
+	intrinsic       SPELL_FIREBALL
 }
 
 MOB ICEDAEMON
@@ -7159,6 +7257,7 @@ MOB ICEDAEMON
 
     intrinsic		SPELL_FROSTBOLT
     intrinsic		SPELL_LIVINGFROST
+	intrinsic		SPELL_BLIZZARD
 }
 
 MOB BAEZLBUB
@@ -7186,6 +7285,10 @@ MOB BAEZLBUB
     intrinsic		VULNSILVER
     intrinsic		RESISTFIRE
     intrinsic		RESISTPOISON
+	intrinsic		RESISTSTONING
+	intrinsic		RESISTSLEEP
+	intrinsic       REGENERATION
+	intrinsic       TELEPATHY
 
     eatgrant		VULNSILVER
     eatgrant		RESISTFIRE
@@ -7193,12 +7296,12 @@ MOB BAEZLBUB
     
     intrinsic		SPELL_STICKYFLAMES
     intrinsic		SPELL_FIREBALL
-    intrinsic		SPELL_REGENERATE
+    intrinsic		SPELL_FLAMESTRIKE
     intrinsic		SPELL_MAJORHEAL
-    intrinsic		SPELL_PRESERVE
     intrinsic		SPELL_TRACK
     intrinsic		SPELL_FETCH
     intrinsic		SPELL_SUMMON_DEMON
+	intrinsic		SPELL_TELEPORT
     
     mobtype		DAEMON
     slotset		HUMANOID_HUGE
@@ -7220,10 +7323,10 @@ MOB CRETAN_MINOTAUR
     tilell		CRETAN_MINOTAUR_LL
     tilelr		CRETAN_MINOTAUR_LR
     
-    name		"Cretan Minotaur"
+    name		"Ancient Minotaur"
     attack		CRETAN_MINOTAUR
 
-    hp			10d10+100
+    hp			200
     hitdie		20
     mp			0
     mpdie		0
@@ -7256,7 +7359,7 @@ MOB CRETAN_MINOTAUR
 MOB TRIDUDE
 {
     tile		TRIDUDE
-    name		"tridude"
+    name		"green tridude"
     attack		CLUB
     hp			2d10
     hitdie		2
@@ -7271,6 +7374,10 @@ MOB TRIDUDE
     edible		WATER
     ai			PACK
 
+	intrinsic		RESISTACID
+	intrinsic		GOLDALLERGY
+	eatgrant        GOLDALLERGY
+	
     evolvetarget	REDTRIDUDE
     evolvelevel		13
 
@@ -7302,7 +7409,10 @@ MOB REDTRIDUDE
     ai			SMARTTRIDUDE
     rarity		0
 
+	intrinsic		RESISTACID
     intrinsic		RESISTFIRE
+	intrinsic		GOLDALLERGY
+	eatgrant        GOLDALLERGY
     eatgrant		RESISTFIRE
 
     intrinsic		SPELL_FLASH
@@ -7329,7 +7439,7 @@ MOB BLUETRIDUDE
     basespells		6
     explevel		15	
     baseac		15
-    smarts		CUNNINGANIMAL
+    smarts		HUMAN
     strength		HUMAN
     mobtype		TRIDUDE
     slotset		HEADONLY
@@ -7338,7 +7448,10 @@ MOB BLUETRIDUDE
     ai			SMARTTRIDUDE
     rarity		0
     
+	intrinsic		RESISTACID
     intrinsic		RESISTSHOCK
+	intrinsic		GOLDALLERGY
+	eatgrant        GOLDALLERGY
     eatgrant		RESISTSHOCK
 
     intrinsic		SPELL_SPARK
@@ -7376,8 +7489,12 @@ MOB PURPLETRIDUDE
     ai			SMARTTRIDUDE
     rarity		0
 
+	intrinsic		RESISTACID
     intrinsic		RESISTPHYSICAL
     intrinsic		NOBREATH
+	intrinsic		GOLDALLERGY
+	eatgrant        GOLDALLERGY
+	
 
     intrinsic		SPELL_FORCEBOLT
     intrinsic		SPELL_FORCEWALL
@@ -7419,15 +7536,19 @@ MOB GOLDTRIDUDE
     intrinsic		RESISTSHOCK
     intrinsic		RESISTFIRE
     intrinsic		RESISTACID
+	intrinsic		RESISTPHYSICAL
+    intrinsic		NOBREATH
+	intrinsic		GOLDALLERGY
     intrinsic		REFLECTION
 
     intrinsic		SPELL_ACIDSPLASH
     intrinsic		SPELL_ACIDICMIST
-    intrinsic		SPELL_CORROSIVEEXPLOSION
+    intrinsic		SPELL_DISINTEGRATE
 
     eatgrant		RESISTSHOCK
     eatgrant		RESISTFIRE
     eatgrant		RESISTACID
+	eatgrant        GOLDALLERGY
 
     loottype		ARTIFACT
     loottype		ARTIFACT
@@ -7448,7 +7569,7 @@ MOB GOLDTRIDUDE
 MOB FIREBEETLE
 {
     tile		FIREBEETLE
-    name		"fire beetle"
+    name		"fire bug"
     attack		FIRESPIT
     hp			1d10
     hitdie		1
@@ -7456,7 +7577,7 @@ MOB FIREBEETLE
     explevel		2
     baseac		0
     smarts		ANIMAL
-    strength		HUMAN
+    strength		MINIMAL
     intrinsic		RESISTFIRE
     intrinsic		VULNCOLD
     eatgrant		RESISTFIRE
@@ -7480,14 +7601,13 @@ MOB GOLDBEETLE
     explevel		6
     baseac		8
     smarts		ANIMAL
-    strength		HUMAN
+    strength		MINIMAL
     intrinsic		RESISTACID
     eatgrant		RESISTACID
     eatgrant		GOLDALLERGY
     mobtype		INSECT
     slotset		INSECT
     edible		GOLD
-    material		GOLD
     ai			ANIMAL_SPECIEST
     rarity		25
     size		SMALL
@@ -7496,7 +7616,7 @@ MOB GOLDBEETLE
 MOB ICESNAKE
 {
     tile		ICESNAKE
-    name		"ice snake"
+    name		"blue snake"
     attack		ICESNAKEBITE
     hp			1d5
     hitdie		1
@@ -7537,12 +7657,13 @@ MOB GREENSNAKE
     edible		FLESH
     edible		WATER
     ai			ANIMAL_SPECIEST
+	naturalfoe  KOBOLD
 }
 
 MOB FIRESNAKE
 {
     tile		FIRESNAKE
-    name		"fire snake"
+    name		"red snake"
     attack		FIRESNAKEBITE
     hp			1d5
     hitdie		1
@@ -7591,7 +7712,7 @@ MOB MOUSE
 MOB RAT
 {
     tile		RAT
-    name		"rat"
+    name		"big rat"
     attack		RATBITE
     hp			1d4
     hitdie		1
@@ -7627,6 +7748,7 @@ MOB GIANTRAT
     mobtype		RAT
     slotset		ANIMAL
     ai			PACK
+	naturalfoe  HUMANOID
 
     publish		true
 }
@@ -7641,7 +7763,7 @@ MOB GRIDBUG
     mpdie		0
     explevel		1
     baseac		3
-    smarts		VEGETABLE
+    smarts		ANIMAL
     strength		MINIMAL
     size		SMALL
     intrinsic		RESISTSHOCK
@@ -7667,7 +7789,7 @@ MOB SHITOMI
     explevel		5
     baseac		10
     smarts		FOOL
-    strength		MINIMAL
+    strength		WEAK
     ai			FRIENDLY
     slotset		ANIMAL
     mobtype		RAT
@@ -7688,6 +7810,7 @@ MOB TRICERATOP
     ai			FRIENDLY
     slotset		ANIMAL
     intrinsic		SKILL_CHARGE
+	eatgrant        SKILL_CHARGE
     rarity		25
 }
 
@@ -7760,15 +7883,20 @@ MOB PURPLESLUG
     attack		SLUGSLIME
     hp			3d10
     hitdie		3
-    mpdie		0
+    mpdie		3
+	mp          1d10+10
     explevel		6
     baseac		0
-    smarts		ANIMAL
+    smarts		HUMAN
     strength		MINIMAL
+	
     intrinsic		RESISTACID
     intrinsic		RESISTSTONING
     intrinsic		SLOW
     eatgrant		RESISTACID
+	
+	intrinsic       SPELL_ACIDSPLASH
+	
     mobtype		SLUG
     slotset		SLUG
     ai			PACK
@@ -7788,10 +7916,11 @@ MOB DEATHSLUG
     attack		DEATHSLUG
     hp			3d10+30
     hitdie		6
-    mpdie		0
+    mpdie		3
+	mp          1d10+10
     explevel		12
     baseac		10
-    smarts		ANIMAL
+    smarts		HUMAN
     strength		MINIMAL
     intrinsic		RESISTACID
     intrinsic		RESISTSTONING
@@ -7823,7 +7952,11 @@ MOB FLOATINGEYE
     reflex_chance	75
     reflex_attack	FLOATINGEYE_REFLEX
     ai			ANIMAL_SPECIEST
+	
     intrinsic		DEAF
+	intrinsic       SEARCH
+	intrinsic       TELEPATHY
+	
     slotset		NONE
     isboneless		1
     noise		0
@@ -7834,7 +7967,7 @@ MOB FLOATINGEYE
 MOB WIZARDSEYE
 {
     tile		FLOATINGEYE
-    name		"wizard's eye"
+    name		"arcane eye"
     attack		FLOATINGEYE_TRACK
     movetype		ALL
     hp			1d5+5
@@ -7885,6 +8018,7 @@ MOB GELATINOUSCUBE
 
     edible		IRON
     edible		SILVER
+	edible		GOLD
     isboneless		1
 
     deathmsg		ICHOR
@@ -7981,7 +8115,7 @@ MOB KIWI
 MOB BAT
 {
     tile		BAT
-    name		"bat"
+    name		"small bat"
     attack		BATBITE
     movetype		STD_FLY
     hp			1d10
@@ -8127,6 +8261,7 @@ MOB SKELETON
 
     intrinsic		RESISTPOISON
     intrinsic		NOBREATH
+	intrinsic		NOREGEN
 
     corpsechance	0
     isbloodless		true
@@ -8153,6 +8288,8 @@ MOB ZOMBIE
 
     intrinsic		SLOW
     intrinsic		RESISTPOISON
+	intrinsic		NOBREATH
+	intrinsic		NOREGEN
 
     mobtype		UNDEAD
     slotset		HUMANOID
@@ -8176,13 +8313,14 @@ MOB GHAST
     basespells		1
     explevel		7
     baseac		6
-    smarts		NONE
+    smarts		CUNNINGANIMAL
     strength		HUMAN
     ai			EVILHUMANOID
     mobtype		UNDEAD
     slotset		HUMANOID
 
     intrinsic		RESISTPOISON
+	intrinsic		NOBREATH
 
     corpsechance	0
     isbloodless		true
@@ -8212,7 +8350,7 @@ MOB LICH
     intrinsic		TELEPORTCONTROL
     intrinsic		REGENERATION
     intrinsic		VULNFIRE
-    intrinsic		VULNSILVER
+    intrinsic		NOBREATH
     intrinsic		SEEINVISIBLE
     intrinsic		RESISTPOISON
     
@@ -8221,9 +8359,8 @@ MOB LICH
     intrinsic		SPELL_LIGHTNINGBOLT
     intrinsic		SPELL_TELEPORT
     intrinsic		SPELL_POISONBOLT
-    intrinsic		SPELL_POISONITEM
+    intrinsic		SPELL_RAISE_UNDEAD
 
-    eatgrant		VULNSILVER
     eatgrant		TELEPORTCONTROL
     eatmp		1d7
 
@@ -8235,7 +8372,7 @@ MOB LICH
 MOB SOULSUCKER
 {
     tile		SOULSUCKER
-    name		"soul sucker"
+    name		"ascended mage"
     attack		WHIP
     hp			1d10+40
     hitdie		8
@@ -8244,7 +8381,7 @@ MOB SOULSUCKER
     explevel		15
     baseac		10
     smarts		WISE
-    strength		WEAK
+    strength		MINIMAL
     ai			EVILHUMANOID
     mobtype		UNUSUAL
     slotset		BRAIN
@@ -8324,7 +8461,7 @@ MOB KOBOLDMAGE
     hp			1d10+25
     hitdie		5
     mpdie		4
-    mp			4d10
+    mp			4d10+2
     baseskills		6
     basespells		5
     explevel		9
@@ -8375,6 +8512,7 @@ MOB KOBOLDFIGHTER
 
     intrinsic		SKILL_EVADETRAP
     intrinsic		SKILL_WEAPON_PARRY
+	intrinsic       SKILL_ARMOUR_IRON
     
     loot		LONGSWORD
     loot		CHAINMAIL
@@ -8411,11 +8549,12 @@ MOB KOBOLDASSASSIN
     intrinsic		FAST
 
     intrinsic		SKILL_EVADETRAP
+	intrinsic       SKILL_SEARCH
     intrinsic		SKILL_DODGE
     intrinsic		SKILL_WEAPON_BLEEDINGWOUND
 
     intrinsic		SPELL_POISONITEM
-    intrinsic		SPELL_POISONBOLT
+    intrinsic		SPELL_MINDACID
     intrinsic		SPELL_TRACK
 
     loot		SILVERDAGGER
@@ -8445,8 +8584,11 @@ MOB KOBOLDTHIEF
     ai			KOBOLD
 
     intrinsic		SKILL_EVADETRAP
+	intrinsic       SKILL_SEARCH
     intrinsic		SKILL_DODGE
+	intrinsic       SKILL_MOVINGTARGET
     intrinsic		SKILL_WEAPON_DISARM
+	intrinsic       SKILL_ARMOUR_LEATHER
 
     intrinsic		FAST
     
@@ -8458,7 +8600,7 @@ MOB KOBOLDTHIEF
 MOB TROLL
 {
     tile		TROLL
-    name		"troll"
+    name		"cave troll"
     attack		PUNCH
     hp			2d10+15
     hitdie		6
@@ -8487,7 +8629,7 @@ MOB TROLL
 MOB CAVETROLL
 {
     tile		CAVETROLL
-    name		"cave troll"
+    name		"rock troll"
     attack		PUNCH
     hp			2d10+45
     hitdie		20
@@ -8513,7 +8655,7 @@ MOB CAVETROLL
 MOB LIZARDMAN
 {
     tile		LIZARDMAN
-    name		"lizardman"
+    name		"gatoran"
     attack		PUNCH
     hp			1d10+25
     hitdie		6
@@ -8527,8 +8669,7 @@ MOB LIZARDMAN
     edible		FLESH
     edible		WATER
     ai			EVILHUMANOID
-
-    gender		MALE
+	naturalfoe  TURTLE
 
     loot		SPEAR
 }
@@ -8536,7 +8677,7 @@ MOB LIZARDMAN
 MOB TURTLOID
 {
     tile		TURTLOID
-    name		"turtloid"
+    name		"gamoran"
     movetype		STD_SWIM
     attack		PUNCH
     hp			3d5+25
@@ -8544,17 +8685,19 @@ MOB TURTLOID
     mpdie		0
     explevel		15
     baseac		30
+	baseskills		3
     smarts		HUMAN
     mobtype		HUMANOID
     slotset		HUMANOID
     edible		FLESH
     edible		WATER
     ai			EVILHUMANOID
+	naturalfoe  REPTILE
 
     intrinsic		WATERWALK
     
     noise		2
-    loot		SHORTSWORD
+    loot		CLUB
 
     evolvetarget	LARGETURTLOID
     evolvelevel		20
@@ -8563,7 +8706,7 @@ MOB TURTLOID
 MOB LARGETURTLOID
 {
     tile		LARGETURTLOID
-    name		"large turtloid"
+    name		"gamoran warrior"
     movetype		STD_SWIM
     attack		PUNCH
     hp			3d5+45
@@ -8571,6 +8714,7 @@ MOB LARGETURTLOID
     mpdie		0
     explevel		20
     baseac		40
+	baseskills		3
     smarts		HUMAN
     size		LARGE
     mobtype		HUMANOID
@@ -8578,11 +8722,14 @@ MOB LARGETURTLOID
     edible		FLESH
     edible		WATER
     ai			EVILHUMANOID
+	naturalfoe  REPTILE
     
     intrinsic		WATERWALK
+	
+	intrinsic       SKILL_WEAPON_STUN
     
     noise		2
-    loot		SPEAR
+    loot		MACE
 }
 
 MOB ORC
@@ -8595,6 +8742,7 @@ MOB ORC
     mpdie		0
     explevel		12
     baseac		12
+	baseskills		3
     smarts		HUMAN
     mobtype		HUMANOID
     slotset		HUMANOID
@@ -8611,21 +8759,26 @@ MOB ORC
 MOB HILLORC
 {
     tile		HILLORC
-    name		"hill orc"
+    name		"orc soldier"
     attack		PUNCH
     hp			3d10+45
     hitdie		20
     mpdie		0
     explevel		18
     baseac		24
+	baseskills		3
     smarts		HUMAN
     mobtype		HUMANOID
     slotset		HUMANOID
     edible		FLESH
     edible		WATER
     ai			EVILHUMANOID
+	
+	intrinsic   SKILL_ARMOUR_SHIELD
+	intrinsic   SKILL_WEAPON_IMPALE
     
-    loot		LONGSWORD
+    loot		SPEAR
+	loot        BUCKLER
 }
 
 MOB HEADLESS
@@ -8646,6 +8799,7 @@ MOB HEADLESS
 
     intrinsic		BLIND
     intrinsic		TELEPATHY
+	intrinsic       NOBREATH
 }
 
 MOB CHAMELEON
@@ -8682,16 +8836,17 @@ MOB LIVINGTREE
     basespells		1
     explevel		20
     baseac		15
-    smarts		FOOL
+    smarts		VEGETABLE
     strength		DRAGON
     mobtype		UNUSUAL
     ai			SPECIEST
+	
     intrinsic		VULNFIRE
     intrinsic		NOBREATH
 
     slotset		TREE
-
-    material		WOOD
+    edible      WATER
+    material    WOOD
 
     noise		4
     deathmsg		WOOD
@@ -8706,7 +8861,7 @@ MOB EARTHELEMENTAL
     tile		EARTHELEMENTAL
     name		"earth elemental"
     attack		EARTHELEMENTAL
-    hp			100
+    hp			2d50+100
     hitdie		10
     mp			60
     mpdie		0
@@ -8744,7 +8899,7 @@ MOB AIRELEMENTAL
     name		"air elemental"
     movetype		STD_FLY
     attack		AIRELEMENTAL
-    hp			2d50
+    hp			2d50+100
     hitdie		20
     mp			50
     mpdie		5
@@ -8760,16 +8915,18 @@ MOB AIRELEMENTAL
     blownbywind		true
     
     intrinsic		RESISTSHOCK
-    intrinsic		SPELL_LIGHTNINGBOLT
-    intrinsic		SPELL_SPARK
     intrinsic		FAST
     intrinsic		QUICK
     intrinsic		NOBREATH
     intrinsic		NOREGEN
+	intrinsic		INVISIBLE
+	
+	intrinsic		SPELL_LIGHTNINGBOLT
+    intrinsic		SPELL_SPARK
 
     material		ETHEREAL
 
-    slotset		NONE
+    slotset			AIRELEMENTAL
     corpsechance	0
     isbloodless		true
 
@@ -8799,14 +8956,13 @@ MOB FIREELEMENTAL
     intrinsic		NOBREATH
     intrinsic		NOREGEN
 
-    intrinsic		SPELL_FLASH
     intrinsic		SPELL_FIREBALL
     intrinsic		SPELL_STICKYFLAMES
 
     material		ETHEREAL
 
     lightradius		3
-    slotset		FIREELEMENTAL
+    slotset		    FIREELEMENTAL
     corpsechance	0
     isbloodless		true
 
@@ -8821,7 +8977,7 @@ MOB WATERELEMENTAL
     name		"water elemental"
     movetype		STD_SWIM
     attack		WATERELEMENTAL
-    hp			1d50+100
+    hp			2d50+100
     hitdie		25
     mp			30
     mpdie		2
@@ -8832,12 +8988,13 @@ MOB WATERELEMENTAL
     smarts		FOOL
     strength		STRONG
     ai			SPECIEST
+	
     intrinsic		WATERWALK
     intrinsic		VULNFIRE
     intrinsic		VULNCOLD
     intrinsic		NOBREATH
     intrinsic		NOREGEN
-
+	
     intrinsic		SPELL_DOWNPOUR
 
     material		WATER
@@ -8846,7 +9003,7 @@ MOB WATERELEMENTAL
 
     isbloodless		true
 
-    slotset		HUMANOID
+    slotset		WATERELEMENTAL
 
     deathmsg		WATER
 
@@ -8909,7 +9066,7 @@ MOB IRONGOLEM
     tile		IRONGOLEM
     name		"iron golem"
     attack		IRONGOLEM
-    hp			200
+    hp			8d10+120
     hitdie		25
     mp			100
     mpdie		20
@@ -8925,6 +9082,7 @@ MOB IRONGOLEM
     intrinsic		NOBREATH
     intrinsic		NOREGEN
     intrinsic		RESISTSHOCK
+	
     intrinsic		SPELL_LIGHTNINGBOLT
 
     slotset		HUMANOID
@@ -9018,7 +9176,7 @@ MOB ELDER
 {
     tile		ELDER
     name		"village elder"
-    attack		LIGHTNINGRAPIER
+    attack		PUNCH
     movetype		WALK
     hp			65
     hitdie		10
@@ -9037,6 +9195,8 @@ MOB ELDER
     intrinsic		SPELL_LIGHTNINGBOLT
     intrinsic		SPELL_SPARK
 
+	loot		ROBE
+	
     ai			FRIENDLY
     rarity		0
 }
@@ -9117,12 +9277,6 @@ MATERIAL STONE
 MATERIAL GOLD
 {
     name		"gold"
-    soluble		false
-}
-
-MATERIAL MITHRIL
-{
-    name		"mithril"
     soluble		false
 }
 
@@ -9761,8 +9915,8 @@ SPELLBOOK SHOCK
 SPELLBOOK HEAL
 {
     name	"tome of healing"
+	
     spells	REGENERATE
-    spells	SLOWPOISON
     spells	HEAL
     spells	CUREPOISON
     spells	MAJORHEAL
@@ -9773,6 +9927,7 @@ SPELLBOOK HEAL
 SPELLBOOK FAMILIAR
 {
     name	"familiar tome"
+	
     spells	HEAL
     spells	SUMMON_FAMILIAR
     spells	TRANSFER_KNOWLEDGE
@@ -9827,23 +9982,30 @@ SPELLBOOK EARTH
 
 SPELLBOOK DEATH
 {
-    name	"tome of death"
+    name	"young poisoner's handbook"
 
-    spells	MAGICMISSILE
+    spells	SLOWPOISON
     spells	POISONITEM
     spells	POISONBOLT
     spells	CLOUDKILL
-    spells	FINGEROFDEATH
+
 }
 
 SPELLBOOK NECRO
 {
-    name	"tome of necromancy"
+    name	"Necronomicon"
 
     spells	RAISE_UNDEAD
     spells	RECLAIM_SOUL
     spells	DARK_RITUAL
     spells	GHASTIFY
+	spells	FINGEROFDEATH
+}
+
+SPELLBOOK DEMON
+{
+    name	"grimoire of demonology"
+
     spells	BINDSOUL
     spells	SOULSUCK
     spells	SUMMON_IMP
@@ -10033,7 +10195,7 @@ COMMENT
 
 DEFINE ITEMTYPE
 {
-    CST		name		"miscelleneous"
+    CST		name		"miscellaneous"
     U8		rarity		100
 }
 
@@ -10173,9 +10335,10 @@ ITEM KNIFE
     thrownattack	KNIFETHROWN
     minitile		KNIFE
     itemtype		WEAPON
-    size		TINY
+    size			TINY
     attackskill		WEAPON_EDGED
     specialskill	WEAPON_TRUEAIM
+	specialskill	WEAPON_BLEEDINGWOUND
     noise		0
 }
 
@@ -10185,13 +10348,14 @@ ITEM DAGGER
     tile		DAGGER
     material		IRON
     weight		3
+	ac          1
     attack		DAGGER
     thrownattack	DAGGERTHROWN
     minitile		DAGGER
     itemtype		WEAPON
     size		TINY
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_BLEEDINGWOUND
+    specialskill	WEAPON_SNEAKATTACK
     noise		0
 }
 
@@ -10207,13 +10371,13 @@ ITEM SILVERDAGGER
     itemtype		WEAPON
     size		SMALL
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_BLEEDINGWOUND
+    specialskill	WEAPON_SNEAKATTACK
     noise		0
 }
 
 ITEM WARHAMMER
 {
-    name		"warhammer"
+    name		"war hammer"
     tile		WARHAMMER
     material		IRON
     weight		3
@@ -10247,7 +10411,7 @@ ITEM SPEAR
 {
     name		"spear"
     tile		SPEAR
-    material		IRON
+    material		WOOD
     weight		3
     attack		SPEAR
     thrownattack	SPEARTHROWN
@@ -10311,7 +10475,24 @@ ITEM SHORTSWORD
     tile		SHORTSWORD
     material		IRON
     weight		7
+	ac          2
     attack		SHORTSWORD
+    minitile		SHORTSWORD
+    itemtype		WEAPON
+    size		SMALL
+    attackskill		WEAPON_EDGED
+    specialskill	WEAPON_RIPOSTE
+    noise		2
+}
+
+ITEM VORPALSWORD
+{
+    name		"vorpal sword"
+    tile		SHORTSWORD
+    material		IRON
+    weight		7
+	ac          2
+    attack		VORPALSWORD
     minitile		SHORTSWORD
     itemtype		WEAPON
     size		SMALL
@@ -10422,7 +10603,7 @@ ITEM ICEMACE
 
 ITEM BOW
 {
-    name		"bow"
+    name		"short bow"
     tile		BOW
     material		WOOD
     weight		2
@@ -10432,9 +10613,22 @@ ITEM BOW
     size		MEDIUM
 }
 
+ITEM BOW
+{
+    name		"blade bow"
+    tile		BOW
+    material		IRON
+    weight		8
+    attack		SHORTSWORD
+    minitile		BOW
+    itemtype		WEAPON
+    size		MEDIUM
+	rarity      10
+}
+
 ITEM ARROW
 {
-    name		"arrow"
+    name		"wooden arrow"
     tile		ARROW
     material		WOOD
     weight		1
@@ -10442,6 +10636,7 @@ ITEM ARROW
     thrownattack	ARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
+	launcher		BLADEBOW
     stacksize		2d4
     attackskill		WEAPON_POINTED
     specialskill	WEAPON_RICOCHET
@@ -10459,12 +10654,67 @@ ITEM FIREARROW
     thrownattack	FIREARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
+	launcher		BLADEBOW
     stacksize		2d4
     lightradius		1
     attackskill		WEAPON_POINTED
     specialskill	WEAPON_RICOCHET
     noise		0
     rarity		0
+    equipstack		true
+}
+
+ITEM IRONARROW
+{
+    name		"iron arrow"
+    tile		ARROW
+    material		IRON
+    weight		1
+    attack		MISUSED_BUTWEAPON
+    thrownattack	IRONARROWTHROWN
+    itemtype		WEAPON
+    launcher		BOW
+	launcher		BLADEBOW
+    stacksize		2d4
+    attackskill		WEAPON_POINTED
+    specialskill	WEAPON_RICOCHET
+    noise		0
+    equipstack		true
+}
+
+ITEM SILVERARROW
+{
+    name		"silver arrow"
+    tile		ARROW
+    material		SILVER
+    weight		1
+    attack		MISUSED_BUTWEAPON
+    thrownattack	ARROWTHROWN
+    itemtype		WEAPON
+    launcher		BOW
+	launcher		BLADEBOW
+    stacksize		2d4
+    attackskill		WEAPON_POINTED
+    specialskill	WEAPON_RICOCHET
+    noise		0
+    equipstack		true
+}
+
+ITEM GOLDARROW
+{
+    name		"gold arrow"
+    tile		ARROW
+    material		GOLD
+    weight		1
+    attack		MISUSED_BUTWEAPON
+    thrownattack	ARROWTHROWN
+    itemtype		WEAPON
+    launcher		BOW
+	launcher		BLADEBOW
+    stacksize		2d4
+    attackskill		WEAPON_POINTED
+    specialskill	WEAPON_RICOCHET
+    noise		0
     equipstack		true
 }
 
@@ -11136,16 +11386,18 @@ COMMENT
 
 ITEM WOODENSTAFF
 {
-    name		"wooden staff"
+    name		"quarterstaff"
     tile		WOODENSTAFF
     minitile		STAFF
     attack		WOODENSTAFF
     weight		5
+	ac          1
     material		WOOD
     magictype		STAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
     noise		3
 }
 
@@ -11155,12 +11407,45 @@ ITEM IRONSHODSTAFF
     tile		IRONSHODSTAFF
     minitile		STAFF
     attack		IRONSHODSTAFF
+    weight		6
+    material		IRON
+    magictype		STAFF
+    itemtype		STAFF
+    size		LARGE
+    attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
+    noise		4
+}
+
+ITEM SILVERTIPPEDSTAFF
+{
+    name		"silver-tipped staff"
+    tile		IRONSHODSTAFF
+    minitile		STAFF
+    attack		WOODENSTAFF
     weight		5
+    material		SILVER
+    magictype		STAFF
+    itemtype		STAFF
+    size		LARGE
+    attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
+    noise		4
+}
+
+ITEM LEADFILLEDSTAFF
+{
+    name		"lead-filled staff"
+    tile		WOODENSTAFF
+    minitile		STAFF
+    attack		LEADFILLEDSTAFF
+    weight		8
     material		WOOD
     magictype		STAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
     noise		4
 }
 
@@ -11176,12 +11461,13 @@ ITEM CROOK
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
     noise		3
 }
 
 ITEM GNARLYSTAFF
 {
-    name		"gnarly staff"
+    name		"tree branch"
     tile		GNARLEDSTAFF
     minitile		STAFF
     attack		WOODENSTAFF
@@ -11191,6 +11477,7 @@ ITEM GNARLYSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
     noise		3
 }
 
@@ -11201,11 +11488,12 @@ ITEM BEJEWELEDSTAFF
     minitile		STAFF
     attack		WOODENSTAFF
     weight		5
-    material		WOOD
+    material		GOLD
     magictype		STAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_KNOCKBACK
     noise		3
 }
 
@@ -11238,7 +11526,7 @@ ITEM ROBE
 {
     name		"plain robe"
     tile		BLUEROBE
-    weight		4
+    weight		5
     flag1		ISJACKET
     ac			1
     minitile		BLUEROBE
@@ -11246,27 +11534,27 @@ ITEM ROBE
     itemtype		ARMOUR
     size		MEDIUM
 
-    noise		0
+    noise		2
 }
 
 ITEM LEATHERTUNIC
 {
-    name		"leather tunic"
+    name		"tunic"
     tile		LEATHERTUNIC
-    weight		8
+    weight		5
     flag1		ISJACKET
-    ac			2
+    ac			1
     minitile		LEATHERTUNIC
     material		LEATHER
     itemtype		ARMOUR
     size		MEDIUM
 
-    noise		1
+    noise		0
 }
 
 ITEM STUDDEDLEATHER
 {
-    name		"studded leather tunic"
+    name		"leather armour"
     tile		STUDDEDTUNIC
     weight		10
     flag1		ISJACKET
@@ -11281,7 +11569,7 @@ ITEM STUDDEDLEATHER
 
 ITEM CHAINMAIL
 {
-    name		"chainmail"
+    name		"chain mail"
     tile		CHAINTUNIC
     weight		10
     flag1		ISJACKET
@@ -11296,22 +11584,22 @@ ITEM CHAINMAIL
 
 ITEM MITHRILMAIL
 {
-    name		"mithril chainmail"
+    name		"mithril chain mail"
     tile		CHAINTUNIC
     weight		5
     flag1		ISJACKET
     ac			5
     minitile		CHAINTUNIC
-    material		MITHRIL
+    material		SILVER
     itemtype		ARMOUR
     size		MEDIUM
 
-    noise		2
+    noise		1
 }
 
-ITEM BANDEDMAIL
+ITEM SCALEMAIL
 {
-    name		"banded mail"
+    name		"scale mail"
     tile		CHAINTUNIC
     weight		15
     flag1		ISJACKET
@@ -11324,15 +11612,15 @@ ITEM BANDEDMAIL
     noise		3
 }
 
-ITEM SPLINTMAIL
+ITEM DRAGONSCALEMAIL
 {
-    name		"splint mail"
-    tile		CHAINTUNIC
+    name		"dragon scale mail"
+    tile		LEATHERTUNIC
     weight		15
     flag1		ISJACKET
     ac			6
-    minitile		CHAINTUNIC
-    material		IRON
+    minitile		LEATHERTUNIC
+    material		LEATHER
     itemtype		ARMOUR
     size		MEDIUM
 
@@ -11356,7 +11644,7 @@ ITEM PLATEMAIL
 
 ITEM CRYSTALPLATE
 {
-    name		"crystal platemail"
+    name		"crystal plate mail"
     tile		GLASSTUNIC
     weight		15
     flag1		ISJACKET
@@ -11367,6 +11655,21 @@ ITEM CRYSTALPLATE
     size		MEDIUM
 
     noise		4
+}
+
+ITEM GOLDENPLATE
+{
+    name		"gold plate mail"
+    tile		PLATETUNIC
+    weight		30
+    flag1		ISJACKET
+    ac			7
+    minitile		PLATEMAIL
+    material		GOLD
+    itemtype		ARMOUR
+    size		MEDIUM
+
+    noise		5
 }
 
 ITEM BOULDER
@@ -11401,7 +11704,6 @@ ITEM ROCK
     weight		10
     material		STONE
     itemtype		MISC
-    rarity		10
     stacksize		2d2-1
     attackskill		WEAPON_BLUNT
     noise		1
@@ -11606,7 +11908,7 @@ ITEM JADERING
 ITEM ONYXRING
 {
     name		"onyx ring"
-    material		GOLD
+    material		STONE
     magictype		RING
     tile		ONYXRING
     weight		1
@@ -11755,7 +12057,7 @@ ITEM FORKEDWAND
 ITEM JEWELEDWAND
 {
     name		"jeweled wand"
-    material		WOOD
+    material		GOLD
     magictype		WAND
     tile		JEWELEDWAND
     minitile		WAND
@@ -12092,7 +12394,23 @@ ITEMSLOTSET FIREELEMENTAL
     head_name		"smoke"
     rhand_name		"right flame"
     lhand_name		"left flame"
-    body_name		"reaction zone"
+    body_name		"heat core"
+}
+
+ITEMSLOTSET AIRELEMENTAL
+{
+    head_name		"cirrus"
+    rhand_name		"right wind"
+    lhand_name		"left wind"
+    body_name		"nimbus"
+}
+
+ITEMSLOTSET WATERELEMENTAL
+{
+    head_name		"high tide"
+    rhand_name		"right wave"
+    lhand_name		"left wave"
+    body_name		"low tide"
 }
 
 ITEMSLOTSET HEADLESS
@@ -12864,7 +13182,7 @@ GOD CULTIST
 {
     name	"><0|V|"
     classname	"cultist"
-    whimofxom	"><0|V| desires what ><0|V| desires.  "
+    whimofxom	"><0|V| is xOmXoMxOm isn't x()M.  "
 
     mob		GOD_XOM
 }
@@ -12935,7 +13253,7 @@ PUNISH CURSE_ANY
 
 PUNISH DISENCHANT_WEAPON
 {
-    points	100
+    points	200
 
     god		FIGHTER
     god		ROGUE
@@ -12945,7 +13263,7 @@ PUNISH DISENCHANT_WEAPON
 
 PUNISH DISENCHANT_ARMOUR
 {
-    points	100
+    points	200
 
     god		FIGHTER
     god		ROGUE
@@ -13001,7 +13319,6 @@ PUNISH POLY
     points	100
 
     god		CLERIC
-    god		FIGHTER
     god		WIZARD
     god		CULTIST
 }
