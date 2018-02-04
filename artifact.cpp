@@ -143,12 +143,17 @@ artifact_buildname(ITEM_NAMES /*definition*/)
     // mixed case (as in: ShockFrost)
     const char		*syllables[] =
     {
-	"shock",
-	"frost",
+	"shar",
+	"frei",
+	"fyre",
+	"myst",
 	"amy",
 	"wang",
 	"whiz",
 	"wor",
+	"woo",
+	"hoo",
+	"loo",
 	"brask",
 	"trey",
 	"klay",
@@ -159,12 +164,19 @@ artifact_buildname(ITEM_NAMES /*definition*/)
 	"bar",
 	"baz",
 	"zub",
-	"tree",
-	"orc",
-	"smash",
-	"yyz",
+	"foe",
+	"fae",
+	"ash",
+	"xyzzy",
 	"were",
-	"slug",
+	"slag",
+	"slog",
+	"wyrd",
+	"xul",
+	"ensis",
+	"alph",
+	"omeg",
+	"xsi",
 	0
     };
     
@@ -234,6 +246,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
     INTRINSIC_NAMES		int_good[] =
     {
 	INTRINSIC_FAST,
+	INTRINSIC_QUICK,
 	INTRINSIC_UNCHANGING,
 	INTRINSIC_RESISTSTONING,
 	INTRINSIC_RESISTFIRE,
@@ -241,24 +254,27 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_RESISTSHOCK,
 	INTRINSIC_RESISTACID,
 	INTRINSIC_RESISTPOISON,
-	// INTRINSIC_RESISTPHYSICAL, // I think this is too powerful.
+	INTRINSIC_RESISTPHYSICAL, // I think this is too powerful.
+	                          // I think it's cool and very rare. --red_kangaroo
 	INTRINSIC_TELEPORTCONTROL,
+	INTRINSIC_POLYCONTROL,
 	INTRINSIC_REGENERATION,
 	INTRINSIC_REFLECTION,
-	INTRINSIC_SEARCH,	// In someways, this is bad :>
+	INTRINSIC_SEARCH,	// In some ways, this is bad :>
 	INTRINSIC_INVISIBLE,
 	INTRINSIC_SEEINVISIBLE,
 	INTRINSIC_TELEPATHY,
 	INTRINSIC_NOBREATH,
 	INTRINSIC_LIFESAVE,	// You don't want this on +7 sword :>
-				// Especially if it kicks in prior to
-				// your amulet :>
+	                    // Especially if it kicks in prior to
+	                    // your amulet :>
 	INTRINSIC_RESISTSLEEP,
 	INTRINSIC_FREEDOM,
 	INTRINSIC_WATERWALK,
 	INTRINSIC_JUMP,
 	INTRINSIC_WARNING,
 	INTRINSIC_DIG,
+	INTRINSIC_LICHFORM,
 	INTRINSIC_NONE
     };
 
@@ -287,37 +303,161 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_CONFUSED,
 	INTRINSIC_AMNESIA,
 	INTRINSIC_NOREGEN,
+	INTRINSIC_LEFTHANDED,  // Does nothing good for you, so goes to bad ones.
+	INTRINSIC_GOLDALLERGY,
+	INTRINSIC_OFFBALANCE,
+	INTRINSIC_NONE
+    };
+	
+	INTRINSIC_NAMES		int_skill[] =
+    {
+    INTRINSIC_SKILL_ARMOUR_HELMET,
+	INTRINSIC_SKILL_ARMOUR_SHIELD,
+	INTRINSIC_SKILL_ARMOUR_BODY,
+	INTRINSIC_SKILL_ARMOUR_BOOTS,
+	INTRINSIC_SKILL_ARMOUR_CLOTH,
+	INTRINSIC_SKILL_ARMOUR_LEATHER,
+	INTRINSIC_SKILL_ARMOUR_IRON,
+	INTRINSIC_SKILL_ARMOUR_EXOTIC,
+	INTRINSIC_SKILL_DODGE,
+	INTRINSIC_SKILL_MOVINGTARGET,
+	INTRINSIC_SKILL_EVADETRAP,
+	INTRINSIC_SKILL_TWOWEAPON,
+	INTRINSIC_SKILL_WEAPON_RANGED,
+	INTRINSIC_SKILL_WEAPON_IMPROVISE,
+	INTRINSIC_SKILL_WEAPON_SMALL,
+	INTRINSIC_SKILL_WEAPON_MEDIUM,
+	INTRINSIC_SKILL_WEAPON_LARGE,
+	INTRINSIC_SKILL_WEAPON_EDGED,
+	INTRINSIC_SKILL_WEAPON_POINTED,
+	INTRINSIC_SKILL_WEAPON_BLUNT,
+	INTRINSIC_SKILL_WEAPON_TRUEAIM,
+	INTRINSIC_SKILL_WEAPON_PARRY,
+	INTRINSIC_SKILL_WEAPON_RIPOSTE,
+	INTRINSIC_SKILL_WEAPON_KNOCKOUT,
+	INTRINSIC_SKILL_WEAPON_KNOCKBACK,
+	INTRINSIC_SKILL_WEAPON_STUN,
+	INTRINSIC_SKILL_WEAPON_BLEEDINGWOUND,
+	INTRINSIC_SKILL_WEAPON_DISARM,
+	INTRINSIC_SKILL_WEAPON_IMPALE,
+	INTRINSIC_SKILL_WEAPON_RICOCHET,
+	INTRINSIC_SKILL_WEAPON_SNEAKATTACK,
+	INTRINSIC_SKILL_ENDUREHUNGER,
+	INTRINSIC_SKILL_BUTCHERY,
+	INTRINSIC_SKILL_CLEANKILL,
+	INTRINSIC_SKILL_CHARGE,
+	INTRINSIC_SKILL_LEAPATTACK,
+	INTRINSIC_NONE
+    };
+	
+	INTRINSIC_NAMES		int_spell[] =
+    {
+	INTRINSIC_SPELL_FLASH,
+	INTRINSIC_SPELL_STICKYFLAMES,
+	INTRINSIC_SPELL_MAGICMISSILE,
+	INTRINSIC_SPELL_CHILL,
+	INTRINSIC_SPELL_SPARK,
+	INTRINSIC_SPELL_FROSTBOLT,
+	INTRINSIC_SPELL_LIVINGFROST, // No Blizzard, too hard to figure out how to make it work without prereq.
+	INTRINSIC_SPELL_FIREBALL,
+	INTRINSIC_SPELL_FLAMESTRIKE,
+	INTRINSIC_SPELL_LIGHTNINGBOLT,
+	INTRINSIC_SPELL_CHAINLIGHTNING,
+	INTRINSIC_SPELL_SUNFIRE,
+	INTRINSIC_SPELL_ACIDSPLASH,
+	INTRINSIC_SPELL_ACIDICMIST,
+	INTRINSIC_SPELL_CORROSIVEEXPLOSION,
+	INTRINSIC_SPELL_ACIDPOOL,
+	INTRINSIC_SPELL_MINDACID,
+	INTRINSIC_SPELL_DISINTEGRATE,
+	INTRINSIC_SPELL_REGENERATE,
+	INTRINSIC_SPELL_SLOWPOISON,
+	INTRINSIC_SPELL_HEAL,
+	INTRINSIC_SPELL_CUREPOISON,
+	INTRINSIC_SPELL_MAJORHEAL,
+	INTRINSIC_SPELL_RESURRECT,
+	INTRINSIC_SPELL_SUMMON_FAMILIAR,
+	INTRINSIC_SPELL_TRANSFER_KNOWLEDGE,
+	INTRINSIC_SPELL_LIGHT,
+	INTRINSIC_SPELL_FORCEBOLT,
+	INTRINSIC_SPELL_FORCEWALL,
+	INTRINSIC_SPELL_DIG,
+	INTRINSIC_SPELL_CREATEPIT,
+	INTRINSIC_SPELL_SANDSTORM,
+	INTRINSIC_SPELL_GROWFOREST,
+	INTRINSIC_SPELL_ANIMATEFOREST,
+	INTRINSIC_SPELL_DOWNPOUR,
+	INTRINSIC_SPELL_ROLLINGBOULDER,
+	INTRINSIC_SPELL_ENTOMB, // Now this is gonna be fun if someone forgets they don't need to have Dig...
+	INTRINSIC_SPELL_KNOCK,
+	INTRINSIC_SPELL_TRACK,
+	INTRINSIC_SPELL_WIZARDSEYE,
+	INTRINSIC_SPELL_DIAGNOSE,
+	INTRINSIC_SPELL_POSSESS,
+	INTRINSIC_SPELL_PRESERVE,
+	INTRINSIC_SPELL_MAGICMAP,
+	INTRINSIC_SPELL_TELEPORT,
+	INTRINSIC_SPELL_BLINK,
+	INTRINSIC_SPELL_FETCH,
+	INTRINSIC_SPELL_IDENTIFY,
+	INTRINSIC_SPELL_DETECTCURSE,
+	INTRINSIC_SPELL_DIRECTWIND,
+	INTRINSIC_SPELL_PETRIFY,
+	INTRINSIC_SPELL_FINGEROFDEATH,
+	INTRINSIC_SPELL_POISONITEM,
+	INTRINSIC_SPELL_POISONBOLT,
+	INTRINSIC_SPELL_RAISE_UNDEAD,
+	INTRINSIC_SPELL_RECLAIM_SOUL,
+	INTRINSIC_SPELL_DARK_RITUAL,
+	INTRINSIC_SPELL_GHASTIFY,
+	INTRINSIC_SPELL_BINDSOUL,
+	INTRINSIC_SPELL_SOULSUCK,
+	INTRINSIC_SPELL_SUMMON_IMP,
+	INTRINSIC_SPELL_SUMMON_DEMON,
+	INTRINSIC_SPELL_CLOUDKILL,
 	INTRINSIC_NONE
     };
 
-    int			numgood, numbad;
+    int			numgood, numbad, numskill, numspell;
 
     // There is a cool sizeof() method that could simplify this.
     // Too lazy to figure it out, however.
     for (numgood = 0; int_good[numgood] != INTRINSIC_NONE; numgood++);
     for (numbad = 0; int_bad[numbad] != INTRINSIC_NONE; numbad++);
+	for (numskill = 0; int_skill[numskill] != INTRINSIC_NONE; numskill++);
+	for (numspell = 0; int_spell[numspell] != INTRINSIC_NONE; numspell++);
 
     // Ensure we start picking well
     artifact_seed(name);
     
-    // There is a 90% chance of one bonus intrinsic.
+	// There is a cumulative 10% chance of a bad intrinsic.
+    // There is a 90% chance of good intrinsic, unless there is already a bad one, then it's 100%.
     // After that, we have a 10% chance per intrinsic.
     char		intbuf[100];
     int			numints;
 
     numints = 0;
-    if (artifact_randchance(90))
+    while (artifact_randchance(10) && numints < 99)
+    {
+	intbuf[numints++] = int_bad[artifact_randchoice(numbad)];
+    }
+    if (numints || artifact_randchance(90))
     {
 	do
 	{
 	    intbuf[numints++] = int_good[artifact_randchoice(numgood)];
 	} while (artifact_randchance(10) && numints < 99);
     }
-
-    // There is a cumalative 10% chance of a bad intrinsic.
-    while (artifact_randchance(10) && numints < 99)
+	while (artifact_randchance(20) && numints < 99)
     {
-	intbuf[numints++] = int_bad[artifact_randchoice(numbad)];
+	intbuf[numints++] = int_skill[artifact_randchoice(numskill)];
+    }
+	if ((itemtype == ITEMTYPE_WAND || artifact_randchance(10)) && numints < 99)
+    {
+	do
+	{
+	    intbuf[numints++] = int_spell[artifact_randchoice(numspell)];
+	} while (artifact_randchance(10) && numints < 99);
     }
 
     // If we had any intrinsics, we want to add them to art.
@@ -356,8 +496,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	acbonus++;
     } while (artifact_randchance(30) && (acbonus < 99));
 
-    if (itemtype == ITEMTYPE_ARMOUR || 
-	(itemtype == ITEMTYPE_WEAPON && weapac))
+    if (itemtype == ITEMTYPE_ARMOUR || itemtype == ITEMTYPE_AMULET || (itemtype == ITEMTYPE_WEAPON && weapac))
     {
 	art->acbonus = acbonus;
     }
@@ -394,7 +533,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
     for (numverbs = 0; verbs[numverbs]; numverbs++);
 
     art->hasattack = false;
-    if (itemtype == ITEMTYPE_WEAPON || artifact_randchance(10))
+    if (itemtype == ITEMTYPE_WEAPON || itemtype == ITEMTYPE_RING || artifact_randchance(10))
     {
 	art->hasattack = true;
 
@@ -422,11 +561,10 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
     }
 
     // Determine thrown attack.
-    // Weapons have a 10% chance.  Thrown weapons 100% chance.
+    // Weapons have a 10% chance.  Thrown weapons 100% chance. Potions also have 100% chance.
     art->hasthrownattack = false;
-    if (itemtype == ITEMTYPE_WEAPON &&
-	(glb_itemdefs[baseitem].thrownattack != ATTACK_MISTHROWN ||
-	 artifact_randchance(10)))
+    if ((itemtype == ITEMTYPE_WEAPON && (glb_itemdefs[baseitem].thrownattack != ATTACK_MISTHROWN || artifact_randchance(10))) ||
+	     itemtype == ITEMTYPE_POTION)
     {
 	art->hasthrownattack = true;
 
@@ -456,6 +594,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
     }
 
     // TODO: Zappable artifacts!
+	//       Bonus maxHP and maxMP.
 
 
     return art;
