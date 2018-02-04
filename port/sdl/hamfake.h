@@ -17,7 +17,7 @@
 
 // These are the native res of the SDL screen.
 // measured in tiles.
-#ifdef iPOWDER
+#ifdef USE_EXTENDED_HEIGHT
 #define HAM_SCRW_T		32
 #define HAM_SCRH_T		26
 #else
@@ -37,7 +37,7 @@ void hamfake_awaitEvent();
 u16 *hamfake_lockScreen();
 void hamfake_unlockScreen(u16 *screen);
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 
 class SCREENDATA_REF;
 
@@ -103,6 +103,7 @@ void hamfake_postdir(int dx, int dy);
 void hamfake_flushdir();
 bool hamfake_externaldir(int &dx, int &dy);
 void hamfake_postorientation(bool isportrait);
+void hamfake_revertdefault();
 void hamfake_postshake(bool isshook);
 // This is a latch, so reading resets.
 bool hamfake_hasbeenshaken();
@@ -129,6 +130,8 @@ void hamfake_readUnlockSRAM(char *);
 void hamfake_endWritingSession();
 
 void hamfake_softReset();
+void hamfake_awaitResurrect();
+void hamfake_postResurrect();
 
 void hamfake_setFullScreen(bool fullscreen);
 bool hamfake_isFullScreen();
@@ -198,6 +201,7 @@ void hamfake_setFakeButtonState(FAKE_BUTTONS button, bool state);
 int hamfake_isAnyPressed();	// Note bizarre return semantics!
 
 void hamfake_setForceQuit();
+void hamfake_clearForceQuit();
 
 // These data accessors are left for historical reasons.  We now
 // never use our built in key matching tech.

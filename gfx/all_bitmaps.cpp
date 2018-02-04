@@ -19,6 +19,14 @@
 // Include our raw graphics...
 // This is done once for each tileset.
 
+#ifdef iPOWDER
+#define USE_SMARTPHONEMAPS
+#endif
+
+#ifdef ANDROID
+#define USE_SMARTPHONEMAPS
+#endif
+
 const char *glb_fontnames[NUM_FONTS] =
 {
     "Classic",
@@ -66,7 +74,7 @@ const char *glb_fontnames[NUM_FONTS] =
 #undef master_Palette
 #undef sprite_Palette
 
-#ifndef iPOWDER
+#ifndef ANDROID
 //
 // Adam Bolt's Tiles:
 //
@@ -107,7 +115,7 @@ const char *glb_fontnames[NUM_FONTS] =
 
 #endif
 
-#ifndef iPOWDER
+#ifndef ANDROID
 //
 // Nethack Tiles: (Thanks to Andrea Menga)
 //
@@ -228,7 +236,7 @@ const char *glb_fontnames[NUM_FONTS] =
 
 #endif
 
-#if defined(iPOWDER) || (defined(USING_SDL) && !defined(_WIN32_WCE))
+#if defined(ANDROID) || (defined(USING_SDL) && !defined(_WIN32_WCE))
 //
 // Akoi Meexx's Tiles, 12x12 base tile
 //
@@ -432,7 +440,7 @@ const char *glb_fontnames[NUM_FONTS] =
 // Full Screen Images:
 //
 
-#ifdef iPOWDER
+#ifdef ANDROID
 #define bmp_sprite16_3x bmp_sprite16_3x_data
 #include "akoi3x/sprite16_3x.bmp.c"
 #undef bmp_sprite16_3x
@@ -480,7 +488,7 @@ TILESET glb_tilesetdata[NUM_TILESETS] =
 	"Classic",
 	8
     },
-#ifndef iPOWDER
+#ifndef ANDROID
     {
 	{ 
 	    alphabet_adambolt_classic_Tiles,
@@ -499,7 +507,7 @@ TILESET glb_tilesetdata[NUM_TILESETS] =
 	8
     },
 #endif
-#ifndef iPOWDER
+#ifndef ANDROID
     {
 	{ 
 	    alphabet_nethack_classic_Tiles,
@@ -573,7 +581,7 @@ TILESET glb_tilesetdata[NUM_TILESETS] =
 	10
     },
 #endif
-#if defined(iPOWDER) || (defined(USING_SDL) && !defined(_WIN32_WCE))
+#if defined(ANDROID) || (defined(USING_SDL) && !defined(_WIN32_WCE))
     {
 	{ 
 	    alphabet_akoi12_classic_Tiles,

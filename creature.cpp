@@ -6342,6 +6342,8 @@ MOB::pageCharacterDump(bool ondeath, bool didwin, int truetime)
 	gfx_pager_addtext("PSP Version");
 #elif defined(iPOWDER)
 	gfx_pager_addtext("iPOWDER Version");
+#elif defined(ANDROID)
+	gfx_pager_addtext("Android Version");
 #elif defined(LINUX)
 	gfx_pager_addtext("Linux Version");
 #else

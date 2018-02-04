@@ -41,7 +41,7 @@ Patrick Don't have one, Matt_S, Sam Spencer, Alex Marsh, Robert Barber,
 Mattock, Lorenzo Batallones, Konstantin Stupnik, Paul Nguyen,
 sulai, Claudio, B. Perry, Julian Agloro, Aapo Rantalainen,
 Paul Strickland, Michael Gindt, Mike Ratzlaff, Gurkan Sengun,
-Don Collins.
+Don Collins, Christopher Ames.
 
 ---------------
 :Patch Writers:

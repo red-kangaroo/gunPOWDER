@@ -19,7 +19,7 @@
 
 #define NUM_FONTS		5
 
-#if defined(iPOWDER)
+#if defined(iPOWDER) || defined(ANDROID)
 #define NUM_TILESETS		8
 #else
 #if defined(USING_SDL) && !defined(_WIN32_WCE)

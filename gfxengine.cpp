@@ -93,7 +93,7 @@ volatile int	glb_framecount = 0;
 int	glb_gfxmode = -1;
 
 // Tileset defaults to Akoi Meexx.
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 int	glb_tileset = 4;
 #else
 int	glb_tileset = 2;
@@ -1444,7 +1444,7 @@ void gfx_scrollcenter(int tx, int ty)
     // 8 offset horizontally.  Likewise, we have 192 rather than 160 vertically
     // so need an extra 16 vertically.  Ideally we will eventually use this
     // extra space.
-#ifdef iPOWDER
+#ifdef USE_EXTENDED_HEIGHT
     M_BG1SCRLX_SET((tx-glb_scrollx)*TILEWIDTH*2 - 14*TILEWIDTH - TILEWIDTH + glb_nudgex);
     M_BG1SCRLY_SET((ty-glb_scrolly)*TILEHEIGHT*2 - 9*TILEHEIGHT - 3*TILEHEIGHT + glb_nudgey);
     M_BG2SCRLX_SET((tx-glb_scrollx)*TILEWIDTH*2 - 14*TILEWIDTH - TILEWIDTH + glb_nudgex);
@@ -3677,7 +3677,7 @@ gfx_extractsprite(int tileset, SPRITE_NAMES tile)
 u8 *
 gfx_extractlargesprite(SPRITE_NAMES tile, int grey, SPRITE_NAMES overlay)
 {
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     int		w, h, x, y, srcidx;
     u8		*data, *dataout;
     u16		 c;
@@ -3913,7 +3913,7 @@ gfx_switchtilesets(int newtileset)
 	return;
 
     glb_tileset = newtileset;
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     glb_modetilesets[glb_tilesetmode] = newtileset;
 #endif
 
@@ -4026,7 +4026,7 @@ gfx_gettileset()
 int
 gfx_gettilesetmode(int mode)
 {
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     return glb_modetilesets[mode];
 #else
     return glb_tileset;
@@ -4036,7 +4036,7 @@ gfx_gettilesetmode(int mode)
 void
 gfx_tilesetmode(int mode)
 {
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     if (mode == glb_tilesetmode)
 	return;
 
@@ -4048,7 +4048,7 @@ gfx_tilesetmode(int mode)
 void
 gfx_settilesetmode(int mode, int tileset)
 {
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     glb_modetilesets[mode] = tileset;
     if (mode == glb_tilesetmode)
 	gfx_switchtilesets(tileset);
@@ -4359,7 +4359,7 @@ hamfake_setTileSize(int width, int height)
 
 #endif
 
-#if !defined(iPOWDER)
+#if !defined(USE_VIRTUAL_SCREEN)
 
 bool hamfake_forceQuit() { return false; }
 void hamfake_awaitShutdown() {}

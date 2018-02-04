@@ -38,12 +38,13 @@ delay()
     delay *= delay + 1;
 }
 
-SRAMSTREAM::SRAMSTREAM()
+SRAMSTREAM::SRAMSTREAM(bool silent)
 {
     mySRAMPtr = 0;
     myPos = 0;
     myBit = 0;
     myNumBlocks = 0;
+    mySilent = silent;
 }
 
 SRAMSTREAM::~SRAMSTREAM()
@@ -237,7 +238,8 @@ SRAMSTREAM::flush()
     buf.sprintf("Completed save of %d bytes, %d blocks.",
 	    mySRAMPtr,
 	    myNumBlocks);
-    msg_report(buf);
+    if (!mySilent)
+	msg_report(buf);
     return true;
 }
 
@@ -325,7 +327,8 @@ SRAMSTREAM::compress(char *dst, char *src, int blocklen)
 	BUF		buf;
 	buf.sprintf("Z:%d,B:%d,S:%d,I:%d",
 		zero, zeroprebyte, zeropreshort, zeropreint);
-	msg_report(buf);
+	if (!mySilent)
+	    msg_report(buf);
     }
 
     // Find best preprocess...
@@ -354,8 +357,11 @@ SRAMSTREAM::compress(char *dst, char *src, int blocklen)
     if (isconstant)
     {
 	//msg_report("Constant...");
-	if (istopblock)
-	    msg_report("_");
+	if (!mySilent)
+	{
+	    if (istopblock)
+		msg_report("_");
+	}
 	return compressConstant(dst, src);
     }
 
@@ -364,8 +370,11 @@ SRAMSTREAM::compress(char *dst, char *src, int blocklen)
 	// (blocklen + 8 - rlesave) > blocklen)
     {
 	// msg_report("None...");
-	if (istopblock)
-	    msg_report("x");
+	if (!mySilent)
+	{
+	    if (istopblock)
+		msg_report("x");
+	}
 	return compressNone(dst, src, blocklen);
     }
     
@@ -373,14 +382,20 @@ SRAMSTREAM::compress(char *dst, char *src, int blocklen)
     if (1)
     {
 	//msg_report("ZeroTable...");
-	if (istopblock)
-	    msg_report(".");
+	if (!mySilent)
+	{
+	    if (istopblock)
+		msg_report(".");
+	}
 	return compressZeroTable(dst, src, preprocess, blocklen);
     }
     else
     {
-	if (istopblock)
-	    msg_report("r");
+	if (!mySilent)
+	{
+	    if (istopblock)
+		msg_report("r");
+	}
 	return compressRLE(dst, src, blocklen);
     }
 }
@@ -410,22 +425,22 @@ SRAMSTREAM::decompress(char *dst, char *src, int blocklen)
     {
 	case COMPRESS_NONE:
 	    //msg_report("None...");
-	    if (istopblock)
+	    if (istopblock && !mySilent)
 		msg_report("x");
 	    return decompressNone(dst, src, blocklen) + 1;
 	case COMPRESS_CONSTANT:
 	    //msg_report("Constant...");
-	    if (istopblock)
+	    if (istopblock && !mySilent)
 		msg_report("_");
 	    return decompressConstant(dst, src, blocklen) + 1;
 	case COMPRESS_ZEROTABLE:
 	    //msg_report("ZeroTable...");
-	    if (istopblock)
+	    if (istopblock && !mySilent)
 		msg_report(".");
 	    return decompressZeroTable(dst, src, preprocess, blocklen) + 1;
 	case COMPRESS_RLE:
 	    //msg_report("RLE...");
-	    if (istopblock)
+	    if (istopblock && !mySilent)
 		msg_report("r");
 	    return decompressRLE(dst, src, blocklen);
 	default:

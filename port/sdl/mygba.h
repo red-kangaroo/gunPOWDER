@@ -22,8 +22,17 @@
 #define HAS_STYLUS
 #define HAS_PRINTF
 
+#ifdef iPOWDER
+#define USE_VIRTUAL_SCREEN
+#define USE_EXTENDED_HEIGHT
+#endif
+
+#ifdef ANDROID
+#define USE_VIRTUAL_SCREEN
+#endif
+
 // Not all SDL systems have the keyboard.
-#ifndef iPOWDER
+#if !defined(iPOWDER) && !defined(ANDROID)
 #define HAS_KEYBOARD
 #endif
 

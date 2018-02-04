@@ -30,7 +30,7 @@
 
 // #pragma pack(push, 1)
 
-int glbVersion = 117;
+int glbVersion = 118;
 int glbSaveCount = 0;
 bool glbIsNewGame = false;
 bool glbRNGValid = false;
@@ -194,7 +194,7 @@ hiscore_formatScore(char *line1, char *line2,
 void
 hiscore_init()
 {
-    SRAMSTREAM		is;
+    SRAMSTREAM		is(false);
     // Load the hiscore, which triggers the appropriate rebuilding
     hiscore_load(is);
 }
@@ -274,7 +274,7 @@ hiscore_load(SRAMSTREAM &is)
     // If the memory was entirely corrupt, rewrite with the valid stuff.
     if (!keepscore)
     {
-	SRAMSTREAM	os;
+	SRAMSTREAM	os(false);
 	
 	hiscore_save(os);
 	hamfake_endWritingSession();
@@ -473,7 +473,7 @@ hiscore_addAndDisplayEntry(MOB *mob, bool haswon, bool ischeater)
 	    memcpy(&glbScoreList[i], &newentry,
 		    sizeof(HISCORE_ENTRY));
 
-	    SRAMSTREAM		os;
+	    SRAMSTREAM		os(false);
 	    hiscore_save(os);
 
 	    hamfake_endWritingSession();
@@ -485,7 +485,7 @@ hiscore_addAndDisplayEntry(MOB *mob, bool haswon, bool ischeater)
     // Even if no highscore achieved, still resave the high score
     // table so options are saved.
     
-    SRAMSTREAM		os;
+    SRAMSTREAM		os(false);
     hiscore_save(os);
 
     hamfake_endWritingSession();

@@ -40,7 +40,7 @@ THREAD::numProcessors()
     if (nproc < 0)
     {
 #ifdef LINUX
-#ifdef iPOWDER
+#if defined(iPOWDER) || defined(ANDROID)
 	nproc = 1;
 #else
 	nproc = get_nprocs_conf();
