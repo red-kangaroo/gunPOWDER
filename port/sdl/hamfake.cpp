@@ -28,14 +28,16 @@
 #include <memory.h>
 #include <assert.h>
 
+#ifndef ANDROID
 #include <iostream>
+#endif
 
 using namespace std;
 
 #include "mygba.h"
 #include "hamfake.h"
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 #include "SDL.h"
 #endif
 
@@ -46,7 +48,7 @@ using namespace std;
 
 #include "../../gfx/icon_sdl.bmp.c"
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 #include "../../queue.h"
 #endif
 
@@ -63,7 +65,7 @@ using namespace std;
 //
 void (*glb_vblcallback)() = 0;
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 SDL_Surface	*glbVideoSurface;
 #else
 // This must be static for thread safety!
@@ -75,6 +77,7 @@ QUEUE<int>	 glbOurActionQueue;
 QUEUE<int>	 glbOurSpellQueue;
 QUEUE<int>	 glbOurButtonQueue;
 QUEUE<int>	 glbOurShutdownQueue;
+QUEUE<int>	 glbOurResurrectQueue;
 QUEUE<int>	 glbOurDirQueue;
 QUEUE<int>	 glbOurInputQueue;
 char		*glbOurDataPath = 0;
@@ -105,6 +108,7 @@ volatile bool	 glbExternalActionsEnabled = false;
 volatile bool	 glbIsInventoryMode = false;
 volatile bool	 glbIsForceQuit = false;
 volatile bool	 glbIsPortrait = true;
+volatile bool	 glbRevertDefault = false;
 volatile bool	 glbHasBeenShook = true;
 
 #ifndef HAS_KEYBOARD
@@ -134,7 +138,7 @@ SPRITEDATA	 *glbSpriteList;
 bool		 ham_extratileset = false;
 
 // Keyboard state:
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 bool			glb_keystate[SDLK_LAST];
 #endif
 
@@ -170,7 +174,7 @@ char			glb_rawSRAM[SRAMSIZE];
 
 int			glb_videomode = -1;
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 
 volatile bool		glb_isunlocked = false;
 
@@ -178,7 +182,14 @@ volatile bool		glbCanSendEmail = true;
 
 bool hamfake_isunlocked()
 {
+#ifdef ANDROID
+    // One reward of being an open platform which allows side
+    // loading is that we can bypass the whole Jobsian approach
+    // to revenue collection.
+    return true;
+#else
     return glb_isunlocked;
+#endif
 }
 
 void hamfake_setunlocked(bool state)
@@ -416,6 +427,12 @@ hamfake_postorientation(bool isportrait)
 }
 
 void
+hamfake_revertdefault()
+{
+    glbRevertDefault = true;
+}
+
+void
 hamfake_postshake(bool isshook)
 {
     glbHasBeenShook = isshook;
@@ -510,7 +527,7 @@ hamfake_isinventorymode()
 void
 rebuildVideoSystemFromGlobals()
 {
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     int		flags = SDL_RESIZABLE;
 
     if (glbFullScreen)
@@ -612,7 +629,7 @@ scaleScreenFromPaletted(u8 *dst, int pitch)
 	    {
 		// Read in a pixel & decode
 		idx = src[x];
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 		pixel[0] = glb_palette[idx*4+3];
 		pixel[1] = glb_palette[idx*4+2];
@@ -666,7 +683,7 @@ scaleScreenFrom15bit(u8 *dst, int pitch)
 		// Read in a pixel & decode
 		raw = src[x];
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 		pixel[0] = (raw & 31) << 3;
 		pixel[1] = ((raw >> 5) & 31) << 3;
@@ -715,7 +732,7 @@ blitSprite(const SPRITEDATA &sprite)
 		y = sprite.y + sy;
 		// Convert to DS coords from GBA
 		x += TILEWIDTH;
-#ifdef iPOWDER
+#ifdef USE_EXTENDED_HEIGHT
 		y += 3*TILEHEIGHT;
 #else
 		y += 2*TILEHEIGHT;
@@ -744,6 +761,24 @@ hamfake_rebuildScreen()
     int			offset;
     static bool		oldorient = true;
 
+    if (glbRevertDefault)
+    {
+	glb_isdirty = true;
+#ifdef USE_VIRTUAL_SCREEN
+#ifdef ANDROID
+	gfx_settilesetmode(0, 2);	// 8 pixel
+	gfx_settilesetmode(1, 4);	// 10 pixel
+#else
+	gfx_settilesetmode(0, 4);	// 10 pixel
+	gfx_settilesetmode(1, 3);	// 12 pixel
+#endif
+#else
+	gfx_settilesetmode(0, 4);	// Akoi Meexx
+#endif
+
+	glbRevertDefault = false;
+    }
+
     if (glbIsPortrait != oldorient)
     {
 	oldorient = glbIsPortrait;
@@ -760,7 +795,7 @@ hamfake_rebuildScreen()
     {
 	u8		*dst;
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 	SDL_LockSurface(glbVideoSurface);
 
 	dst = (u8 *) glbVideoSurface->pixels;
@@ -926,7 +961,7 @@ hamfake_rebuildScreen()
     {
 	u8		*dst;
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 	SDL_LockSurface(glbVideoSurface);
 	dst = (u8 *) glbVideoSurface->pixels;
 	if (!dst)
@@ -953,7 +988,7 @@ hamfake_rebuildScreen()
 int
 processSDLKey(int unicode, int sdlkey)
 {
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 #ifdef _WIN32_WCE
     // Windows CE defines some hard-coded buttons we
     // want to re-interpret
@@ -1098,7 +1133,7 @@ hamfake_awaitEvent()
 	    (*glb_vblcallback)();
 	return;
     }
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     SDL_WaitEvent(0);
 #else
     glbOurEventQueue.waitAndRemove();
@@ -1107,7 +1142,7 @@ hamfake_awaitEvent()
 #endif
 }
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 void
 hamfake_awaitShutdown()
 {
@@ -1119,6 +1154,19 @@ hamfake_postShutdown()
 {
     glbOurShutdownQueue.append(0);
 }
+
+void
+hamfake_awaitResurrect()
+{
+    glbOurResurrectQueue.waitAndRemove();
+}
+
+void
+hamfake_postResurrect()
+{
+    glbOurResurrectQueue.append(0);
+}
+
 #endif
 
 // Return our internal screen.
@@ -1127,7 +1175,7 @@ hamfake_lockScreen()
 {
     // Note we have to offset to the normal GBA start
     // location to account for our official offset.
-#ifdef iPOWDER
+#ifdef USE_EXTENDED_HEIGHT
     return glb_rawscreen + TILEWIDTH + 3*TILEHEIGHT * HAM_SCRW;
 #else
     return glb_rawscreen + TILEWIDTH + 2*TILEHEIGHT * HAM_SCRW;
@@ -1192,6 +1240,7 @@ hamfake_endWritingSession()
     hamfake_move(SAVENAME, TRANSACTIONNAME);
 }
 
+#ifndef USE_VIRTUAL_SCREEN
 void
 processKeyMod(int mod)
 {
@@ -1213,12 +1262,13 @@ processKeyMod(int mod)
 	glb_keymod &= ~GFX_KEYMODALT;
 #endif
 }
+#endif
 
 // Called to run our event poll
 void
 hamfake_pollEvents()
 {
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     SDL_Event	event;
     int		cookedkey;
 
@@ -1368,7 +1418,7 @@ hamfake_isAnyPressed()
     hamfake_rebuildScreen();
 
     int			i;
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     for (i = 0; i < SDLK_LAST; i++)
 	if (glb_keystate[i]) return 0x0;
 #else
@@ -1387,7 +1437,7 @@ hamfake_isAnyPressed()
     return 0x3FF;
 }
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 bool
 hamfake_forceQuit()
 {
@@ -1405,6 +1455,12 @@ hamfake_setForceQuit()
     // Trigger an event so we wake up immediately.
     hamfake_callThisFromVBL();
 }
+void
+hamfake_clearForceQuit()
+{
+    glbIsForceQuit = false;
+}
+
 #endif
 
 #ifndef HAS_KEYBOARD
@@ -1499,7 +1555,7 @@ hamfake_clearKeyboardBuffer()
     // Flush the buffer!
     glb_keybufentry = -1;
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     // I think this is actually very questionable.  The DS, which as
     // the best stylus support, never releases it.
     // Release the stylus
@@ -1623,7 +1679,7 @@ ham_Init()
     }
 #endif
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     /* initialize SDL */
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
     {
@@ -1633,13 +1689,13 @@ ham_Init()
     }
 #endif
 
+#ifndef USE_VIRTUAL_SCREEN
     u8 *rgbpixel;
 
     rgbpixel = convertTo32Bit(bmp_icon_sdl, 32 * 32);
 
     /* SDL interprets each pixel as a 32-bit number, so our masks must depend
        on the endianness (byte order) of the machine */
-#ifndef iPOWDER
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     const Uint32 rmask = 0xff000000;
     const Uint32 gmask = 0x00ff0000;
@@ -1667,7 +1723,7 @@ ham_Init()
 	glbSpriteList[i].data = new u8[TILEWIDTH * TILEHEIGHT * 4];
     }
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     memset(glb_keystate, 0, SDLK_LAST);
 #endif
 
@@ -1727,11 +1783,10 @@ ham_Init()
 	ham_extratileset = true;
     }
     
-    // Load any extra tilesets.
     return;
 }
 
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
 Uint32
 glb_VBLTimerCallback(Uint32 interval, void *fp)
 {
@@ -1765,7 +1820,7 @@ ham_StartIntHandler(u8 intno, void (*fp)())
     assert(intno == INT_TYPE_VBL);
     
     glb_vblcallback = fp;
-#ifndef iPOWDER
+#ifndef USE_VIRTUAL_SCREEN
     SDL_AddTimer(16, glb_VBLTimerCallback, 0);
 #endif
 }
@@ -1775,7 +1830,7 @@ ham_SetBgMode(u8 mode)
 {
     if (glb_videomode == -1)
     {
-#if defined(_WIN32_WCE) || defined(iPOWDER)
+#if defined(_WIN32_WCE) || defined(USE_VIRTUAL_SCREEN)
 	// For mobiles we want to default to the lowest res.
 	setResolution(HAM_SCRW, HAM_SCRH);
 #else
@@ -1910,7 +1965,7 @@ hamfake_setTileSize(int tilewidth, int tileheight)
 	delete [] glbSpriteList[i].data;
 	glbSpriteList[i].data = new u8[TILEWIDTH * TILEHEIGHT * 4];
     }
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     // This platform works with a virtual screen so we never use
     // the black fudge space.
     glbScreenWidth = HAM_SCRW;
@@ -1974,11 +2029,24 @@ void
 hamfake_softReset()
 {
     hamfake_postShutdown();
-#ifdef iPOWDER
+#ifdef ANDROID
+
+    // We do not want to actually kill the android thread
+    // as then we'd have to repopulate our global variables.  Instead
+    // we maintain our state in the hopes we'll be magically reactivated.
+    hamfake_clearForceQuit();
+    hamfake_awaitResurrect();
+
+    // Having resurected, we should rebuild
+    hamfake_rebuildScreen();
+
+#else
+#ifdef USE_VIRTUAL_SCREEN
 #else
     SDL_Quit();
 #endif
     exit(0);
+#endif
 }
 
 bool
@@ -2002,7 +2070,7 @@ hamfake_setstyluspos(bool state, int x, int y)
 	glbStylusY = y;
 	glbStylusState = true;
     }
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     glbOurEventQueue.append(1);
 #endif
 }
@@ -2029,7 +2097,7 @@ hamfake_getstyluspos(int &x, int &y)
 
     // Now return to the GBA coordinate system by adjusting for the DS coords.
     x -= TILEWIDTH;
-#ifdef iPOWDER
+#ifdef USE_EXTENDED_HEIGHT
     y -= 3*TILEHEIGHT;
 #else
     y -= 2*TILEHEIGHT;
@@ -2074,7 +2142,7 @@ hamfake_move(const char *dst, const char *src)
     fulldst.sprintf("\\My Documents\\POWDER\\%s", dst);
     fullsrc.sprintf("\\My Documents\\POWDER\\%s", src);
 #else
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     if (glbOurDataPath)
     {
 	fullsrc.sprintf("%s/%s", glbOurDataPath, src);
@@ -2105,7 +2173,7 @@ hamfake_fopen(const char *path, const char *mode)
 
     return fopen(fullpath.buffer(), mode);
 #else
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     // Prepend our given global path, if it exists.
     BUF		fullpath;
 

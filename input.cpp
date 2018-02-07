@@ -233,7 +233,7 @@ input_getchar(int gx, int gy, bool shifted)
 	if (hamfake_forceQuit())
 	    return '\n';
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 	if (hamfake_hasbeenshaken())
 	{
 	    return GFX_KEYF3;
@@ -333,7 +333,7 @@ input_getline(char *text, int len, int lx, int ly, int gx, int gy,
     int 	c;
     bool	shifted = false;
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     // Ensure the latest text is on screen.
     hamfake_rebuildScreen();
     if (initialtext)
@@ -387,7 +387,7 @@ input_getline(char *text, int len, int lx, int ly, int gx, int gy,
     gfx_nudgecenter(-TILEWIDTH/2, TILEHEIGHT/2);
     input_drawkeyboard(shifted);
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     hamfake_hasbeenshaken();
 #endif
 

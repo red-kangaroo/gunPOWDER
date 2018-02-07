@@ -47,7 +47,7 @@ enum PREPROCESS_TYPE
 class SRAMSTREAM
 {
 public:
-    SRAMSTREAM();
+    SRAMSTREAM(bool silent);
     ~SRAMSTREAM();
 
     // Rest read/write pointer to start of SRAM.
@@ -95,6 +95,7 @@ private:
     int			myBit;			// bit offset in myBuffer[myPos]
     char		myBuffer[1024];
     int			myNumBlocks;
+    bool		mySilent;
 };
 
 #endif

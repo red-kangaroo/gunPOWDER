@@ -24,8 +24,10 @@ THREAD_LINUX::~THREAD_LINUX()
     if (isActive())
 	join();
 
+#ifndef ANDROID
     if (myExists)
 	pthread_cancel(mySelf);
+#endif
 }
 
 void
@@ -96,7 +98,9 @@ THREAD_LINUX::kill()
 {
     if (myExists)
     {
+#ifndef ANDROID
 	pthread_cancel(mySelf);
+#endif
 	myExists = false;
     }
 }

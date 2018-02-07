@@ -43,7 +43,7 @@
 #include "stylus.h"
 #include "rooms/allrooms.h"
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 #include "thread.h"
 #endif
 
@@ -90,10 +90,11 @@ bool		glbSuppressAutoClimb = false;
 bool		glbScreenTap = true;
 
 #ifdef iPOWDER
-bool		glbActionBar = false;
+bool		glbActionBar = true;
 #else
 bool		glbActionBar = true;
 #endif
+
 bool		glbColouredFont = true;
 bool		glbFinishedASave = false;
 bool		glbSafeWalk = false;
@@ -115,7 +116,7 @@ extern int glbItemCount;
 
 ACTION_NAMES	glb_actionbuttons[NUM_BUTTONS];
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 // Note the default of 0 actually is rather sensible here
 int glb_spellgreylist[NUM_SPELLS];
 #endif
@@ -1064,7 +1065,7 @@ writeGlobalActionBar(bool useemptyslot)
     int			x, sx, sy, endx;
     hamfake_setinventorymode(false);
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     // Post the current grey values for all spells
     SPELL_NAMES		spell;
     FOREACH_SPELL(spell)
@@ -1623,12 +1624,16 @@ intro_screen()
     }
     glbAutoRunEnabled = false;
 
+#ifdef ANDROID
+    while (1)
+#else
     while (!hamfake_forceQuit())
+#endif
     {
 	for (int y = 2; y < 19; y++)
 	    gfx_cleartextline(y);
 	
-	gfx_printtext(10, 1, "POWDER 117"); 
+	gfx_printtext(10, 1, "POWDER 118"); 
 
 	gfx_printtext(30 - strlen(get_glb_author()), 19,
 		    get_glb_author());
@@ -1639,6 +1644,9 @@ intro_screen()
 	if (hamfake_isunlocked())
 	    gfx_printtext(0, 18, "Full Version");
 #else
+#ifdef ANDROID
+	gfx_printtext(0, 18, "Built with Android 2.2");
+#else
 #ifdef USING_SDL
 	gfx_printtext(0, 18, "Built with SDL 1.2");
 #else
@@ -1646,6 +1654,7 @@ intro_screen()
 	gfx_printtext(0, 18, "Built with DevkitPro 1.4.4 r21");
 #else
 	gfx_printtext(0, 18, "Built with HAM 2.8");
+#endif
 #endif
 #endif
 #endif
@@ -1662,7 +1671,7 @@ intro_screen()
 		MAINMENU_TUTORIAL,
 		MAINMENU_VIEWSCORES,
 		MAINMENU_OPTIONS,
-#if defined(USING_SDL) && !defined(SYS_PSP)
+#if defined(USING_SDL) && !defined(SYS_PSP) && !defined(ANDROID)
 #ifndef iPOWDER
 		MAINMENU_QUIT,
 #endif
@@ -1681,7 +1690,7 @@ intro_screen()
 		MAINMENU_TUTORIAL,
 		MAINMENU_VIEWSCORES,
 		MAINMENU_OPTIONS,
-#if defined(USING_SDL) && !defined(SYS_PSP)
+#if defined(USING_SDL) && !defined(SYS_PSP) && !defined(ANDROID)
 #ifndef iPOWDER
 		MAINMENU_QUIT,
 #endif
@@ -1700,7 +1709,7 @@ intro_screen()
 		MAINMENU_SAVESCUM,
 		MAINMENU_VIEWSCORES,
 		MAINMENU_OPTIONS,
-#if defined(USING_SDL) && !defined(SYS_PSP)
+#if defined(USING_SDL) && !defined(SYS_PSP) && !defined(ANDROID)
 #ifndef iPOWDER
 		MAINMENU_QUIT,
 #endif
@@ -1743,6 +1752,14 @@ intro_screen()
 
 	    rawchoice = gfx_selectmenu(2, 6, textmenu, aorb, def);
 
+	    // If we have reset, we reset our selection here as
+	    // we will have just greedily picked the first one.
+	    if (hamfake_forceQuit())
+	    {
+		hamfake_softReset();
+		continue;
+	    }
+
 	    // Ignore bad selection.
 	    if (rawchoice < 0)
 		continue;
@@ -1763,6 +1780,8 @@ intro_screen()
 	{
 	    hamfake_softReset();
 	    // No return from the valley of the dead!
+	    // Except, of course, the Android.
+	    continue;
 	}
 
 	// Special case: View scores.
@@ -1998,7 +2017,7 @@ void
 loadGame()
 {
     // For testing, we can verify the new map...
-    SRAMSTREAM		is;
+    SRAMSTREAM		is(false);
     int			val;
 
     glbAutoRunEnabled = false;
@@ -2093,7 +2112,7 @@ loadGame()
 
     // Save the new hiscore with the new save count!
     {
-	SRAMSTREAM	os;
+	SRAMSTREAM	os(false);
 	hiscore_save(os);
 
 	// Trigger non-GBA sessions to complete the save.
@@ -2483,7 +2502,7 @@ performAutoRead()
     signpost = glbCurLevel->getSignPost(avatar->getX(), avatar->getY());
     if (signpost != SIGNPOST_NONE)
     {
-#ifdef iPOWDER
+#if defined(iPOWDER) || defined(ANDROID)
 	encyc_viewentry("SIGNPOST_iPOWDER", signpost);
 #else
 #ifdef HAS_KEYBOARD
@@ -3452,14 +3471,14 @@ processHelp()
 	helplist[helpidx++] = HELP_KEYBOARD;
 #endif
 #ifdef HAS_STYLUS
-#ifdef iPOWDER
+#if defined(iPOWDER) || defined(ANDROID)
 	helplist[helpidx++] = HELP_TOUCH;
 #else
 	helplist[helpidx++] = HELP_STYLUS;
 #endif
 #endif
 #ifndef HAS_KEYBOARD
-#ifndef iPOWDER
+#if !defined(iPOWDER) && !defined(ANDROID)
 	helplist[helpidx++] = HELP_GAMEBOY;
 #endif
 #endif
@@ -3584,11 +3603,26 @@ processHelp()
 }
 
 void
-saveGame()
+killAvatar()
 {
-    SRAMSTREAM		os;
+    MOB		*avatar;
+    avatar = MOB::getAvatar();
+    MOB::setAvatar(0);
+    // Kill the avatar.
+    if (avatar)
+    {
+	glbCurLevel->unregisterMob(avatar);
+	delete avatar;
+    }
+}
 
-    msg_report("Saving...");
+void
+saveGame(bool withnoquit)
+{
+    SRAMSTREAM		os(withnoquit);
+
+    if (!withnoquit)
+	msg_report("Saving...");
 
     // If the save count is 0,
     // 	- we are writing a new game for the first time.
@@ -3646,7 +3680,8 @@ saveGame()
     // The saving process may generate temp levels
     // that will refresh...
     glbCurLevel->refresh();
-    msg_report("Done!");
+    if (!withnoquit)
+	msg_report("Done!");
 
 #ifdef STRESS_TEST
     // Verify the mobref structure is good.
@@ -3660,15 +3695,8 @@ saveGame()
 #endif
 
     // Having saved, we now axe the avatar, forcing a reload.
-    MOB		*avatar;
-    avatar = MOB::getAvatar();
-    MOB::setAvatar(0);
-    // Kill the avatar.
-    if (avatar)
-    {
-	glbCurLevel->unregisterMob(avatar);
-	delete avatar;
-    }
+    if (!withnoquit)
+	killAvatar();
 
     hamfake_clearKeyboardBuffer();
 }
@@ -3685,7 +3713,7 @@ processOptions()
     {
 	"Help",
 	"Save&Quit",
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 	"Buttons",
 #endif
 	"Tiles",
@@ -3709,7 +3737,7 @@ processOptions()
     {
 	OPTION_HELP,
 	OPTION_SAVE,
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 	OPTION_BUTTONS,
 #endif
 	OPTION_TILES,
@@ -3763,7 +3791,7 @@ processOptions()
 	OPTION_FULLSCREEN
     };
 
-#if defined(USING_SDL) && !defined(iPOWDER)
+#if defined(USING_SDL) && !defined(iPOWDER) && !defined(ANDROID)
     int			i;
 
     // Toggle the Full Screen option depending on our actual full
@@ -3809,7 +3837,7 @@ processOptions()
 
     if (option == OPTION_SAVE)
     {
-	saveGame();
+	saveGame(false);
 	glbFinishedASave = true;
 	return;
     }
@@ -6174,7 +6202,7 @@ processAllInput(ACTION_NAMES &action, SPELL_NAMES &spell, int &dx, int &dy)
     }
 }
 
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 
 int fake_main();
 
@@ -6200,6 +6228,29 @@ ipowder_main(const char *path)
     powderthread = THREAD::alloc();
 
     powderthread->start(fakemainCB, 0);
+}
+
+bool
+android_main(const char *path)
+{
+    static THREAD		*powderthread;
+
+    hamfake_setdatapath(path);
+
+    // Already started, continue from where we left off.
+    if (powderthread)
+    {
+	hamfake_clearForceQuit();
+	hamfake_postResurrect();
+	return true;
+    }
+
+    powderthread = THREAD::alloc();
+
+    powderthread->start(fakemainCB, 0);
+    hamfake_setdatapath(path);
+
+    return false;
 }
 
 #define main fake_main
@@ -6252,7 +6303,7 @@ main(void)
     int			howlongdead = 0;
 
     // Initialize button maps:
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
     glb_actionbuttons[BUTTON_A] = ACTION_NONE;
     glb_actionbuttons[BUTTON_B] = ACTION_NONE;
 #else
@@ -6281,27 +6332,29 @@ main(void)
     // Ensure we are happy with our original tileset
     // We do this before hiscore_init as it will invoke loadOptions
     // and thus set the users desired tileset.
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
+#ifdef ANDROID
+    gfx_settilesetmode(0, 2);	// 8 pixel
+    gfx_settilesetmode(1, 4);	// 10 pixel
+#else
     gfx_settilesetmode(0, 4);	// 10 pixel
     gfx_settilesetmode(1, 3);	// 12 pixel
+#endif
 #else
     gfx_settilesetmode(0, 4);	// Akoi Meexx
 #endif
 
     hiscore_init();
 
-    // Reset our RNG if requested
-    if (glbRNGValid)
-    {
-	// Mix in any other entropy we might have.
+    // Even if we have a valid RNG from hiscore load, or even if we
+    // don't, we still want to muss up the seed a bit!
+    // Mix in any other entropy we might have.
 #if defined(USING_SDL) || defined(USING_DS)
-	glbRNGSeed ^= time(0);
+    glbRNGSeed ^= time(0);
 #elif defined(_WIN32_WCE)
-	glbRNGSeed ^= GetTickCount();
+    glbRNGSeed ^= GetTickCount();
 #endif
-	
-	rand_setseed(glbRNGSeed);
-    }
+    rand_setseed(glbRNGSeed);
 
 #ifdef MAPSTATS
     gfx_setmode(0);
@@ -6317,7 +6370,7 @@ main(void)
     // Start in graphics mode:
     gfx_setmode(3);
 
-#ifdef blahblah
+#ifdef FORCESTRESSTEST
     glbStressTest = true;
 #else
     doload = intro_screen();
@@ -6338,7 +6391,7 @@ main(void)
     {
 	hiscore_flagnewgame(true);
 	{
-	    SRAMSTREAM		os;
+	    SRAMSTREAM		os(false);
 	    hiscore_save(os);
 	}
 
@@ -6364,7 +6417,16 @@ main(void)
 		if (hamfake_forceQuit())
 		{
 		    // quit request, run away!
+#ifdef ANDROID
+		    // We do want to abandon the stress test.
+		    glbStressTest = false;
+		    // Ensure avatar is dead.
+		    // We don't want players picking up from this point.
+		    killAvatar();
+		    continue;
+#else
 		    break;
+#endif
 		}
 
 		
@@ -6421,10 +6483,24 @@ main(void)
 
 	    if (hamfake_forceQuit())
 	    {
+#ifdef ANDROID
 		// Only save when we are not in tutorial!
 		if (MOB::getAvatar() && !glbTutorial)
-		    saveGame();
+		    saveGame(true);
+		hamfake_softReset();
+
+		// We loaded the game, albeit virtually, so
+		// we must restore the save scum flag.
+		hiscore_bumpsavecount();
+		glbCurLevel->refresh();
+		writeStatusLine();
+		continue;
+#else
+		// Only save when we are not in tutorial!
+		if (MOB::getAvatar() && !glbTutorial)
+		    saveGame(false);
 		break;
+#endif
 	    }
 	    
 	    // Run the move prequel code.  If this return false,
@@ -6519,7 +6595,7 @@ main(void)
 		// Do nothing if no button hit.
 		if (!hit)
 		    continue;
-#ifdef iPOWDER
+#ifdef USE_VIRTUAL_SCREEN
 		const char	*msg = "Tap [Here] to play again.  ";
 #else
 		const char	*msg = "Hit [Start] to play again.  ";
@@ -6578,7 +6654,7 @@ main(void)
 		{
 		    hiscore_flagnewgame(true);
 		    {
-			SRAMSTREAM		os;
+			SRAMSTREAM		os(false);
 			hiscore_save(os);
 		    }
 

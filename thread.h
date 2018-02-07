@@ -64,7 +64,7 @@ typedef int s32;
 
 #include <pthread.h>
 
-#ifdef iPOWDER
+#if defined(iPOWDER) && !defined(ANDROID)
 
 #include <libkern/OSAtomic.h>
 

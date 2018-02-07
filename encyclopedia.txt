@@ -764,8 +764,8 @@ SPELL::FIREBALL
 SPELL::FLAMESTRIKE
     The most holy and devout can request a special favour from their
     deity.  A giant pillar of flame engulfs any chosen foe within
-    sight of the mage-priest.  Study the effect well, for if you were
-    to displease your deity, you may be at the receiving end.
+    sight of the mage-priest.  Study the effect well, for if you 
+    displease your deity, you may be at the receiving end.
 
 SPELL::LIGHTNINGBOLT
     The actinic glare of a lightning bolt searing through a darkened
@@ -922,7 +922,7 @@ SPELL::POSSESS
 
 SPELL::DIAGNOSE
     The first step in any treatment should be to discover what the ailment is.
-    This powerful piece of divinition magic seeks to remove the guess work from
+    This powerful piece of divination magic seeks to remove the guesswork from
     triage.  A quick cast will let you know not just the relative health of the
     creature, but what its absolute health is.
 
@@ -1040,7 +1040,7 @@ SPELL::FORCEWALL
 
 SPELL::DIG
     The spell of Dig carefully controls its energies in the Plane of
-    Earth.  It focuses on the removal of dirt and stone from ones
+    Earth.  It focuses on the removal of dirt and stone from one's
     path, allowing one to fashion dungeon complexes of one's own
     design.  Care must be taken that the rock fragments blasted
     free do not cause harm!
@@ -1092,10 +1092,10 @@ SPELL::ANIMATEFOREST
 
 SPELL::DOWNPOUR
     Originally formulated to deal with the crippling droughts that faced the
-    Western Pederbar region, downpour was never successfully used in that
+    Western Pederbar region, Downpour was never successfully used in that
     capacity.  The intensity of the deluge ensures any parched soil targeted
     will be washed away, defeating its use as a direct rain replacement.
-    Attempts to use it to replenish resevoirs for irrigations systems were
+    Attempts to use it to replenish reservoirs for irrigation systems were
     abandoned when it was realized that, unlike the version used by Water
     Elementals, this spell actually acquires its water from the surrounding air
     instead of the Plane of Water.  As such, it will only worsen drought
@@ -1145,7 +1145,7 @@ SPELL::RAISE_UNDEAD
 SPELL::RECLAIM_SOUL
     While Tlosh disapproves of all forms of healing, necromancers have found in
     practice it is important that they keep their still-mortal frame intact.
-    The soul reclamation spell fulfills this in a Tlosh friendly way by using
+    The soul reclamation spell fulfills this in a Tlosh-friendly way by using
     the life energy of another to power the recuperation, thereby avoiding any
     contact with the positive energies that traditional healing spells tap
     into.  This spell, when targeted at an undead under one's control,
@@ -1167,7 +1167,7 @@ SPELL::GHASTIFY
     at death's gate can be the target of this cruel magic.  The
     remaining life force is used to power a grisly transformation from
     life into unlife.  The resulting ghast makes an excellent addition
-    to any necromancers undead army.
+    to any necromancer's undead army.
 
 SPELL::BINDSOUL
     With greater control over the powers of death, necromancers can
@@ -1253,7 +1253,7 @@ SKILL::SEARCH
 
 SKILL::EVADETRAP
     Fast reflexes and nimble feet allow you to leap safely to the pit's
-    edge before falling onto the spikes below.  The only way for you
+    edge before falling into the spikes below. The only way for you
     to fall down a hole is to climb into it willingly.
 
 SKILL::ENDUREHUNGER
@@ -1287,10 +1287,10 @@ SKILL::CLEANKILL
     
 SKILL::LEAPATTACK
     It takes more than courage to leap into the middle of a heated
-    melee,  What it takes is a certain suicidal disregard for self
+    melee; what it takes is a certain suicidal disregard for self
     preservation.
 
-    Would be leaping barbarians are cautioned that while the lessons
+    Would-be leaping barbarians are cautioned that while the lessons
     taught with this skill let one attack when landing from a leap, it
     is of little help if one cannot make the heroic leap in the first
     place.
@@ -1305,13 +1305,13 @@ SKILL::ARMOUR_HELMET
     You realize well that your head is the most valuable location.
     You know how to properly adjust the myriad straps and belts which
     are used to secure a helmet in place.  Because you correctly put
-    on, and properly adjust for the size of, your helms, you derive
+    on and properly adjust the size of your helms you derive
     additional protection from them.
 
 SKILL::ARMOUR_SHIELD
     It might be fine for a Barbarian to strap a shield to an arm and
     consider training complete.  You know, however, that correctly
-    parrying attacks is an art onto itself.  You derive additional
+    parrying attacks is an art unto itself.  You derive additional
     protection from shields.
 
 SKILL::ARMOUR_BODY
@@ -1364,7 +1364,7 @@ SKILL::WEAPON_MEDIUM
 
 SKILL::WEAPON_LARGE
     Large weapons are favoured by Barbarian hordes.  Their massive
-    size means crushing damages, and also means great strength is
+    size means crushing damage, and also means great strength is
     required to wield them.  Subtlety is definitely not a requirement.
     This skill improves your ability with all weapons sized Large and
     higher.
@@ -1413,7 +1413,7 @@ SKILL::AMBIDEXTROUS
     longer important that the second weapon be lighter than the first.
 
 SKILL::WEAPON_KNOCKOUT
-    The more light weight blunt weapons should not be discounted.
+    The more lightweight blunt weapons should not be discounted.
     The increased control they afford allows a precision blow to knock
     an enemy unconscious.  This gives the chance to escape, or for the
     less sporting, the chance for some free hits.
@@ -1480,7 +1480,7 @@ MOB::AVATAR - you
 MOB::GREENDRAGON - green dragon
     The scales of this ferocious beast are coated with a thin veneer
     of greenish slime.  This gives more than just the name to the
-    beast - it is also the source of the green dragons feared poison.
+    beast - it is also the source of the green dragon's feared poison.
 
 MOB::WHITEDRAGON - white dragon
     Unlike most cold blooded creatures, which merely maintain the
