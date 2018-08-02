@@ -1,4 +1,8 @@
-# Klaskov Quest
+# New Quizar Quest
+# "The village is under attack! Don't let yourself be seen."
+# Quizar is patron of rogues and rangers, so there is some winderness and
+# a chance to use stealth to your advantage. Also there is a secret room,
+# because Quizar loves secrets - try Sunfire or maybe Wizard's Eye.
 
 allowstairs = false
 allowgeneration = false
@@ -10,50 +14,59 @@ quest = GOD_FIGHTER
 pos = 0 0
 
 +------------------------------+
-|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^^^^>^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^^^&&^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^&&&.^^^^^^|
-|^^^^^^^^^^^...&&&&&&&^^^^^^^^^|
-|^^^^^^^^^..HHH!HHH&&&^^^^^^^^^|
-|^^^^^^^^...HHHHHHH.&&^^^^^^^^^|
-|^^^^^^^^...hhhhhhh...^^^^^^^^^|
-|^^^^^^^^^..hhhhhhh.^^^^^^^^^^^|
-|^^^^^^^^^^......^^^^^^^^^^^^^^|
-|^^^^^^^^^^^^..^^^^^^^^^^^^^^^^|
-|^^^^^^^^^^^^..^^^^^^^^^^^^^^^^|
-|^^^^^^^^&&.......^^^^^^^^^^^^^|
-|^^^^^^&&&&........^^^^^^^^^^^^|
-|^^^^^&&~~~.......&&&^^^^^^^^^^|
-|^^^^&&~~~~~~~...~~~&&^^^^^^^^^|
-|^^^^&&&&.~~~~..~~~~&&&^^^^^^^^|
-|^^^^&&&&&..........&&^^^^^^^^^|
-|^^^^^&&&..@.....@..&&^^^^^^^^^|
-|^^^^^^&&.#####.#+##^^^^^^^^^^^|
-|^^^^^^...+,,<#.#,,#..^^^^^^^^^|
-|^^^^^^...#,,t#.#,t+....^^^^^^^|
-|^^^^^^^..#####.##+#...^^^^^^^^|
-|^^^^^^^^.......#,,#.^^^^^^^^^^|
-|^^^^^^^^^^.....####^^^^^^^^^^^|
-|^^^^^^^^^^^.......^^^^^^^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
-|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
+|^^^^^^^^^^^^^^^^^^^^^^^^      |
+|^#######^^^^^^^^^^^^^^^^^**   |
+|^#--|--#^^^^^^^^^^^^^^^.****  |
+|^#-|-|-#^^^^^^^^^^^^^^&&^ *<* |
+|^#######^^^^^&&&&&^^&&&.^     |
+|^^^^^^^^^^^HHH&&&&&&&^^^^     |
+|^^^^^^^^^..HOH.HHH&&&&^^^^   ^|
+|^^^^^^^^.hhHHHhHOHh&&&^^^    ^|
+|^^^^^^^^.hhhhhhHHHh.&&^^^^&&^^|
+|^^^^^^^^^hhhhhhhhhh^^&.^^^&&&^|
+|^^^^^^^^^^hhhhhh^^^^^^.^^&&..^|
+|^^^^^^^^^^^^..^^^^^^^^.&^^.K.^|
+|^^^^^^^^^^^^..^^^^^^^^&&^^..^^|
+|^^^*^^^^&&ttttttt^^^^^^...^^^^|
+|^*_*^^&&&&TTTHHH..^^^^^^..~^^^|
+|^^**^&&~~~TTTHXH.&&&^^^^&&~^^^|
+|^^^*&&~~~~~~~HHH~~~&&^^^&~~~^^|
+|^^^^&&&&.~~~~..~~~~&&&^^&&&^^^|
+|^^^^&&&&&..........&&^^^^&.^^^|
+|^^^^^&&&...........&&^^^^.^^^^|
+|^^^^^^&&.#####.#+##^^^^^&&^^^^|
+|^^^^^^...+---#.#,,#..^&.&^^^^^|
+|^^^^^^...#---#.#>,+..&&^^^^^^^|
+|^^^^^^^..#####.##x#...^^^^^^^^|
+|^^^^^^^^.......#||#&^^^^^^^^^^|
+|^^^^^^^^#####..####^^^^^^^^^^^|
+|^^^^^^^^#=,,+.....^^^^^^^^^^^^|
+|^^^^^^^^#@,,#^^^^^^^^^^^^^^^^^|
+|^^^^^^^^#####^^^^^^^^^^^^^^^^^|
 |^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
 +------------------------------+
 
 .: SQUARE_GRASS, SQUAREFLAG_LIT
 ,: SQUARE_FLOOR, SQUAREFLAG_LIT
-t: SQUARE_FLOOR, SQUAREFLAG_LIT
+*: SQUARE_CORRIDOR
+ : SQUARE_EMPTY
 #: SQUARE_WALL, SQUAREFLAG_LIT
 ^: SQUARE_MOUNTAIN, SQUAREFLAG_LIT
 &: SQUARE_FOREST, SQUAREFLAG_LIT
 ~: SQUARE_WATER, SQUAREFLAG_LIT
 +: SQUARE_DOOR, SQUAREFLAG_LIT
+x: SQUARE_SECRETDOOR, SQUAREFLAG_LIT
 =: SQUARE_FLOOR, ITEMTYPE_SPELLBOOK, SQUAREFLAG_LIT
+|: SQUARE_FLOOR, ITEMTYPE_ARTIFACT, SQUAREFLAG_LIT
+_: SQUARE_CORRIDOR, ITEMTYPE_ARTIFACT
+-: SQUARE_FLOOR, ITEMTYPE_ANY, SQUAREFLAG_LIT
 >: SQUARE_LADDERDOWN, SQUAREFLAG_LIT
-<: SQUARE_LADDERUP, SQUAREFLAG_LIT
-@: SQUARE_GRASS, SQUAREFLAG_LIT
+<: SQUARE_LADDERUP
+@: SQUARE_FLOOR, SQUAREFLAG_LIT
 h: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_ORC
 H: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_HILLORC
-!: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_HILLORC, MOBLEVEL_UNIQUE, INTRINSIC_LEADER
+O: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_HILLORC, MOBLEVEL_UNIQUE
+t: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_TROLL, INTRINSIC_SKILL_WEAPON_KNOCKOUT
+T: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_CAVETROLL
+K: SQUARE_GRASS, SQUAREFLAG_LIT, MOB_CAVETROLL, MOBLEVEL_UNIQUE
+X: SQUARE_GRASS, SQUAREFLAG_LIT, ITEMTYPE_WEAPON, ITEMTYPE_ARTIFACT, MOB_HILLORC, MOBLEVEL_UNIQUE, INTRINSIC_LEADER

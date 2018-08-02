@@ -1,4 +1,6 @@
-# Quizar's Quest
+# New Belweir's Quest
+# "Behold the true power of the elements!"
+# There are now more elementals and dragons. Enjoy.
 
 allowstairs = false
 allowgeneration = false
@@ -20,26 +22,26 @@ pos = 0 0
 |#  .^.....^.###....^^.B.B^..##|
 |## .^   ##^^^^^^^^^^.####^####|
 |## .^ ####^#####^######..^.###|
-|#  .^^#^L^^#####^..#....B^..##|
+|#  .^^#^L^^x..>#^..#..j.B^..##|
 |# ...^#^#^######^.B#B....^...#|
-|#  ^^^^^#^^IIIFI^..#...^^^^B.#|
-|###B.^####IIIffIIB.#..B^..^^^#|
-|#.#<.^#..###IfIIII.#...^B.^>^#|
-|#.B..^#....##IIIII.#...^..^^^#|
-|#....^#.B.B.^III.^^^^^^^..^B.#|
+|#  ^^^^^#^^IIIFI^..#...^^^^..#|
+|###B.^####IIIffIIB.#J.B^j.^BB#|
+|#<# .^#..###IfIIII.#...^B^^B1#|
+|#.B..^#....##IIIII.#..j^..^BB#|
+|#....^#.B.B.^III.^^^^^^^..^..#|
 |# . #^#.....^.IIII.#...^^B^..#|
 |#####^#B...^^......#....^^^..#|
-|#....^^^^^^^...B..B#....^...##|
-|#.B..^##.B.^^^^.#..##...^..###|
-|#..B.^.#......^^^^^.####^#####|
-|#....^.#...B....#.^..B..^.####|
-|#.B..^^^^^^^^..##.^.B..B^BLL##|
-|#...B^..B...^^^^^^^^.LLL^LL###|
+|#ssW.^^^^^^^...B..B#.j..^...##|
+|#sB..^##.B.^^^^.#..##...^..###|
+|#S.B.^.#......^^^^^.####^###H#|
+|#W...^.#...B....#.^..B..^.##h#|
+|#WB..^^^^^^^^..##.^.B..B^BLLh#|
+|#WW.B^..B...^^^^^^^^.LLL^LL###|
 |#WWWW^.........##..^^LLLLL####|
 |####WW.B..B...#####.LLrLL#####|
-|##WeWeW..B..####YY###LLrLrLL##|
-|##E#WW#######......########R##|
-|##1##WWWWW+AA...YY.+EE11###1##|
+|##WeWeW..B..###RHR###LLrLrLL##|
+|##E#WW#######SF...Y#####^##R##|
+|##1####11EE+JSFD.YY+AAAA^A#1##|
 |##############################|
 +------------------------------+
 
@@ -48,6 +50,7 @@ pos = 0 0
  : SQUARE_EMPTY
 ^: SQUARE_PATHPIT
 +: SQUARE_BLOCKEDDOOR
+x: SQUARE_SECRETDOOR
 L: SQUARE_LAVA
 W: SQUARE_WATER
 A: SQUARE_ACID
@@ -66,3 +69,9 @@ e: SQUARE_WATER, MOB_WATERELEMENTAL
 E: SQUARE_WATER, MOB_WATERELEMENTAL, MOBLEVEL_UNIQUE
 d: SQUARE_PATHPIT, MOB_EARTHELEMENTAL
 D: SQUARE_PATHPIT, MOB_EARTHELEMENTAL, MOBLEVEL_UNIQUE
+s: SQUARE_WATER, MOB_BLUEDRAGON
+S: SQUARE_WATER, MOB_BLUEDRAGON, MOBLEVEL_UNIQUE
+h: SQUARE_LAVA, MOB_FIREELEMENTAL
+H: SQUARE_LAVA, MOB_FIREELEMENTAL, MOBLEVEL_UNIQUE
+j: SQUARE_CORRIDOR, MOB_AIRELEMENTAL
+J: SQUARE_CORRIDOR, MOB_AIRELEMENTAL, MOBLEVEL_UNIQUE

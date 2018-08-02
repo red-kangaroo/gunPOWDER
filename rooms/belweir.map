@@ -1,10 +1,10 @@
-# Belweir's Quest
+# Belweir's Library
 
 allowstairs = false
 allowdig = false
 
-minlevel = 21
-maxlevel = 21
+minlevel = 13
+maxlevel = 14
 mandatory = 1
 
 +-------------+
@@ -14,15 +14,15 @@ mandatory = 1
 |+.....#      |
 |#11.11#      |
 |#11.11*******|
-|***%***,,,,,*|
+|***%***,,?,,*|
 |*,,,,,,,###,*|
-|*,=?==,====,*|
+|*,====,====,*|
 |*,####,####,*|
-|*,====,=?==,*|
+|*,====,====,*|
 |*,####,####,*|
-|*,==?=,====,*|
-|*,,#######,,*|
-|**,+=,^,=+,**|
+|*,====,====,*|
+|*#x#######x#*|
+|**,,?,^,?,,**|
 | *********** |
 +-------------+
 
@@ -32,6 +32,7 @@ mandatory = 1
 *: SQUARE_REINFORCEDWALL, SQUAREFLAG_LIT
  : SQUARE_EMPTY
 +: SQUARE_BLOCKEDDOOR, SQUAREFLAG_LIT
+x: SQUARE_SECRETDOOR, SQUAREFLAG_LIT
 =: SQUARE_FLOOR, ITEMTYPE_SPELLBOOK, SQUAREFLAG_LIT, SQUAREFLAG_NOMOB
 ?: SQUARE_FLOOR, ITEMTYPE_SCROLL, ITEMTYPE_SCROLL, ITEMTYPE_SCROLL, ITEMTYPE_SCROLL, ITEMTYPE_SCROLL, SQUAREFLAG_LIT, SQUAREFLAG_NOMOB
 1: SQUARE_FLOORALTAR, SQUAREFLAG_LIT
