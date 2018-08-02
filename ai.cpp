@@ -670,8 +670,9 @@ MOB::aiMoveInDirection(int dx, int dy, int distx, int disty,
 	// Holy fuck does this get complicated quickly.
 	// I never meant to create this monstrosity of a conditional!
 	// (Those who were just grepping for swear words: Shame!)
+	// I love the way you write comments, Mr. Lait. --red_kangaroo
 	if (( (distx > 2 && dx) || (disty > 2 && dy) ) &&
-	    hasIntrinsic(INTRINSIC_JUMP) &&
+	    (hasIntrinsic(INTRINSIC_JUMP) || hasSkill(SKILL_JUMP)) &&
 	    canMoveDelta(dx * 2, dy * 2, true, false, true) &&
 	    !hasIntrinsic(INTRINSIC_BLIND) &&
 	     glbCurLevel->isLit(getX() + dx * 2, getY() + dy * 2) &&
@@ -696,6 +697,8 @@ MOB::aiMoveInDirection(int dx, int dy, int distx, int disty,
 		// any better off with bumping, so no need to special
 		// case.
 		// Jump to close quickly.
+		// BTW, we should also try to use leap attack if we know it.
+		// TODO: Leap attack.
 		return actionJump(dx, dy);
 	    }
 	}
@@ -1557,6 +1560,13 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
 	if (target && canSense(target))
 	    return actionCast(SPELL_ACIDICMIST, diffx, diffy, 0);
     }
+	
+	if (canCastSpell(SPELL_CLOUDKILL) && mob_shouldCast() &&
+	!aiCanTargetResist(target, ELEMENT_POISON))
+    {
+	if (target && canSense(target))
+	    return actionCast(SPELL_CLOUDKILL, diffx, diffy, 0);
+    }
 
     // Fire elementals get a special surprise :>
     if (target && target->getDefinition() == MOB_FIREELEMENTAL &&
@@ -1583,12 +1593,19 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
     }
 
     // Yes, I am evil.
-    if (canCastSpell(SPELL_FORCEWALL) && 
+    if (canCastSpell(SPELL_FORCEWALL) &&
 	range < 4 &&	    
 	mob_shouldCast(6) &&
 	!aiCanTargetResist(target, ELEMENT_PHYSICAL))
     {
 	return actionCast(SPELL_FORCEWALL, diffx, diffy, 0);
+    }
+	
+	if (canCastSpell(SPELL_SUNFIRE) && 
+    range < 4 && !hasIntrinsic(INTRINSIC_TIRED) &&
+	mob_shouldCast() && canSense(target))
+    {
+	return actionCast(SPELL_SUNFIRE, 0, 0, 0);
     }
 
     if (canCastSpell(SPELL_ROLLINGBOULDER) && mob_shouldCast())
@@ -1690,6 +1707,29 @@ MOB::aiDoBattlePrep(int diffx, int diffy)
 	}		// for each direction.
     }
 
+	if (canCastSpell(SPELL_ACIDPOOL) && mob_shouldCast())
+    {
+	// Determine if target isn't already in acid.
+	switch (glbCurLevel->getTile(getX() + diffx, getY() + diffy))
+	{
+	    case SQUARE_CORRIDOR:
+	    case SQUARE_FLOOR:
+	    case SQUARE_FLOORPIT:
+	    case SQUARE_PATHPIT:
+	    {
+		
+		MOB		*target;
+
+		target = glbCurLevel->getMob(getX() + diffx, getY() + diffy);
+		if (target && canSense(target))
+		    return actionCast(SPELL_ACIDPOOL, diffx, diffy, 0);
+		break;
+	    }
+	    default:
+		break;
+	}
+    }
+	
     if (canCastSpell(SPELL_CREATEPIT) && mob_shouldCast())
     {
 	// Determine if target isn't already in a pit.
@@ -1773,6 +1813,10 @@ MOB::aiDoHealSelf()
     if (canCastSpell(SPELL_MAJORHEAL))
     {
 	return actionCast(SPELL_MAJORHEAL, 0, 0, 0);
+    }
+    if (!hasIntrinsic(INTRINSIC_MAGICSHIELD) && canCastSpell(SPELL_MAGICSHIELD))
+    {
+	return actionCast(SPELL_MAGICSHIELD, 0, 0, 0);
     }
     if (canCastSpell(SPELL_HEAL))
     {
@@ -2175,7 +2219,10 @@ MOB::aiDoSpellAttack(int dx, int dy, int range)
 	!aiCanTargetResist(target, ELEMENT_ACID))
     {
 	// Yep, I'm evil.
+	if (target && canSense(target))
+	{
 	return actionCast(SPELL_DISINTEGRATE, dx, dy, 0);
+	}
     }
 	
 	if (range == 1 && mob_shouldCast() && canCastSpell(SPELL_PETRIFY))
@@ -2232,6 +2279,12 @@ MOB::aiDoSpellAttack(int dx, int dy, int range)
 	!aiCanTargetResist(target, ELEMENT_POISON))
     {
 	return actionCast(SPELL_POISONBOLT, dx, dy, 0);
+    }
+	
+	if (canCastSpell(SPELL_SPLINTERBOLT) && mob_shouldCast() &&
+	!aiCanTargetResist(target, ELEMENT_PHYSICAL))
+    {
+	return actionCast(SPELL_SPLINTERBOLT, dx, dy, 0);
     }
 
     // Good old frost bolt.
@@ -2328,6 +2381,16 @@ MOB::aiIsItemCooler(ITEM *item, ITEMSLOT_NAMES slot)
     if (item->getMaterial() == MATERIAL_SILVER)
     {
 	if (hasIntrinsic(INTRINSIC_VULNSILVER))
+	    return false;
+    }
+	if (item->getMaterial() == MATERIAL_GOLD)
+    {
+	if (hasIntrinsic(INTRINSIC_GOLDALLERGY))
+	    return false;
+    }
+	if (item->getMaterial() == MATERIAL_IRON)
+    {
+	if (hasIntrinsic(INTRINSIC_IRONALLERGY))
 	    return false;
     }
 
