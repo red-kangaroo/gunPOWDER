@@ -16,7 +16,7 @@ GOD::AGNOSTIC - no one god
 
     Adventurers scoff at special conducts!
 
-    Followers receive +5/+5 per level.
+    Every level, adventurers receive good health boost and some magic power.
 
 GOD::FIGHTER - Klaskov
     Klaskov the Ironclad is the patron deity of Fighters. He is best
@@ -233,9 +233,9 @@ ITEM::POINTEDSLIPPERS - pointed slippers
     the fire while recounting the glory of your adventures.  Too bad
     you are currently *in* the adventure!
 
-ITEM::WOODENSHIELD - wooden shield
+ITEM::LANTERNSHIELD - lantern shield
     Constructed of several pieces of wood cleverly joined, the wooden
-    shield is intended as disposable protection.
+    shield is intended as disposable protection. XXX
 
 ITEM::BUCKLER - buckler
     A small iron shield designed to be strapped to the arm, the buckler
@@ -428,7 +428,9 @@ ITEM::YRUNE
     with you.
 
 HELM::DRAIN
-    Experiments with trying to produce the fabled Helm of Brilliance often
+    XXX
+	
+	Experiments with trying to produce the fabled Helm of Brilliance often
     result in creating a Helm of Draining.  Rather than amplifying the 
     wearers magic, they instead drain it, leaving the magician bereft of
     their usual magic regeneration.
@@ -1614,23 +1616,34 @@ MOB::GREENSNAKE - green snake
     This diminuitive snake is common in the yendorian countryside, hunting
 	small prey such as mice, giant beetles and kobolds. It is generally very
 	shy and is not known to attack humans unless threatened. Nonetheless,
-	one should be wary of its poisonous bite and leave it to live by its own
-	whim.
+	one should be wary of its poisonous bite and leave it to live on its own.
+	
+	While the well-known 'green tartare' is prepared from this snake's meat,
+	any would-be chef should be warned that safely separating the poison glands
+	from the edible bits requires certain skill and unprofessionally prepared
+	tartare can result in severe food poisoning.
 	
 	-- From 'Vicipaedia de reptilium et dracones'
 
 MOB::FIRESNAKE - red snake
     Rubrum deserta anguis ignis
 	
-    A snake measuring 30 to 50 centimeters in length with scales
-    coloured in an impressive red and yellow pattern. Many people in
-    the border states of the great Red Desert, such as Qurac and Klach,
-	value the scales for the creation of fancy-looking boots. If it
-	weren't for the snake's venom, aptly named 'liquid fire', this demand
-	could have spelt its extinction.
+    A snake measuring 30 to 50 centimeters in length with scales coloured
+    in an impressive red and yellow pattern, ubiquitous in the Red Desert
+	of Utabi. Many people in countries bordering the Red Desert, such as
+	Qurac and Klach, value the scales for the creation of fancy-looking
+	boots. If it wasn't for the snake's venom, aptly named 'liquid fire',
+	this demand	could have spelt its extinction.
 	
 	-- From 'Vicipaedia de reptilium et dracones'
 
+MOB::SHIMMERINGSNAKE - shimmering snake
+    Serpens mortuus magicae
+	
+   XXX
+	
+	-- From 'Vicipaedia de reptilium et dracones'
+	
 MOB::MOUSE - mouse
     Small mice scurry anywhere that food scraps may be found.  To the
     novice, their movement may seem chaotic and random.  The skilled
@@ -1639,7 +1652,7 @@ MOB::MOUSE - mouse
     As a Hero on a Great Quest, you surely don't care about becoming a
     better mouser.
 
-MOB::RAT - big rat
+MOB::RAT - large rat
     This is a big rat.
 	
     Rats live where humans live, but that doesn't stop humans from hating
@@ -1773,12 +1786,19 @@ MOB::GIANTSPIDER - giant spider
     and sucked into its gullet.
 
 MOB::KIWI - kiwi
-    The kiwi, native to New Zealand, is peculiar in that it is not just a
-    flightless bird, but a wingless bird as well.  Its nocturnal habit
-    allows it to live peacefully in the depths, feasting on insects
-    snuffled out with its long beak.  Antagonizing the kiwi is strongly 
-    discouraged for that same snout can inflict a devastating piercing
-    attack.
+    This large bird native to the beautiful island Zal Aden is peculiar
+	in that it is not just flightless, but wingless as well. While its
+	name could invoke connections to the extremely dangerous, carnivorous
+	kiwi plant, there is no connection between the two species except for
+	T'rus the Traveller's apparent fondness of the word 'kiwi'. The kiwi is
+	indeed peaceful by nature, as T'rus recorded in his Zal Aden journal:
+	
+	"XXX"
+	
+	The kiwi, being nocturnal, easily adapted to the sunless life in the
+	depths, feasting on	insects snuffled out with its long beak. Monsters
+	tend to avoid antagonizing the kiwi for that same beak can inflict a
+	devastating piercing attack.
 
 MOB::BAT - small bat
     Explorers of dungeon depths should be thankful for bats for their part
