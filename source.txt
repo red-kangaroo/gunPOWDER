@@ -2096,7 +2096,7 @@ INTRINSIC RESISTPHYSICAL
 
 INTRINSIC TELEPORT
 {
-    name	"teleport"
+    name	"teleporting"
     gaintxt	"%U <feel> jumpy."
     losetxt	"%U <feel> stabilized."
 }
@@ -2110,7 +2110,7 @@ INTRINSIC TELEFIXED
 
 INTRINSIC POSITIONREVEALED
 {
-    name	"revealed"
+    name	"marked"
     gaintxt	"%U <feel> like someone is always watching."
     losetxt	"%U <feel> inconspicuous."
 }
@@ -2140,8 +2140,8 @@ INTRINSIC REGENERATION
 INTRINSIC NOREGEN
 {
     name	"unhealing"
-    gaintxt	"%U <stop> self-repairing."
-    losetxt	"%U <start> to self-repair."
+    gaintxt	"%U <stop> all healing."
+    losetxt	"%U <start> to heal."
 }
 
 INTRINSIC BLEED
@@ -2163,6 +2163,15 @@ INTRINSIC MAGICDRAIN
     surviveunpoly	true
 }
 
+INTRINSIC MAGICSHIELD
+{
+    name	"shielded"
+    gaintxt	"A golden sheen surrounds %U."
+    losetxt	"The golden sheen dissipates from %U."
+    survivepoly		true
+    surviveunpoly	true
+}
+
 INTRINSIC REFLECTION
 {
     name	"reflective"
@@ -2180,8 +2189,8 @@ INTRINSIC SEARCH
 INTRINSIC VULNSILVER
 {
     name	"allergic to silver"
-    gaintxt	"%U <begin> to fear silver."
-    losetxt	"%U no longer <fear> silver."
+    gaintxt	"%U <develop> an allergy to silver."
+    losetxt	"%U <begin> to tolerate silver."
 }
 
 INTRINSIC GOLDALLERGY
@@ -2189,6 +2198,13 @@ INTRINSIC GOLDALLERGY
     name	"allergic to gold"
     gaintxt	"%U <develop> an allergy to gold."
     losetxt	"%U <begin> to tolerate gold."
+}
+
+INTRINSIC IRONALLERGY
+{
+    name	"allergic to iron"
+    gaintxt	"%U <develop> an allergy to iron."
+    losetxt	"%U <begin> to tolerate iron."
 }
 
 INTRINSIC VULNFIRE
@@ -2253,6 +2269,13 @@ INTRINSIC SEEINVISIBLE
     losetxt	"The wind vanishes."
 }
 
+INTRINSIC CLAIRVOYANCE
+{
+    name	"clairvoyance"
+    gaintxt	"Everything is so clear now!"
+    losetxt	"%U <feel> blinded."
+}
+
 INTRINSIC BLIND
 {
     name	"blind"
@@ -2275,14 +2298,14 @@ INTRINSIC NOISY
 {
     name	"noisy"
     gaintxt	"%U <step> heavily."
-    losetxt	"%R steps are lighter."
+    losetxt	"%R steps <be> lighter."
 }
 
 INTRINSIC WARNING
 {
     name	"warning"
     gaintxt	"%U <be> warned."
-    losetxt	"%U no longer are warned."
+    losetxt	"%U no longer <be> warned."
 }
 
 INTRINSIC TELEPATHY
@@ -2388,7 +2411,7 @@ INTRINSIC WATERWALK
 
 INTRINSIC JUMP
 {
-    name	"jump"
+    name	"can jump"
     gaintxt	"%R legs feel springy."
     losetxt	"%R legs feel like jelly."
 }
@@ -2427,7 +2450,7 @@ INTRINSIC BRAINDEAD
 
 INTRINSIC LEADER
 {
-    name	"a leader"
+    name	"leader"
     gaintxt	"%U <feel> like taking a leadership role."
     losetxt	"%U <feel> abandoned."
     survivepoly		true
@@ -2447,7 +2470,7 @@ INTRINSIC SUMMONED
 
 INTRINSIC FAMILIAR
 {
-    name	"a familiar"
+    name	"familiar"
     gaintxt	"%U <feel> a very close connection."
     losetxt	"%U <lose> a close connection."
 
@@ -2488,7 +2511,7 @@ INTRINSIC SUBMERGED
 
 INTRINSIC POLYMORPH
 {
-    name	"polymorph"
+    name	"polymorphing"
     gaintxt	"%U <feel> like a change."
     losetxt	"%U <feel> fixed."
 }
@@ -2530,7 +2553,7 @@ INTRINSIC OFFBALANCE
 
 INTRINSIC LICHFORM
 {
-    name	"dark transcendence"
+    name	"transcendent"
     gaintxt	"%U <be> imbued with evil!"
     losetxt	"%U <feel> evil recede..."
     maxcount		2
@@ -2562,6 +2585,38 @@ INTRINSIC SKILL_SEARCH
     name	"search skill"
     gaintxt	"%U <search> more carefully."
     losetxt	"%U no longer <search> carefully."
+    isskill	true
+}
+
+INTRINSIC SKILL_JUMP
+{
+    name	"jump skill"
+    gaintxt	"%U <know> how to jump."
+    losetxt	"%U cannot jump very far."
+    isskill	true
+}
+
+INTRINSIC SKILL_TUMBLE
+{
+    name	"tumble skill"
+    gaintxt	"%U can dance past foes."
+    losetxt	"%U no longer can dance past foes."
+    isskill	true
+}
+
+INTRINSIC SKILL_FORESTRY
+{
+    name	"forestry skill"
+    gaintxt	"%U <feel> at home in forests."
+    losetxt	"%U no longer <feel> at home in forests."
+    isskill	true
+}
+
+INTRINSIC SKILL_MASTERTHROWER
+{
+    name	"hurling skill"
+    gaintxt	"%U can throw with unseen force."
+    losetxt	"%U no longer can throw with unseen force."
     isskill	true
 }
 
@@ -2607,9 +2662,17 @@ INTRINSIC SKILL_CHARGE
 
 INTRINSIC SKILL_LEAPATTACK
 {
-    name	"leap attack skill"
-    gaintxt	"%U <know> how to jump into the fray."
-    losetxt	"%U no longer <know> how to jump into the fray."
+    name	"flying kick skill"
+    gaintxt	"%U <know> how to attack in style."
+    losetxt	"%U no longer <know> how to attack in style."
+    isskill	true
+}
+
+INTRINSIC SKILL_BLOODLUST
+{
+    name	"bloodlust skill"
+    gaintxt	"%U <enjoy> the rush of battle."
+    losetxt	"%U no longer <enjoy> the rush of battle."
     isskill	true
 }
 
@@ -2792,24 +2855,24 @@ INTRINSIC SKILL_WEAPON_RIPOSTE
 INTRINSIC SKILL_WEAPON_TRUEAIM
 {
     name	"true aim skill"
-    gaintxt	"%U <know> how to throw knives true."
-    losetxt	"%U no longer <know> how to throw knives true."
+    gaintxt	"%U <know> how to shoot true."
+    losetxt	"%U no longer <know> how to shoot true."
     isskill	true
 }
 
 INTRINSIC SKILL_WEAPON_RICOCHET
 {
     name	"ricochet skill"
-    gaintxt	"%U <know> how to bounce arrows off walls."
-    losetxt	"%U no longer <know> how to bounce arrows."
+    gaintxt	"%U <know> how to bounce rocks off walls."
+    losetxt	"%U no longer <know> how to bounce rocks."
     isskill	true
 }
 
 INTRINSIC SKILL_WEAPON_PARRY
 {
     name	"parrying skill"
-    gaintxt	"%U <know> how to parry with weapons."
-    losetxt	"%U no longer <know> how to parry with weapons."
+    gaintxt	"%U <know> how to parry attacks."
+    losetxt	"%U no longer <know> how to parry attacks."
     isskill	true
 }
 
@@ -2833,8 +2896,56 @@ INTRINSIC SKILL_WEAPON_STUN
 INTRINSIC SKILL_WEAPON_KNOCKBACK
 {
     name	"knockback skill"
-    gaintxt	"%U <know> how to knockback creatures."
-    losetxt	"%U no longer <know> how to knockback creatures."
+    gaintxt	"%U <know> how to knock back creatures."
+    losetxt	"%U no longer <know> how to knock back creatures."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_SNEAKATTACK
+{
+    name	"sneak attack skill"
+    gaintxt	"%U <know> how to attack helpless creatures."
+    losetxt	"%U no longer <know> how to attack helpless creatures."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_MULTIATTACK
+{
+    name	"hack'n'slash skill"
+    gaintxt	"%U <know> how to attack multiple times."
+    losetxt	"%U no longer <know> how to attack multiple times."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_RETREAT
+{
+    name	"hack'n'back skill"
+    gaintxt	"%U <know> how to back away from danger."
+    losetxt	"%U no longer <know> how to back away from danger."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_POWERATTACK
+{
+    name	"mighty blow skill"
+    gaintxt	"%U <know> how to smite creatures."
+    losetxt	"%U no longer <know> how to smite creatures."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_CONCUSSION
+{
+    name	"concussive blow skill"
+    gaintxt	"%U <know> how to cause brain damage."
+    losetxt	"%U no longer <know> how to cause brain damage."
+    isskill	true
+}
+
+INTRINSIC SKILL_WEAPON_CLOBBER
+{
+    name	"clobber skill"
+    gaintxt	"%U <know> how to press the foe."
+    losetxt	"%U no longer <know> how to press the foe."
     isskill	true
 }
 
@@ -2864,6 +2975,14 @@ INTRINSIC SPELL_MAGICMISSILE
     name	"cast magic missile"
     gaintxt	"%U <learn> Magic Missile."
     losetxt	"%U no longer <know> Magic Missile."
+    isspell	true
+}
+
+INTRINSIC SPELL_MAGICSHIELD
+{
+    name	"cast magic shield"
+    gaintxt	"%U <learn> Magic Shield."
+    losetxt	"%U no longer <know> Magic Shield."
     isspell	true
 }
 
@@ -3013,9 +3132,9 @@ INTRINSIC SPELL_SLOWPOISON
 
 INTRINSIC SPELL_HEAL
 {
-    name	"cast heal"
-    gaintxt	"%U <learn> Heal."
-    losetxt	"%U no longer <know> Heal."
+    name	"cast minor heal"
+    gaintxt	"%U <learn> Minor Heal."
+    losetxt	"%U no longer <know> Minor Heal."
     isspell	true
 }
 
@@ -3355,6 +3474,14 @@ INTRINSIC SPELL_CLOUDKILL
     isspell	true
 }
 
+INTRINSIC SPELL_SPLINTERBOLT
+{
+    name	"cast splinter bolt"
+    gaintxt	"%U <learn> Splinter Bolt."
+    losetxt	"%U no longer <know> Splinter Bolt."
+    isspell	true
+}
+
 COMMENT
 {
     Poison related intrinsics...
@@ -3570,6 +3697,7 @@ SKILL MOVINGTARGET
 {
     name	"Moving Target"
     intrinsic	SKILL_MOVINGTARGET
+	prereq	DODGE
     god		ROGUE
     proc	50
 }
@@ -3581,10 +3709,42 @@ SKILL SEARCH
     god		ROGUE
 }
 
+SKILL JUMP
+{
+    name	"Jump"
+    intrinsic	SKILL_JUMP
+    god		BARB
+}
+
+SKILL TUMBLE
+{
+    name	"Tumble"
+    intrinsic	SKILL_TUMBLE
+    god		ROGUE
+}
+
+SKILL FORESTRY
+{
+    name	"Forestry"
+    intrinsic	SKILL_FORESTRY
+    god		ROGUE
+}
+
+SKILL MASTERTHROWER
+{
+    name	"Hurling"
+    intrinsic	SKILL_MASTERTHROWER
+	prereq	WEAPON_RANGED
+    god		ROGUE
+	god		NECRO
+}
+
 SKILL EVADETRAP
 {
     name	"Evade Traps"
     intrinsic	SKILL_EVADETRAP
+	prereq	SEARCH
+	prereq  DODGE
     god		ROGUE
 }
 
@@ -3592,7 +3752,6 @@ SKILL ENDUREHUNGER
 {
     name	"Endure Hunger"
     intrinsic	SKILL_ENDUREHUNGER
-    god		BARB
     god		CLERIC
 }
 
@@ -3605,7 +3764,7 @@ SKILL BUTCHERY
 
 SKILL CLEANKILL
 {
-    name	"Clean Kill"
+    name	"Hunting"
     intrinsic	SKILL_CLEANKILL
     god		BARB
 }
@@ -3620,8 +3779,17 @@ SKILL CHARGE
 
 SKILL LEAPATTACK
 {
-    name	"Leap Attack"
+    name	"Flying Kick"
     intrinsic	SKILL_LEAPATTACK
+	prereq	JUMP
+    god		BARB
+	god     ROGUE
+}
+
+SKILL BLOODLUST
+{
+    name	"Bloodlust"
+    intrinsic	SKILL_BLOODLUST
     god		BARB
 }
 
@@ -3671,7 +3839,7 @@ SKILL ARMOUR_BOOTS
 
 SKILL ARMOUR_CLOTH
 {
-    name	"Cloth Armour"
+    name	"Clothing"
     intrinsic	SKILL_ARMOUR_CLOTH
     god		FIGHTER
     god		ROGUE
@@ -3680,7 +3848,7 @@ SKILL ARMOUR_CLOTH
 
 SKILL ARMOUR_LEATHER
 {
-    name	"Leather Armour"
+    name	"Primitive Armour"
     intrinsic	SKILL_ARMOUR_LEATHER
     prereq	ARMOUR_CLOTH
     god		FIGHTER
@@ -3750,7 +3918,7 @@ COMMENT
 
 SKILL WEAPON_EDGED
 {
-    name	"Edged Attacks"
+    name	"Edged Weapons"
     intrinsic	SKILL_WEAPON_EDGED
     god		BARB
     god		FIGHTER
@@ -3759,15 +3927,16 @@ SKILL WEAPON_EDGED
 
 SKILL WEAPON_BLUNT
 {
-    name	"Blunt Attacks"
+    name	"Blunt Weapons"
     intrinsic	SKILL_WEAPON_BLUNT
     god		BARB
+	god		CLERIC
     god		FIGHTER
 }
 
 SKILL WEAPON_POINTED
 {
-    name	"Pointed Attacks"
+    name	"Pointed Weapons"
     intrinsic	SKILL_WEAPON_POINTED
     god		FIGHTER
     god		ROGUE
@@ -3776,9 +3945,9 @@ SKILL WEAPON_POINTED
 
 SKILL WEAPON_IMPROVISE
 {
-    name	"Improvised Attacks"
+    name	"Improvised Weapons"
     intrinsic	SKILL_WEAPON_IMPROVISE
-    god		ROGUE
+    god		CULTIST
 }
 
 SKILL WEAPON_BLEEDINGWOUND
@@ -3786,9 +3955,9 @@ SKILL WEAPON_BLEEDINGWOUND
     name	"Bleeding Wounds"
     intrinsic	SKILL_WEAPON_BLEEDINGWOUND
     prereq	WEAPON_SMALL
-    prereq	WEAPON_POINTED
+    prereq	WEAPON_EDGED
     god		ROGUE
-    proc	20
+    proc	30
 }
 
 SKILL WEAPON_DISARM
@@ -3798,7 +3967,7 @@ SKILL WEAPON_DISARM
     prereq	WEAPON_MEDIUM
     prereq	WEAPON_POINTED
     god		ROGUE
-    proc	10
+    proc	20
 }
 
 SKILL WEAPON_IMPALE
@@ -3816,7 +3985,7 @@ SKILL WEAPON_TRUEAIM
     name	"True Aim"
     intrinsic	SKILL_WEAPON_TRUEAIM
     prereq	WEAPON_RANGED
-    prereq	WEAPON_EDGED
+    prereq	WEAPON_POINTED
     god		ROGUE
 }
 
@@ -3825,7 +3994,7 @@ SKILL WEAPON_RICOCHET
     name	"Ricochet"
     intrinsic	SKILL_WEAPON_RICOCHET
     prereq	WEAPON_RANGED
-    prereq	WEAPON_POINTED
+    prereq	WEAPON_BLUNT
     god		ROGUE
 }
 
@@ -3837,17 +4006,18 @@ SKILL WEAPON_RIPOSTE
     prereq	WEAPON_EDGED
     god		FIGHTER
     god		ROGUE
+	proc    20
 }
 
 SKILL WEAPON_PARRY
 {
     name	"Parry"
     intrinsic	SKILL_WEAPON_PARRY
-    prereq	WEAPON_MEDIUM
-    prereq	WEAPON_EDGED
+    prereq	WEAPON_LARGE
+    prereq	WEAPON_BLUNT
     god		FIGHTER
-    god		ROGUE
-    proc	10
+    god		WIZARD
+    proc	20
 }
 
 SKILL WEAPON_KNOCKOUT
@@ -3856,8 +4026,9 @@ SKILL WEAPON_KNOCKOUT
     intrinsic	SKILL_WEAPON_KNOCKOUT
     prereq	WEAPON_SMALL
     prereq	WEAPON_BLUNT
-    god		ROGUE
-    proc	10
+    god		BARB
+	god     ROGUE
+    proc	15
 }
 
 SKILL WEAPON_STUN
@@ -3868,17 +4039,74 @@ SKILL WEAPON_STUN
     prereq	WEAPON_BLUNT
     god		FIGHTER
     god		BARB
-    proc	10
+    proc	20
 }
 
 SKILL WEAPON_KNOCKBACK
 {
-    name	"Knockback"
+    name	"Knock Back"
     intrinsic	SKILL_WEAPON_KNOCKBACK
     prereq	WEAPON_LARGE
     prereq	WEAPON_BLUNT
     god		BARB
+	god		FIGHTER
     proc	20
+}
+
+SKILL WEAPON_SNEAKATTACK
+{
+    name	"Sneak Attack"
+    intrinsic	SKILL_WEAPON_SNEAKATTACK
+    prereq	WEAPON_SMALL
+    prereq	WEAPON_POINTED
+    god		ROGUE
+}
+
+SKILL WEAPON_MULTIATTACK
+{
+    name	"Hack'n'Slash"
+    intrinsic	SKILL_WEAPON_MULTIATTACK
+    prereq	WEAPON_MEDIUM
+    prereq	WEAPON_EDGED
+    god		BARB
+	god		FIGHTER
+}
+
+SKILL WEAPON_RETREAT
+{
+    name	"Hack'n'Back"
+    intrinsic	SKILL_WEAPON_RETREAT
+    prereq	WEAPON_MULTIATTACK
+	prereq	JUMP
+    god		BARB
+	god		FIGHTER
+}
+
+SKILL WEAPON_POWERATTACK
+{
+    name	"Mighty Blow"
+    intrinsic	SKILL_WEAPON_POWERATTACK
+    prereq	WEAPON_KNOCKBACK
+	prereq	CHARGE
+    god		BARB
+}
+
+SKILL WEAPON_CONCUSSION
+{
+    name	"Concussive Blow"
+    intrinsic	SKILL_WEAPON_CONCUSSION
+    prereq	WEAPON_STUN
+    god     FIGHTER
+    god		BARB
+}
+
+SKILL WEAPON_CLOBBER
+{
+    name	"Clobber"
+    intrinsic	SKILL_WEAPON_CLOBBER
+    prereq	WEAPON_KNOCKOUT
+    god     FIGHTER
+    god		BARB
 }
 
 COMMENT
@@ -4116,14 +4344,14 @@ SPELL CHAINLIGHTNING
 SPELL SUNFIRE
 {
     name		"Sunfire"
-    mpcost		60
+    mpcost		80
     type		ATTACK
     needsdir		0
     intrinsic		SPELL_SUNFIRE
     god			WIZARD
 
-    prereq		FIREBALL
-    prereq		DIRECTWIND
+    prereq		FLAMESTRIKE
+    prereq		LIGHT
 
     tile		SUNFIRE
 }
@@ -4153,7 +4381,6 @@ SPELL ACIDICMIST
     god			WIZARD
 
     prereq		ACIDSPLASH
-    prereq		DIRECTWIND
 
     tile		ACIDICMIST
 }
@@ -4221,6 +4448,17 @@ SPELL DISINTEGRATE
     tile		DISINTEGRATE
 }
 
+SPELL SPLINTERBOLT
+{
+    name		"Splinter Bolt"
+    mpcost		5
+    type		ATTACK
+    intrinsic		SPELL_SPLINTERBOLT
+    god			ROGUE
+
+    tile		GROWFOREST
+}
+
 COMMENT
 {
     Healing spells...  These are much higher cost.
@@ -4248,7 +4486,7 @@ SPELL SLOWPOISON
 {
     name		"Slow Poison"
     mpcost		5
-    type		HEAL
+    type		UTILITY
     intrinsic		SPELL_SLOWPOISON
     god			WIZARD
     god			CLERIC
@@ -4262,7 +4500,7 @@ SPELL SLOWPOISON
 
 SPELL HEAL
 {
-    name		"Heal"
+    name		"Minor Heal"
     mpcost		10
     type		HEAL
     intrinsic		SPELL_HEAL
@@ -4369,7 +4607,7 @@ COMMENT
 
 SPELL LIGHT
 {
-    name		"Light"
+    name		"Call Light"
     mpcost		5
     type		UTILITY
     needsdir		0
@@ -4381,7 +4619,7 @@ SPELL LIGHT
 
 SPELL DARKNESS
 {
-    name		"Darkness"
+    name		"Call Darkness"
     mpcost		5
     type		UTILITY
     needsdir		0
@@ -4420,7 +4658,7 @@ SPELL TRACK
 
 SPELL WIZARDSEYE
 {
-    name		"Wizard's Eye"
+    name		"Arcane Eye"
     mpcost		10
     type		UTILITY
     intrinsic		SPELL_WIZARDSEYE
@@ -4567,7 +4805,7 @@ SPELL TELEPORT
 SPELL TELEWITHCONTROL
 {
     name		"Teleport with Control"
-    mpcost		20
+    mpcost		25
     type		UTILITY
     needsdir		0
     intrinsic		SPELL_TELEPORT
@@ -4615,6 +4853,23 @@ SPELL FORCEWALL
     tile		FORCEWALL
 }
 
+SPELL MAGICSHIELD
+{
+    name		"Magic Shield"
+    mpcost		5
+    type		UTILITY
+    intrinsic		SPELL_MAGICSHIELD
+	needsdir		false
+	needstarget		true
+    god			WIZARD
+    god			NECRO
+	tile		FORCEWALL
+
+	prereq      MAGICMISSILE
+	
+    publish		true
+}
+
 SPELL DIG
 {
     name		"Dig"
@@ -4647,7 +4902,7 @@ SPELL CREATEPIT
 SPELL SANDSTORM
 {
     name		"Sandstorm"
-    mpcost		20
+    mpcost		40
     type		UTILITY
     needsdir		0
     needstarget		1
@@ -4924,7 +5179,6 @@ SPELL CLOUDKILL
     god			NECRO
 
     prereq		POISONBOLT
-    prereq		DIRECTWIND
 
     tile		CLOUDKILL
 
@@ -5477,6 +5731,13 @@ ATTACK TRIPLECLUB
     nextattack		DOUBLECLUB
 }
 
+ATTACK CLUBTHROWN
+{
+    verb		"strike"
+    damage		1d4+1
+	range       4
+}
+
 ATTACK MACE
 {
     verb		"smash"
@@ -5499,6 +5760,13 @@ ATTACK KNIFE
 {
     verb		"jab"
     damage		1d3+1
+}
+
+ATTACK VAMPIREKNIFE
+{
+    verb		"jab"
+    damage		1d3+1
+	eat         50
 }
 
 ATTACK KNIFETHROWN
@@ -5559,14 +5827,14 @@ ATTACK LONGSWORD
 ATTACK RAPIER
 {
     verb		"stab"
-    damage		1d6
+    damage		1d7
     bonustohit		2
 }
 
 ATTACK LIGHTNINGRAPIER
 {
     verb		"shock"
-    damage		1d6
+    damage		1d5
     element		SHOCK
     bonustohit		4
 	sameattack  RAPIER
@@ -5605,8 +5873,18 @@ ATTACK IRONSHODSTAFF
 
 ATTACK LEADFILLEDSTAFF
 {
-    verb		"hit"
+    verb		"strike"
     damage		2d3
+}
+
+ATTACK ANTIMAGICSTAFF
+{
+    verb		"strike"
+    damage		2d3
+	
+	inflict_intrinsic	MAGICDRAIN
+    inflict_chance	50
+    inflict_duration	2d20
 }
 
 ATTACK TORCH
@@ -5629,7 +5907,7 @@ ATTACK TORCHTHROWN
     damage		1d5+2
     element		FIRE
     bonustohit		-2
-    range		5
+    range		4
 }
 
 ATTACK ARROWTHROWN
@@ -5663,8 +5941,8 @@ ATTACK FIREARROWTHROWN
 ATTACK ROCKTHROWN
 {
     verb		"strike"
-    damage		1d2+2
-    range		4
+    damage		1d4+2
+    range		6
 }
 
 ATTACK POTIONTHROWN
@@ -5729,8 +6007,23 @@ ATTACK MINDACID
 ATTACK FIRESPIT
 {
     verb		"spit at"
-    damage		1d4
+    damage		1d3
     element		FIRE
+	
+	inflict_intrinsic	VULNFIRE
+    inflict_chance	20
+    inflict_duration	1d3+1
+}
+
+ATTACK FROSTSPIT
+{
+    verb		"spit at"
+    damage		1d3
+    element		COLD
+	
+	inflict_intrinsic	VULNCOLD
+    inflict_chance	20
+    inflict_duration	1d3+1
 }
 
 ATTACK MOUSEBITE
@@ -5808,7 +6101,8 @@ ATTACK GREENSNAKEBITE
     verb		"bite"
     damage		1d4
     bonustohit		1
-    inflict_intrinsic	POISON_MILD
+	
+    inflict_intrinsic	POISON_NORMAL
     inflict_duration	2d3
     inflict_chance	100
 }
@@ -5829,7 +6123,7 @@ ATTACK SHITOMICHU
     bonustohit		-2
 	
 	inflict_intrinsic	VULNPHYSICAL
-    inflict_duration	2d5
+    inflict_duration	2d50
     inflict_chance	20
 }
 
@@ -6127,6 +6421,10 @@ ATTACK BAEZELBUB_BITE
     verb		"bite"
     damage		3d4
     nextattack		BAEZLEBUB_SWORDFLAME
+	
+    inflict_intrinsic	NOREGEN
+    inflict_chance	20
+    inflict_duration	2d50+10
 }
 
 ATTACK BAEZLEBUB_SWORDFLAME
@@ -6136,12 +6434,33 @@ ATTACK BAEZLEBUB_SWORDFLAME
     element		FIRE
     bonustohit		4
     sameattack		BEAZELBUG_SWORD
+	
+	inflict_intrinsic	MAGICDRAIN
+    inflict_chance	20
+    inflict_duration	2d20+10
 }
 
 ATTACK BEAZELBUG_SWORD
 {
     verb		"slash"
     damage		2d8
+	
+	inflict_intrinsic	BLEED
+    inflict_chance	20
+    inflict_duration	2d5
+	
+	nextattack	BAALZEBOUB_KICK
+}
+
+ATTACK BAALZEBOUB_KICK
+{
+    verb		"kick"
+    damage		2d5
+	
+	inflict_intrinsic	PARALYSED
+    inflict_chance	20
+    inflict_duration	1d3
+    inflict_resistance	PARALYSED
 }
 
 ATTACK GLASSSHARDS
@@ -6179,6 +6498,30 @@ ATTACK GOLDITEM
     verb		"sear"
 
     deathtext		"Your greed for gold proved unwise."
+    damage		2d3
+}
+
+ATTACK IRONITEM
+{
+    verb		"sear"
+
+    deathtext		"You suffered from the cold touch of iron."
+    damage		2d3
+}
+
+ATTACK STONEITEM
+{
+    verb		"sear"
+
+    deathtext		"You were left stone cold."
+    damage		2d3
+}
+
+ATTACK GLASSITEM
+{
+    verb		"sear"
+
+    deathtext		"It's crystal clear now you shouldn't have touched that."
     damage		2d3
 }
 
@@ -6298,18 +6641,18 @@ ATTACK SPELL_SANDBLAST
 ATTACK SPELL_SANDSTORM
 {
     verb		"blast"
-    damage		1d7
+    damage		3d20
     element		PHYSICAL
     alwayshit		true
 
     inflict_intrinsic	BLIND
     inflict_chance	100
-    inflict_duration	2d3
+    inflict_duration	3d7
     inflict_resistance	BLIND
 	
 	inflict_intrinsic	BLEED
     inflict_chance	100
-    inflict_duration	2d7
+    inflict_duration	3d7+7
 }
 
 ATTACK SPELL_FORCEWALL
@@ -6451,6 +6794,17 @@ ATTACK SPELL_FINGEROFDEATH
     damage		1000
     element		DEATH
     deathtext		"You were slain by the Finger of Death"
+}
+
+ATTACK SPELL_SPLINTERBOLT
+{
+    verb		"shred"
+    damage		2
+    element		PHYSICAL
+	
+	inflict_intrinsic	BLEED
+    inflict_chance	100
+    inflict_duration	4d5
 }
 
 COMMENT
@@ -7047,17 +7401,23 @@ MOB GREENDRAGON
     hitdie		8
     mpdie		1
     explevel		12
+	baseskills      2
     baseac		12
     smarts		WISE
     strength		DRAGON
     ai			SPECIEST
     size		LARGE
+	
     intrinsic		RESISTPOISON
     eatgrant		RESISTPOISON
+	
+	intrinsic		SKILL_BUTCHERY
+	
     mobtype		DRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	edible      LEATHER
 	
 	breathattack	POISONBREATH
     breathsubstance	"venom"
@@ -7073,6 +7433,7 @@ MOB WHITEDRAGON
     hitdie		8
     mpdie		1
     explevel		8
+	baseskills      2
     baseac		12
     smarts		WISE
     strength		DRAGON
@@ -7084,6 +7445,7 @@ MOB WHITEDRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	edible      LEATHER
 
     breathattack	ICEBREATH
     breathsubstance	"ice"
@@ -7099,6 +7461,7 @@ MOB REDDRAGON
     hitdie		8
     mpdie		1
     explevel		8
+	baseskills      2
     baseac		12
     smarts		WISE
     strength		DRAGON
@@ -7110,6 +7473,7 @@ MOB REDDRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	edible      LEATHER
 
     breathattack	FIREBREATH
     breathsubstance	"fire"
@@ -7125,6 +7489,7 @@ MOB BLUEDRAGON
     hitdie		8
     mpdie		1
     explevel		8
+	baseskills      2
     baseac		12
     smarts		WISE
     strength		DRAGON
@@ -7136,6 +7501,7 @@ MOB BLUEDRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	edible      LEATHER
     noise		3
 
     breathattack	LIGHTNINGBREATH
@@ -7147,11 +7513,12 @@ MOB YELLOWDRAGON
     tile		YELLOWDRAGON
     name		"yellow dragon"
     movetype		STD_FLY
-    attack		LONGSWORD
+    attack		DEATHSLUG
     hp			2d10+40
     hitdie		11
     mpdie		2
     explevel		10
+	baseskills      2
     baseac		14
     smarts		WISE
     strength		DRAGON
@@ -7166,6 +7533,7 @@ MOB YELLOWDRAGON
     slotset		ANIMAL
     edible		FLESH
     edible		WATER
+	edible      LEATHER
 
     breathattack	ACIDBREATH
     breathsubstance	"acid"
@@ -7184,6 +7552,7 @@ MOB COCKATRICE
     mpdie		0
     explevel		7
     baseac		7
+	blownbywind		true
     smarts		ANIMAL
     strength		WEAK
     ai			SPECIEST
@@ -7210,6 +7579,8 @@ MOB DAEMON
     basespells		5
     explevel		10
     baseac		10
+	blownbywind		true
+	
     smarts		WISE
     strength		DRAGON
     ai			RABID
@@ -7225,7 +7596,7 @@ MOB DAEMON
 
     intrinsic		SPELL_SUMMON_IMP
 	intrinsic		SPELL_STICKYFLAMES
-	intrinsic       SPELL_FIREBALL
+	intrinsic       SPELL_FLAMESTRIKE
 }
 
 MOB ICEDAEMON
@@ -7242,6 +7613,8 @@ MOB ICEDAEMON
     basespells		5
     explevel		10
     baseac		10
+	blownbywind		true
+	
     smarts		WISE
     strength		DRAGON
     ai			RABID
@@ -7269,9 +7642,9 @@ MOB BAEZLBUB
     name		"Baezl'bub"
     movetype		STD_FLY
     attack		BAEZELBUB_BITE
-    hp			300
+    hp			500
     hitdie		20
-    mp			100
+    mp			200
     mpdie		20
     baseskills		3
     basespells		9
@@ -7326,7 +7699,7 @@ MOB CRETAN_MINOTAUR
     name		"Ancient Minotaur"
     attack		CRETAN_MINOTAUR
 
-    hp			200
+    hp			400
     hitdie		20
     mp			0
     mpdie		0
@@ -7590,6 +7963,30 @@ MOB FIREBEETLE
     size		SMALL
 }
 
+MOB FROSTBEETLE
+{
+    tile		FIREBEETLE
+    name		"chill bug"
+    attack		FROSTSPIT
+    hp			1d10
+    hitdie		1
+    mpdie		1
+    explevel		2
+    baseac		0
+    smarts		ANIMAL
+    strength		MINIMAL
+    intrinsic		RESISTCOLD
+    intrinsic		VULNFIRE
+    eatgrant		RESISTCOLD
+    eatgrant		VULNFIRE
+    mobtype		INSECT
+    slotset		INSECT
+    edible		FLESH
+    edible		WATER
+    ai			ANIMAL_SPECIEST
+    size		SMALL
+}
+
 MOB GOLDBEETLE
 {
     tile		GOLDBEETLE
@@ -7712,7 +8109,7 @@ MOB MOUSE
 MOB RAT
 {
     tile		RAT
-    name		"big rat"
+    name		"large rat"
     attack		RATBITE
     hp			1d4
     hitdie		1
@@ -7832,6 +8229,8 @@ MOB LUX
     lightradius		2
     ai			SPECIEST
     material		IRON
+	edible          GLASS
+	
     intrinsic		NOBREATH
     intrinsic		DEAF
     intrinsic		NOREGEN
@@ -7884,7 +8283,7 @@ MOB PURPLESLUG
     hp			3d10
     hitdie		3
     mpdie		3
-	mp          1d10+10
+	mp          2d10+10
     explevel		6
     baseac		0
     smarts		HUMAN
@@ -7895,7 +8294,10 @@ MOB PURPLESLUG
     intrinsic		SLOW
     eatgrant		RESISTACID
 	
-	intrinsic       SPELL_ACIDSPLASH
+	intrinsic       SPELL_FLASH
+	intrinsic       SPELL_CHILL
+	intrinsic       SPELL_STICKYFLAMES
+	intrinsic       SPELL_FETCH
 	
     mobtype		SLUG
     slotset		SLUG
@@ -7917,16 +8319,22 @@ MOB DEATHSLUG
     hp			3d10+30
     hitdie		6
     mpdie		3
-	mp          1d10+10
+	mp          3d10+10
     explevel		12
     baseac		10
     smarts		HUMAN
     strength		MINIMAL
+	
     intrinsic		RESISTACID
     intrinsic		RESISTSTONING
     intrinsic		SLOW
+	
+	intrinsic       SPELL_ACIDSPLASH
+	intrinsic       SPELL_ACIDPOOL
+	
     eatgrant		RESISTACID
     acidiccorpse	1
+	
     mobtype		SLUG
     slotset		SLUG
     edible		FLESH
@@ -7945,6 +8353,8 @@ MOB FLOATINGEYE
     mpdie		0
     explevel		3
     baseac		4
+	blownbywind		true
+	
     smarts		ANIMAL
     strength		NONE
     size		SMALL
@@ -8005,20 +8415,24 @@ MOB GELATINOUSCUBE
     reflex_chance	100
     reflex_attack	GELATINOUSCUBE_REFLEX
     ai			SCAVENGER
+	
     intrinsic		RESISTACID
     intrinsic		RESISTSHOCK
     intrinsic		RESISTSTONING
     intrinsic		NOBREATH
     intrinsic		BLIND
     intrinsic		TELEPATHY
+	
     eatgrant		RESISTACID
     eatgrant		RESISTSHOCK
+	eatgrant        FREEDOM
+	
     acidiccorpse	1
     slotset		NONE
 
     edible		IRON
     edible		SILVER
-	edible		GOLD
+
     isboneless		1
 
     deathmsg		ICHOR
@@ -8123,6 +8537,7 @@ MOB BAT
     mpdie		0
     explevel		2
     baseac		5
+	blownbywind		true
     smarts		ANIMAL
     strength		MINIMAL
     size		SMALL
@@ -8151,6 +8566,7 @@ MOB LARGEBAT
     mpdie		0
     explevel		4
     baseac		10
+	blownbywind		true
     smarts		ANIMAL
     strength		MINIMAL
     ai			ANIMAL_PACK
@@ -8173,7 +8589,7 @@ MOB VAMPIREBAT
     name		"vampire bat"
     attack		VAMPIREBATBITE
     movetype		STD_FLY
-
+    blownbywind		true
     hp			2d10+10
     hitdie		4
     mpdie		0
@@ -8417,6 +8833,7 @@ MOB IMP
 
     eatgrant		RESISTFIRE
     eatgrant		SEEINVISIBLE
+	eatgrant        TELEPORT
 
     intrinsic		SPELL_MAGICMISSILE
     intrinsic		SPELL_FIREBALL
@@ -8444,8 +8861,9 @@ MOB KOBOLD
     ai			KOBOLD
 
     intrinsic		SKILL_EVADETRAP
+	intrinsic       SKILL_WEAPON_BLEEDINGWOUND
     
-    loot		SHORTSWORD
+    loot		KNIFE
 
     evolvetarget	KOBOLDFIGHTER
     evolvelevel		14
@@ -8474,10 +8892,10 @@ MOB KOBOLDMAGE
     edible		WATER
     ai			KOBOLD
 
-    intrinsic		SPELL_STICKYFLAMES
     intrinsic		SPELL_CUREPOISON
     intrinsic		SPELL_HEAL
     intrinsic		SPELL_MAGICMISSILE
+	intrinsic		SPELL_CLOUDKILL
 
     intrinsic		SKILL_EVADETRAP
 
@@ -8511,7 +8929,8 @@ MOB KOBOLDFIGHTER
     ai			KOBOLD
 
     intrinsic		SKILL_EVADETRAP
-    intrinsic		SKILL_WEAPON_PARRY
+    intrinsic		SKILL_WEAPON_MULTIATTACK
+	intrinsic		SKILL_WEAPON_RETREAT
 	intrinsic       SKILL_ARMOUR_IRON
     
     loot		LONGSWORD
@@ -8551,10 +8970,10 @@ MOB KOBOLDASSASSIN
     intrinsic		SKILL_EVADETRAP
 	intrinsic       SKILL_SEARCH
     intrinsic		SKILL_DODGE
-    intrinsic		SKILL_WEAPON_BLEEDINGWOUND
+	intrinsic		SKILL_WEAPON_SNEAKATTACK
 
     intrinsic		SPELL_POISONITEM
-    intrinsic		SPELL_MINDACID
+    intrinsic		SPELL_FLASH
     intrinsic		SPELL_TRACK
 
     loot		SILVERDAGGER
@@ -8588,6 +9007,7 @@ MOB KOBOLDTHIEF
     intrinsic		SKILL_DODGE
 	intrinsic       SKILL_MOVINGTARGET
     intrinsic		SKILL_WEAPON_DISARM
+	intrinsic		SKILL_WEAPON_LUNGE
 	intrinsic       SKILL_ARMOUR_LEATHER
 
     intrinsic		FAST
@@ -8643,6 +9063,9 @@ MOB CAVETROLL
     edible		STONE
     material		STONE
     ai			TROLL
+	
+	intrinsic       SKILL_WEAPON_KNOCKBACK
+	
     intrinsic		REGENERATION
     eatgrant		REGENERATION
 
@@ -8664,14 +9087,15 @@ MOB LIZARDMAN
     baseac		8
     smarts		HUMAN
     strength		HUMAN
-    mobtype		HUMANOID
+    mobtype		REPTILE
     slotset		HUMANOID
     edible		FLESH
     edible		WATER
     ai			EVILHUMANOID
 	naturalfoe  TURTLE
 
-    loot		SPEAR
+    loot		SHORTSWORD
+	loot        ROUNDSHIELD
 }
 
 MOB TURTLOID
@@ -8687,7 +9111,7 @@ MOB TURTLOID
     baseac		30
 	baseskills		3
     smarts		HUMAN
-    mobtype		HUMANOID
+    mobtype		TURTLE
     slotset		HUMANOID
     edible		FLESH
     edible		WATER
@@ -8696,6 +9120,8 @@ MOB TURTLOID
 
     intrinsic		WATERWALK
     
+	intrinsic       SKILL_WEAPON_KNOCKOUT
+	
     noise		2
     loot		CLUB
 
@@ -8717,7 +9143,7 @@ MOB LARGETURTLOID
 	baseskills		3
     smarts		HUMAN
     size		LARGE
-    mobtype		HUMANOID
+    mobtype		TURTLE
     slotset		HUMANOID
     edible		FLESH
     edible		WATER
@@ -8785,6 +9211,7 @@ MOB HEADLESS
 {
     tile		HEADLESS
     name		"headless"
+	movetype		STD_SWIM
     attack		CLAW
     hp			1d10+5
     hitdie		2
@@ -8860,6 +9287,7 @@ MOB EARTHELEMENTAL
 {
     tile		EARTHELEMENTAL
     name		"earth elemental"
+	movetype		STD_PHASE
     attack		EARTHELEMENTAL
     hp			2d50+100
     hitdie		10
@@ -8873,6 +9301,7 @@ MOB EARTHELEMENTAL
     strength		DRAGON
     mobtype		ELEMENTAL
     ai			SPECIEST
+	
     intrinsic		RESISTSHOCK
     intrinsic		SLOW
     intrinsic		NOBREATH
@@ -8885,6 +9314,7 @@ MOB EARTHELEMENTAL
     slotset		HUMANOID
 
     material		STONE
+	edible          STONE
 
     noise		4
     deathmsg		DUST
@@ -8920,6 +9350,7 @@ MOB AIRELEMENTAL
     intrinsic		NOBREATH
     intrinsic		NOREGEN
 	intrinsic		INVISIBLE
+	intrinsic       SEEINVISIBLE
 	
 	intrinsic		SPELL_LIGHTNINGBOLT
     intrinsic		SPELL_SPARK
@@ -8951,15 +9382,21 @@ MOB FIREELEMENTAL
     smarts		FOOL
     strength		STRONG
     ai			SPECIEST
+	
     intrinsic		RESISTFIRE
     intrinsic		VULNCOLD
     intrinsic		NOBREATH
     intrinsic		NOREGEN
+	intrinsic       SEEINVISIBLE
 
     intrinsic		SPELL_FIREBALL
     intrinsic		SPELL_STICKYFLAMES
 
     material		ETHEREAL
+	edible          CLOTH
+	edible          PAPER
+	edible          LEATHER
+	edible          WOOD
 
     lightradius		3
     slotset		    FIREELEMENTAL
@@ -8998,7 +9435,8 @@ MOB WATERELEMENTAL
     intrinsic		SPELL_DOWNPOUR
 
     material		WATER
-    corpsechance	0
+	edible          WATER
+	
     eatgrant		STRANGLE
 
     isbloodless		true
@@ -9195,6 +9633,7 @@ MOB ELDER
     intrinsic		SPELL_LIGHTNINGBOLT
     intrinsic		SPELL_SPARK
 
+	loot        KNIFE
 	loot		ROBE
 	
     ai			FRIENDLY
@@ -9417,41 +9856,40 @@ DEFINE POTION
 
 POTION HEAL
 {
-    name		"heal potion"
+    name		"healing potion"
     autoid		false
 }
 
 POTION ACID
 {
-    name		"acid potion"
+    name		"vial of acid"
     isgrenade		true
     grenadeelement	ACID
 }
 
-POTION BLIND
+POTION CONFUSION
 {
-    name		"potion of blindness"
+    name		"bottle of booze"
     autoid		false
     isgrenade		true
-    grenadeelement	LIGHT
 }
 
 POTION POISON
 {
-    name		"poison potion"
+    name		"vial of poison"
     isgrenade		true
     grenadeelement	POISON
 }
 
 POTION CURE
 {
-    name		"cure potion"
+    name		"curing potion"
     autoid		false
 }
 
 POTION GREEKFIRE
 {
-    name		"bottle of greek fire"
+    name		"bottle of lava"
     isgrenade		true
     grenadeelement	FIRE
 }
@@ -9463,7 +9901,7 @@ POTION ENLIGHTENMENT
 
 POTION SMOKE
 {
-    name		"smoke potion"
+    name		"bottle of smoke"
     isgrenade		true
 }
 
@@ -9554,9 +9992,11 @@ DEFINE RING
     U8		coolness	1
 }
 
-RING WEDDING
+RING BLINDNESS
 {
-    name	"wedding ring"
+    name	"ring of the missing eyes"
+	intrinsic	BLIND
+    cursechance	OFTENCURSE
     coolness	0
 }
 
@@ -9572,14 +10012,14 @@ RING TELEPORT
     name	"ring of teleportation"
     intrinsic	TELEPORT
     cursechance	OFTENCURSE
-    coolness	0
+    coolness	1
 }
 
-RING TELEPORTCONTROL
+RING SPEED
 {
-    name	"ring of teleport control"
-    intrinsic	TELEPORTCONTROL
-    coolness	1
+    name	"ring of alacrity"
+    intrinsic	FAST
+    coolness	5
 }
 
 RING MISSINGFINGER
@@ -9650,7 +10090,7 @@ RING POLYMORPH
 {
     name	"ring of polymorph"
     intrinsic	POLYMORPH
-    coolness	0
+    coolness	1
 }
 
 RING POLYCONTROL
@@ -9672,10 +10112,10 @@ DEFINE HELM
     ENM		cursechance	CURSECHANCE	NORMAL
 }
 
-HELM DRAIN
+HELM SLEEP
 {
-    name	"helm of draining"
-    intrinsic	MAGICDRAIN
+    name	"helm of insomnia"
+    intrinsic	RESISTSLEEP
     cursechance	OFTENCURSE
 }
 
@@ -9689,6 +10129,12 @@ HELM WARNING
 {
     name	"helm of warning"
     intrinsic	WARNING
+}
+
+HELM TELEPORTCONTROL
+{
+    name	"helm of teleport"
+    intrinsic	TELEPORTCONTROL
 }
 
 COMMENT
@@ -9715,22 +10161,28 @@ BOOTS SNOWBOOTS
     intrinsic	RESISTCOLD
 }
 
-BOOTS JUMP
+BOOTS FREEDOM
 {
-    name	"jump boots"
-    intrinsic	JUMP
+    name	"boots of free movement"
+    intrinsic	FREEDOM
 }
 
 BOOTS SPEED
 {
-    name	"speed boots"
+    name	"running shoes"
     intrinsic	FAST
 }
 
-BOOTS SQUEAKY
+BOOTS TUMBLE
 {
-    name	"squeaky shoes"
-    intrinsic	NOISY
+    name	"dancing shoes"
+    intrinsic	SKILL_TUMBLE
+}
+
+BOOTS TELEPORT
+{
+    name	"extradimensional boots"
+    intrinsic	SPELL_BLINK
 }
 
 COMMENT
@@ -9869,7 +10321,7 @@ DEFINE SPELLBOOK
 {
     CST		name		"normal cookbook"
     ENM		cursechance	CURSECHANCE	NORMAL
-    DICE	charges		2d3
+    DICE	charges		1d4+1
 
     ENMLIST	spells		SPELL		NONE
 
@@ -9880,7 +10332,6 @@ SPELLBOOK FIRE
 {
     name	"tome of fire"
 
-    spells	MAGICMISSILE
     spells	FLASH
     spells	STICKYFLAMES
     spells	FIREBALL
@@ -9892,7 +10343,6 @@ SPELLBOOK COLD
 {
     name	"tome of cold"
 
-    spells	MAGICMISSILE
     spells	CHILL
     spells	FROSTBOLT
     spells	LIVINGFROST
@@ -9904,7 +10354,7 @@ SPELLBOOK SHOCK
 {
     name	"shocking tome"
 
-    spells	MAGICMISSILE
+	spells	FLASH
     spells	SPARK
     spells	LIGHTNINGBOLT
     spells	CHAINLIGHTNING
@@ -9914,7 +10364,7 @@ SPELLBOOK SHOCK
 
 SPELLBOOK HEAL
 {
-    name	"tome of healing"
+    name	"healer's manual"
 	
     spells	REGENERATE
     spells	HEAL
@@ -9931,8 +10381,6 @@ SPELLBOOK FAMILIAR
     spells	HEAL
     spells	SUMMON_FAMILIAR
     spells	TRANSFER_KNOWLEDGE
-    spells	TELEPORT
-    spells	FETCH
     spells	TRACK
     spells	DIAGNOSE
     spells	POSSESS
@@ -9946,23 +10394,30 @@ SPELLBOOK DIVINATION
     spells	MAGICMAP
     spells	DETECTCURSE
     spells	IDENTIFY
-    spells	KNOCK
-    spells	TRACK
     spells	DIAGNOSE
     spells	WIZARDSEYE
 }
 
-SPELLBOOK FORCE
+SPELLBOOK WIZARD
 {
-    name	"tome of force"
+    name	"tome of wizardry"
 
     spells	FORCEBOLT
     spells	FORCEWALL
+	spells	WIZARDSEYE
+    spells	PRESERVE
+	spells	KNOCK
+}
+
+SPELLBOOK SORCERER
+{
+    name	"tome of sorcery"
+
+	spells  MAGICMISSILE
+	spells  MAGICSHIELD
     spells	TELEPORT
     spells	BLINK
     spells	FETCH
-    spells	PRESERVE
-    spells	DIRECTWIND
 }
 
 SPELLBOOK EARTH
@@ -9972,12 +10427,20 @@ SPELLBOOK EARTH
     spells	DIG
     spells	CREATEPIT
     spells	SANDSTORM
-    spells	GROWFOREST
-    spells	ANIMATEFOREST
-    spells	DOWNPOUR
     spells	ROLLINGBOULDER
     spells	ENTOMB
     spells	PETRIFY
+}
+
+SPELLBOOK DRUID
+{
+    name	"tome of druidcraft"
+
+    spells	GROWFOREST
+    spells	ANIMATEFOREST
+	spells  SPLINTERBOLT
+    spells	DOWNPOUR
+	spells	DIRECTWIND
 }
 
 SPELLBOOK DEATH
@@ -9988,7 +10451,7 @@ SPELLBOOK DEATH
     spells	POISONITEM
     spells	POISONBOLT
     spells	CLOUDKILL
-
+	spells	TRACK
 }
 
 SPELLBOOK NECRO
@@ -10024,8 +10487,6 @@ SPELLBOOK ACID
     spells	MINDACID
     spells	CORROSIVEEXPLOSION
     spells	DISINTEGRATE
-
-    spells	DIRECTWIND
 }
 
 SPELLBOOK ARMOUR
@@ -10048,73 +10509,108 @@ SPELLBOOK MATERIAL
     skills	ARMOUR_EXOTIC
 }
 
+SPELLBOOK WEAPON
+{
+    name	"manual of weapons"
+
+    skills	WEAPON_SMALL
+    skills	WEAPON_MEDIUM
+    skills	WEAPON_LARGE
+    skills	WEAPON_RANGED
+}
+
+SPELLBOOK ATTACK
+{
+    name	"guide to weapons"
+
+    skills	WEAPON_EDGED
+    skills	WEAPON_POINTED
+    skills	WEAPON_BLUNT
+    skills	WEAPON_IMPROVISE
+}
+
 SPELLBOOK ROGUE
 {
     name	"manual of guile"
 
-    skills	DODGE
-    skills	MOVINGTARGET
+	skills	WEAPON_SMALL
+	skills	WEAPON_POINTED
+	skills  WEAPON_SNEAKATTACK
+
     skills	SEARCH
     skills	EVADETRAP
+}
+
+SPELLBOOK RANGER
+{
+    name	"ranger's codex"
+
+    skills	WEAPON_RANGED
+	skills	WEAPON_TRUEAIM
+	
+    skills	FORESTRY
     skills	TWOWEAPON
     skills	AMBIDEXTROUS
-    skills	WEAPON_RANGED
-    skills	WEAPON_IMPROVISE
+}
+
+SPELLBOOK MONK
+{
+    name	"monk's manual"
+
+    skills	DODGE
+    skills	MOVINGTARGET
+	skills	TUMBLE
+	skills	JUMP
+	skills	LEAPATTACK
 }
 
 SPELLBOOK BLADES
 {
     name	"book of blades"
     
-    skills	WEAPON_SMALL
-    skills	WEAPON_MEDIUM
-    skills	WEAPON_EDGED
-
-    skills	WEAPON_TRUEAIM
-    skills	WEAPON_RANGED
-    skills	WEAPON_PARRY
+    skills	WEAPON_BLEEDINGWOUND
+	skills	WEAPON_MULTIATTACK
     skills	WEAPON_RIPOSTE
+	skills	WEAPON_RETREAT
 }
 
 SPELLBOOK BASHING
 {
     name	"book of bashing"
 
-    skills	WEAPON_SMALL
-    skills	WEAPON_MEDIUM
-    skills	WEAPON_LARGE
-    skills	WEAPON_BLUNT
-
+    skills	WEAPON_PARRY
     skills	WEAPON_KNOCKOUT
     skills	WEAPON_STUN
+	skills	WEAPON_CONCUSSION
     skills	WEAPON_KNOCKBACK
 }
 
 SPELLBOOK SHARPPOINTS
 {
-    name	"book of sharp points"
+    name	"book of piercings"
 
-    skills	WEAPON_SMALL
-    skills	WEAPON_MEDIUM
-    skills	WEAPON_LARGE
-    skills	WEAPON_RANGED
     skills	WEAPON_POINTED
     
-    skills	WEAPON_BLEEDINGWOUND
     skills	WEAPON_DISARM
+	skills	WEAPON_LUNGE
     skills	WEAPON_IMPALE
-    skills	WEAPON_RICOCHET
+	skills	WEAPON_REACH
 }
 
 SPELLBOOK BARB
 {
     name	"book of H'ruth"
 
-    skills	ENDUREHUNGER
     skills	BUTCHERY
     skills	CLEANKILL
     skills	CHARGE
-    skills	LEAPATTACK
+	skills	BLOODLUST
+	
+    skills	WEAPON_POWERATTACK
+	skills	WEAPON_CLOBBER
+	
+	skills  MASTERTHROWER
+	skills	WEAPON_RICOCHET
 }
 
 DEFINE STAFF
@@ -10131,25 +10627,32 @@ STAFF HEALING
     intrinsic	SPELL_HEAL
     intrinsic	SPELL_MAJORHEAL
     intrinsic	SPELL_CUREPOISON
-    intrinsic	SPELL_SLOWPOISON
+    intrinsic	SPELL_RESURRECT
 }
 
 STAFF DEATH
 {
-    name	"staff of death"
+    name	"necromancer's staff"
     intrinsic	SPELL_FINGEROFDEATH
     intrinsic	SPELL_RAISE_UNDEAD
     intrinsic	SPELL_RECLAIM_SOUL
     intrinsic	SPELL_DARK_RITUAL
     intrinsic	SPELL_GHASTIFY
+}
+
+STAFF DEMON
+{
+    name	"warlock's staff"
     intrinsic	SPELL_SUMMON_IMP
     intrinsic	SPELL_CLOUDKILL
+	intrinsic   SPELL_BINDSOUL
+	intrinsic   SPELL_POSSESS
+	intrinsic	SPELL_FIREBALL
 }
 
 STAFF DESTRUCTION
 {
     name	"staff of destruction"
-    intrinsic	SPELL_FIREBALL
     intrinsic	SPELL_SUNFIRE
     intrinsic	SPELL_CHAINLIGHTNING
     intrinsic	SPELL_CORROSIVEEXPLOSION
@@ -10167,17 +10670,44 @@ STAFF BOLT
     intrinsic	SPELL_FORCEBOLT
 }
 
+STAFF DRUID
+{
+    name	"druidic staff"
+    intrinsic	SPELL_GROWFOREST
+    intrinsic	SPELL_ANIMATEFOREST
+    intrinsic	SPELL_DOWNPOUR
+    intrinsic	SPELL_SANDSTORM
+    intrinsic	SPELL_SPLINTERBOLT
+}
+
 STAFF UTILITY
 {
-    name	"utility staff"
+    name	"traveller's staff"
     intrinsic	SPELL_LIGHT
     intrinsic	SPELL_KNOCK
     intrinsic	SPELL_PRESERVE
     intrinsic	SPELL_DETECTCURSE
-    intrinsic	SPELL_DIRECTWIND
-    intrinsic	SPELL_TELEPORT
-    intrinsic	SPELL_PETRIFY
-    intrinsic	SPELL_POSSESS
+	intrinsic	SPELL_WIZARDSEYE
+}
+
+STAFF ELEMENT
+{
+    name	"staff of elements"
+    intrinsic	SPELL_FLASH
+    intrinsic	SPELL_CHILL
+    intrinsic	SPELL_STICKYFLAMES
+    intrinsic	SPELL_SPARK
+	intrinsic	SPELL_ACIDSPLASH
+}
+
+STAFF SKILL
+{
+    name	"monk's staff"
+    intrinsic	SKILL_JUMP
+    intrinsic	SKILL_DODGE
+    intrinsic	SKILL_MOVINGTARGET
+    intrinsic	SKILL_LEAPATTACK
+	intrinsic	SKILL_ENDUREHUNGER
 }
 
 COMMENT
@@ -10337,9 +10867,25 @@ ITEM KNIFE
     itemtype		WEAPON
     size			TINY
     attackskill		WEAPON_EDGED
-    specialskill	WEAPON_TRUEAIM
 	specialskill	WEAPON_BLEEDINGWOUND
     noise		0
+}
+
+ITEM VAMPIREKNIFE
+{
+    name		"vampire knife"
+    tile		KNIFE
+    material		IRON
+    weight		    2
+    attack		    VAMPIREKNIFE
+    thrownattack	KNIFETHROWN
+    minitile		KNIFE
+    itemtype		WEAPON
+    size			TINY
+    attackskill		WEAPON_EDGED
+	specialskill	WEAPON_BLEEDINGWOUND
+    noise		0
+	rarity      20
 }
 
 ITEM DAGGER
@@ -10373,6 +10919,7 @@ ITEM SILVERDAGGER
     attackskill		WEAPON_POINTED
     specialskill	WEAPON_SNEAKATTACK
     noise		0
+	rarity      50
 }
 
 ITEM WARHAMMER
@@ -10437,6 +10984,7 @@ ITEM SILVERSPEAR
     attackskill		WEAPON_POINTED
     specialskill	WEAPON_IMPALE
     noise		3
+	rarity      50
 }
 
 ITEM CLUB
@@ -10446,6 +10994,7 @@ ITEM CLUB
     material		WOOD
     weight		4
     attack		CLUB
+	thrownattack	CLUBTHROWN
     minitile		CLUB
     itemtype		WEAPON
     size		SMALL
@@ -10465,8 +11014,9 @@ ITEM SILVERSWORD
     itemtype		WEAPON
     size		MEDIUM
     attackskill		WEAPON_EDGED
-    specialskill	WEAPON_PARRY
+    specialskill	WEAPON_MULTIATTACK
     noise		2
+	rarity      50
 }
 
 ITEM SHORTSWORD
@@ -10475,7 +11025,7 @@ ITEM SHORTSWORD
     tile		SHORTSWORD
     material		IRON
     weight		7
-	ac          2
+	ac          1
     attack		SHORTSWORD
     minitile		SHORTSWORD
     itemtype		WEAPON
@@ -10485,13 +11035,30 @@ ITEM SHORTSWORD
     noise		2
 }
 
+ITEM OBSIDIANSWORD
+{
+    name		"obsidian sword"
+    tile		SHORTSWORD
+    material		STONE
+    weight		7
+	ac          1
+    attack		SHORTSWORD
+    minitile		SHORTSWORD
+    itemtype		WEAPON
+    size		SMALL
+    attackskill		WEAPON_EDGED
+    specialskill	WEAPON_RIPOSTE
+    noise		2
+	rarity      50
+}
+
 ITEM VORPALSWORD
 {
     name		"vorpal sword"
     tile		SHORTSWORD
     material		IRON
     weight		7
-	ac          2
+	ac          1
     attack		VORPALSWORD
     minitile		SHORTSWORD
     itemtype		WEAPON
@@ -10499,6 +11066,7 @@ ITEM VORPALSWORD
     attackskill		WEAPON_EDGED
     specialskill	WEAPON_RIPOSTE
     noise		2
+	rarity      0
 }
 
 ITEM LONGSWORD
@@ -10512,7 +11080,7 @@ ITEM LONGSWORD
     itemtype		WEAPON
     size		MEDIUM
     attackskill		WEAPON_EDGED
-    specialskill	WEAPON_PARRY
+    specialskill	WEAPON_MULTIATTACK
     noise		2
 }
 
@@ -10529,6 +11097,22 @@ ITEM RAPIER
     attackskill		WEAPON_POINTED
     specialskill	WEAPON_DISARM
     noise		1
+}
+
+ITEM GILDEDRAPIER
+{
+    name		"gilded rapier"
+    tile		RAPIER
+    material		GOLD
+    weight		6
+    attack		RAPIER
+    minitile		RAPIER
+    itemtype		WEAPON
+    size		MEDIUM
+    attackskill		WEAPON_POINTED
+    specialskill	WEAPON_DISARM
+    noise		1
+	rarity      50
 }
 
 ITEM LIGHTNINGRAPIER
@@ -10566,7 +11150,7 @@ ITEM FLAMESWORD
     rarity		0
     size		MEDIUM
     attackskill		WEAPON_EDGED
-    specialskill	WEAPON_PARRY
+    specialskill	WEAPON_MULTIATTACK
     noise		3
 }
 
@@ -10583,6 +11167,22 @@ ITEM MACE
     attackskill		WEAPON_BLUNT
     specialskill	WEAPON_STUN
     noise		3
+}
+
+ITEM GOLDMACE
+{
+    name		"gold mace"
+    tile		MACE
+    material		GOLD
+    weight		10
+    attack		MACE
+    minitile		MACE
+    itemtype		WEAPON
+    size		MEDIUM
+    attackskill		WEAPON_BLUNT
+    specialskill	WEAPON_STUN
+    noise		3
+	rarity      50
 }
 
 ITEM ICEMACE
@@ -10610,10 +11210,10 @@ ITEM BOW
     attack		MISUSED_BUTWEAPON
     minitile		BOW
     itemtype		WEAPON
-    size		MEDIUM
+    size		LARGE
 }
 
-ITEM BOW
+ITEM BLADEBOW
 {
     name		"blade bow"
     tile		BOW
@@ -10622,7 +11222,7 @@ ITEM BOW
     attack		SHORTSWORD
     minitile		BOW
     itemtype		WEAPON
-    size		MEDIUM
+    size		LARGE
 	rarity      10
 }
 
@@ -10636,10 +11236,9 @@ ITEM ARROW
     thrownattack	ARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
-	launcher		BLADEBOW
     stacksize		2d4
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_RICOCHET
+    specialskill	WEAPON_TRUEAIM
     noise		0
     equipstack		true
 }
@@ -10654,11 +11253,10 @@ ITEM FIREARROW
     thrownattack	FIREARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
-	launcher		BLADEBOW
     stacksize		2d4
     lightradius		1
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_RICOCHET
+    specialskill	WEAPON_TRUEAIM
     noise		0
     rarity		0
     equipstack		true
@@ -10674,11 +11272,11 @@ ITEM IRONARROW
     thrownattack	IRONARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
-	launcher		BLADEBOW
     stacksize		2d4
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_RICOCHET
+    specialskill	WEAPON_TRUEAIM
     noise		0
+	rarity      50
     equipstack		true
 }
 
@@ -10692,11 +11290,11 @@ ITEM SILVERARROW
     thrownattack	ARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
-	launcher		BLADEBOW
     stacksize		2d4
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_RICOCHET
+    specialskill	WEAPON_TRUEAIM
     noise		0
+	rarity      20
     equipstack		true
 }
 
@@ -10710,11 +11308,11 @@ ITEM GOLDARROW
     thrownattack	ARROWTHROWN
     itemtype		WEAPON
     launcher		BOW
-	launcher		BLADEBOW
     stacksize		2d4
     attackskill		WEAPON_POINTED
-    specialskill	WEAPON_RICOCHET
+    specialskill	WEAPON_TRUEAIM
     noise		0
+	rarity      20
     equipstack		true
 }
 
@@ -10728,6 +11326,7 @@ ITEM HAT
     ac			2
     minitile		HAT
     itemtype		ARMOUR
+	magictype		HELM
     noise		0
 }
 
@@ -10764,11 +11363,10 @@ ITEM FEATHERHELM
     tile		FEATHEREDHELM
     material		IRON
     weight		3
-    ac			6
+    ac			5
     minitile		FEATHEREDHELM
     magictype		HELM
     itemtype		ARMOUR
-
     noise		1
 }
 
@@ -10812,6 +11410,7 @@ ITEM SANDALS
     ac			3
     minitile		SANDALS
     itemtype		ARMOUR
+	magictype		BOOTS
     noise		1
 }
 
@@ -10863,7 +11462,7 @@ ITEM RIDINGBOOTS
     tile		RIDINGBOOT
     material		LEATHER
     weight		3
-    ac			6
+    ac			5
     minitile		RIDINGBOOTS
     itemtype		ARMOUR
     magictype		BOOTS
@@ -10895,21 +11494,23 @@ ITEM CLOGS
     minitile		CLOGS
     itemtype		ARMOUR
     magictype		BOOTS
-    noise		3
+    noise		4
 }
 
-ITEM WOODENSHIELD
+ITEM LANTERNSHIELD
 {
-    name		"wooden shield"
+    name		"lantern shield"
     flag1		ISSHIELD
     tile		WOODENSHIELD
     material		WOOD
     weight		3
-    ac			1
+    ac			2
+	lightradius		3
     minitile		WOODENSHIELD
     itemtype		ARMOUR
     noise		1
     size		MEDIUM
+	rarity      50
 }
 
 ITEM BUCKLER
@@ -10961,10 +11562,10 @@ ITEM TOWERSHIELD
     tile		TOWERSHIELD
     material		IRON
     weight		20
-    ac			4
+    ac			5
     minitile		TOWERSHIELD
     itemtype		ARMOUR
-    noise		4
+    noise		5
     size		LARGE
 }
 
@@ -11140,7 +11741,7 @@ ITEM BLUESPELLBOOK
 
 ITEM REDSPELLBOOK
 {
-    name		"red book"
+    name		"heavy red book"
     tile		REDSPELLBOOK
     minitile		BOOK
     weight		1
@@ -11151,7 +11752,7 @@ ITEM REDSPELLBOOK
 
 ITEM LEATHERSPELLBOOK
 {
-    name		"leather book"
+    name		"heavy leather book"
     tile		LEATHERSPELLBOOK
     minitile		BOOK
     weight		1
@@ -11162,7 +11763,7 @@ ITEM LEATHERSPELLBOOK
 
 ITEM PURPLESPELLBOOK
 {
-    name		"purple book"
+    name		"heavy purple book"
     tile		PURPLESPELLBOOK
     minitile		BOOK
     weight		1
@@ -11173,7 +11774,7 @@ ITEM PURPLESPELLBOOK
 
 ITEM GREYSPELLBOOK
 {
-    name		"grey book"
+    name		"heavy grey book"
     tile		GREYSPELLBOOK
     minitile		BOOK
     weight		1
@@ -11184,7 +11785,7 @@ ITEM GREYSPELLBOOK
 
 ITEM PLAIDSPELLBOOK
 {
-    name		"plaid book"
+    name		"heavy plaid book"
     tile		PLAIDSPELLBOOK
     minitile		BOOK
     weight		1
@@ -11325,10 +11926,6 @@ ITEM THINREDSPELLBOOK
     itemtype		SPELLBOOK
 }
 
-COMMENT
-{
-  ## Unused spell books...
-
 ITEM THINLEATHERSPELLBOOK
 {
     name		"thin leather book"
@@ -11373,10 +11970,6 @@ ITEM THINPLAIDSPELLBOOK
     itemtype		SPELLBOOK
 }
 
-  ## ENd unused books.
-
-}
-
 COMMENT
 {
     Unused books:
@@ -11397,7 +11990,7 @@ ITEM WOODENSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
     noise		3
 }
 
@@ -11413,7 +12006,7 @@ ITEM IRONSHODSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
     noise		4
 }
 
@@ -11429,7 +12022,7 @@ ITEM SILVERTIPPEDSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
     noise		4
 }
 
@@ -11445,7 +12038,7 @@ ITEM LEADFILLEDSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
     noise		4
 }
 
@@ -11461,13 +12054,29 @@ ITEM CROOK
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
+    noise		3
+}
+
+ITEM CROOK
+{
+    name		"bishop's croiser"
+    tile		HOOKEDSTAFF
+    minitile		STAFF
+    attack		WOODENSTAFF
+    weight		5
+    material		WOOD
+    magictype		STAFF
+    itemtype		STAFF
+    size		LARGE
+    attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_PARRY
     noise		3
 }
 
 ITEM GNARLYSTAFF
 {
-    name		"tree branch"
+    name		"gnarled staff"
     tile		GNARLEDSTAFF
     minitile		STAFF
     attack		WOODENSTAFF
@@ -11477,7 +12086,26 @@ ITEM GNARLYSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
+    noise		3
+}
+
+ITEM BRANCHSTAFF
+{
+    name		"tree branch"
+    tile		GNARLEDSTAFF
+    minitile		STAFF
+    attack		ANTIMAGICSTAFF
+    weight		5
+    material		WOOD
+    magictype		STAFF
+    itemtype		STAFF
+    size		LARGE
+    attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_PARRY
+	
+	intrinsic   MAGICDRAIN
+	
     noise		3
 }
 
@@ -11493,7 +12121,7 @@ ITEM BEJEWELEDSTAFF
     itemtype		STAFF
     size		LARGE
     attackskill		WEAPON_BLUNT
-	specialskill	WEAPON_KNOCKBACK
+	specialskill	WEAPON_PARRY
     noise		3
 }
 
@@ -11526,7 +12154,7 @@ ITEM ROBE
 {
     name		"plain robe"
     tile		BLUEROBE
-    weight		5
+    weight		15
     flag1		ISJACKET
     ac			1
     minitile		BLUEROBE
@@ -11543,7 +12171,7 @@ ITEM LEATHERTUNIC
     tile		LEATHERTUNIC
     weight		5
     flag1		ISJACKET
-    ac			1
+    ac			2
     minitile		LEATHERTUNIC
     material		LEATHER
     itemtype		ARMOUR
@@ -11571,7 +12199,7 @@ ITEM CHAINMAIL
 {
     name		"chain mail"
     tile		CHAINTUNIC
-    weight		10
+    weight		15
     flag1		ISJACKET
     ac			4
     minitile		CHAINTUNIC
@@ -11586,14 +12214,14 @@ ITEM MITHRILMAIL
 {
     name		"mithril chain mail"
     tile		CHAINTUNIC
-    weight		5
+    weight		10
     flag1		ISJACKET
     ac			5
     minitile		CHAINTUNIC
     material		SILVER
     itemtype		ARMOUR
     size		MEDIUM
-
+    rarity      50
     noise		1
 }
 
@@ -11601,7 +12229,7 @@ ITEM SCALEMAIL
 {
     name		"scale mail"
     tile		CHAINTUNIC
-    weight		15
+    weight		20
     flag1		ISJACKET
     ac			6
     minitile		CHAINTUNIC
@@ -11616,14 +12244,14 @@ ITEM DRAGONSCALEMAIL
 {
     name		"dragon scale mail"
     tile		LEATHERTUNIC
-    weight		15
+    weight		20
     flag1		ISJACKET
-    ac			6
+    ac			7
     minitile		LEATHERTUNIC
     material		LEATHER
     itemtype		ARMOUR
     size		MEDIUM
-
+    rarity      50
     noise		3
 }
 
@@ -11631,9 +12259,9 @@ ITEM PLATEMAIL
 {
     name		"plate mail"
     tile		PLATETUNIC
-    weight		20
+    weight		25
     flag1		ISJACKET
-    ac			7
+    ac			8
     minitile		PLATEMAIL
     material		IRON
     itemtype		ARMOUR
@@ -11646,14 +12274,14 @@ ITEM CRYSTALPLATE
 {
     name		"crystal plate mail"
     tile		GLASSTUNIC
-    weight		15
+    weight		25
     flag1		ISJACKET
-    ac			7
+    ac			9
     minitile		CRYSTALPLATE
     material		GLASS
     itemtype		ARMOUR
     size		MEDIUM
-
+    rarity      50
     noise		4
 }
 
@@ -11663,12 +12291,12 @@ ITEM GOLDENPLATE
     tile		PLATETUNIC
     weight		30
     flag1		ISJACKET
-    ac			7
+    ac			10
     minitile		PLATEMAIL
     material		GOLD
     itemtype		ARMOUR
     size		MEDIUM
-
+    rarity      20
     noise		5
 }
 
@@ -11703,9 +12331,10 @@ ITEM ROCK
     tile		ROCK
     weight		10
     material		STONE
-    itemtype		MISC
+    itemtype		WEAPON
     stacksize		2d2-1
     attackskill		WEAPON_BLUNT
+	specialskill	WEAPON_RICOCHET
     noise		1
     size		TINY
     equipstack		true
@@ -13061,7 +13690,7 @@ GOD AGNOSTIC
     whimofxom	"><0|V| rolls to disbelieve... And fails!  "
 
     mental	1
-    physical	1
+    physical	2
 }
 
 GOD FIGHTER
