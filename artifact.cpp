@@ -275,6 +275,8 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_WARNING,
 	INTRINSIC_DIG,
 	INTRINSIC_LICHFORM,
+	INTRINSIC_MAGICSHIELD,    // Mages might find this annoying. ;)
+	INTRINSIC_CLAIRVOYANCE,
 	INTRINSIC_NONE
     };
 
@@ -305,6 +307,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_NOREGEN,
 	INTRINSIC_LEFTHANDED,  // Does nothing good for you, so goes to bad ones.
 	INTRINSIC_GOLDALLERGY,
+	INTRINSIC_IRONALLERGY,
 	INTRINSIC_OFFBALANCE,
 	INTRINSIC_NONE
     };
@@ -321,6 +324,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_SKILL_ARMOUR_EXOTIC,
 	INTRINSIC_SKILL_DODGE,
 	INTRINSIC_SKILL_MOVINGTARGET,
+	INTRINSIC_SKILL_TUMBLE,
 	INTRINSIC_SKILL_EVADETRAP,
 	INTRINSIC_SKILL_TWOWEAPON,
 	INTRINSIC_SKILL_WEAPON_RANGED,
@@ -342,11 +346,17 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_SKILL_WEAPON_IMPALE,
 	INTRINSIC_SKILL_WEAPON_RICOCHET,
 	INTRINSIC_SKILL_WEAPON_SNEAKATTACK,
+	INTRINSIC_SKILL_WEAPON_MULTIATTACK,
+	INTRINSIC_SKILL_WEAPON_POWERATTACK,
+	INTRINSIC_SKILL_WEAPON_CONCUSSION,
+	INTRINSIC_SKILL_WEAPON_RETREAT,
 	INTRINSIC_SKILL_ENDUREHUNGER,
 	INTRINSIC_SKILL_BUTCHERY,
 	INTRINSIC_SKILL_CLEANKILL,
 	INTRINSIC_SKILL_CHARGE,
 	INTRINSIC_SKILL_LEAPATTACK,
+	INTRINSIC_SKILL_FORESTRY,
+	INTRINSIC_SKILL_MASTERTHROWER,
 	INTRINSIC_NONE
     };
 	
@@ -355,6 +365,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_SPELL_FLASH,
 	INTRINSIC_SPELL_STICKYFLAMES,
 	INTRINSIC_SPELL_MAGICMISSILE,
+	INTRINSIC_SPELL_MAGICSHIELD,
 	INTRINSIC_SPELL_CHILL,
 	INTRINSIC_SPELL_SPARK,
 	INTRINSIC_SPELL_FROSTBOLT,
@@ -386,6 +397,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
 	INTRINSIC_SPELL_SANDSTORM,
 	INTRINSIC_SPELL_GROWFOREST,
 	INTRINSIC_SPELL_ANIMATEFOREST,
+	INTRINSIC_SPELL_SPLINTERBOLT,
 	INTRINSIC_SPELL_DOWNPOUR,
 	INTRINSIC_SPELL_ROLLINGBOULDER,
 	INTRINSIC_SPELL_ENTOMB, // Now this is gonna be fun if someone forgets they don't need to have Dig...
@@ -561,7 +573,7 @@ artifact_buildartifact(const char *name, ITEM_NAMES baseitem)
     }
 
     // Determine thrown attack.
-    // Weapons have a 10% chance.  Thrown weapons 100% chance. Potions also have 100% chance.
+    // Weapons have a 10% chance. Thrown weapons 100% chance. Potions also have 100% chance.
     art->hasthrownattack = false;
     if ((itemtype == ITEMTYPE_WEAPON && (glb_itemdefs[baseitem].thrownattack != ATTACK_MISTHROWN || artifact_randchance(10))) ||
 	     itemtype == ITEMTYPE_POTION)
