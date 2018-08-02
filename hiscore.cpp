@@ -30,7 +30,7 @@
 
 // #pragma pack(push, 1)
 
-int glbVersion = 118;
+int glbVersion = 001;
 int glbSaveCount = 0;
 bool glbIsNewGame = false;
 bool glbRNGValid = false;
@@ -215,7 +215,7 @@ hiscore_load(SRAMSTREAM &is)
     u8			data;
     
     is.readRaw(prefix, 6);
-    if (memcmp(prefix, "POWDER", 6))
+    if (memcmp(prefix, "gunPOWDER", 6))
     {
 	// This is an invalid memory chunk, rebuild!
 	clearsave = true;
@@ -287,7 +287,7 @@ hiscore_save(SRAMSTREAM &os)
     int			i;
     u8			data;
 
-    os.writeRaw("POWDER", 6);
+    os.writeRaw("gunPOWDER", 6);
     data = hiscore_getversion();
     os.writeRaw((char *) &data, 1);
 

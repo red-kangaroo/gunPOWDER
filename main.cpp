@@ -1302,7 +1302,7 @@ writeStatusLine()
 
 	gfx_cleartextline(18);
 	if (glbHasAlreadyWon)
-	    gfx_printtext(0, 18, "Celebarating");
+	    gfx_printtext(0, 18, "Celebrating");
 	else
 	    gfx_printtext(0, 18, "Dead");
     }
@@ -1633,7 +1633,7 @@ intro_screen()
 	for (int y = 2; y < 19; y++)
 	    gfx_cleartextline(y);
 	
-	gfx_printtext(10, 1, "POWDER 118"); 
+	gfx_printtext(10, 1, "gunPOWDER 001"); 
 
 	gfx_printtext(30 - strlen(get_glb_author()), 19,
 		    get_glb_author());
@@ -2259,7 +2259,7 @@ rebuild_all()
 
 	introMessage();
 
-	avatar->reportMessage("Welcome to POWDER!");
+	avatar->reportMessage("Welcome to gunPOWDER!");
 
 	// Describe where the avatar is standing, in case there
 	// is some item.
@@ -4603,17 +4603,16 @@ processAction(ACTION_NAMES action, SPELL_NAMES forcespell, MOB *avatar)
 	    break;
 
 	case ACTION_WISH:
-#ifdef iPOWDER
 	    if (!glbWizard)
 	    {
-		if (hamfake_isunlocked())
-		{
+		//if (hamfake_isunlocked())
+		//{
 		    if (gfx_yesnomenu("Enable Wishing?"))
 		    {
 			glbWizard = true;
 		    }
-		}
-		else
+		//}
+		/*else
 		{
 		    if (gfx_yesnomenu("Unlock Wishing?"))
 		    {
@@ -4621,9 +4620,8 @@ processAction(ACTION_NAMES action, SPELL_NAMES forcespell, MOB *avatar)
 			// We can't set wizard here as we don't know
 			// when/if they succeed in the unlock.
 		    }
-		}
+		}*/
 	    }
-#endif
 
 	    if (glbStressTest || !glbWizard)
 	    {
