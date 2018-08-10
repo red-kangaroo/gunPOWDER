@@ -378,7 +378,8 @@ MOB::create(MOB_NAMES definition)
 	    ITEM_NAMES armlist[] =
 	    {
 		ITEM_PLATEMAIL,
-		ITEM_SCALEMAIL,
+		ITEM_SPLINTMAIL,
+		ITEM_BANDEDMAIL,
 		ITEM_CHAINMAIL
 	    };
 	    weapon = weplist[rand_choice(sizeof(weplist)/sizeof(ITEM_NAMES))];
@@ -457,8 +458,8 @@ MOB::create(MOB_NAMES definition)
 		ITEM_ROBE,
 		ITEM_CHAINMAIL,
 		ITEM_MITHRILMAIL,
-		ITEM_SCALEMAIL,
-		ITEM_DRAGONSCALEMAIL,
+		ITEM_BANDEDMAIL,
+		ITEM_SPLINTMAIL,
 		ITEM_PLATEMAIL,
 		ITEM_CRYSTALPLATE
 	    };
@@ -612,21 +613,19 @@ MOB::create(MOB_NAMES definition)
 		if (*glb_spellbookdefs[book].spells)
 		{
 		    // Note the funny use of continue
-		    // inside switch to abort adding spells/skills
+		    // inside swtich to abort adding spells/skills
 		    switch (piety_chosengod())
 		    {
 			case GOD_BARB:
 			    continue;
 			case GOD_NECRO:
 			    if (book != SPELLBOOK_DEATH &&
-				    book != SPELLBOOK_DEMON &&
-				    book != SPELLBOOK_NECRO)
+				book != SPELLBOOK_NECRO)
 				continue;
 			    break;
 			case GOD_CLERIC:
 			    if (book == SPELLBOOK_DEATH ||
-				    book == SPELLBOOK_DEMON ||
-				    book == SPELLBOOK_NECRO)
+				book == SPELLBOOK_NECRO)
 				continue;
 			    break;
 			case GOD_FIGHTER:
@@ -1159,17 +1158,6 @@ MOB::makeUnique()
 	"eri",
 	"opi",
 	"hjur",
-	"net",
-	"hack",
-	"ryn",
-	"xsi",
-	"sal",
-	"dir",
-	"o-ren",
-	"mod",
-	"groo",
-	"niin",
-	"frk",
 	0
     };
     int		i, n;
@@ -1188,15 +1176,9 @@ MOB::makeUnique()
     // Buf the mob.
     myMaxHP = myMaxHP * 2 + 20;
     myHP = myMaxHP;
-	
     if (myMP)
     {
 	myMaxMP = myMaxMP * 2 + 40;
-	myMP = myMaxMP;
-    }
-	else
-    {
-	myMaxMP = 40;
 	myMP = myMaxMP;
     }
 
@@ -1220,7 +1202,6 @@ MOB::makeUnique()
     // We get bonus intrinsics.
     INTRINSIC_NAMES		intrinsics[] =
     {
-	INTRINSIC_FAST,
 	INTRINSIC_QUICK,
 	INTRINSIC_UNCHANGING,
 	INTRINSIC_RESISTSTONING,
@@ -1239,121 +1220,24 @@ MOB::makeUnique()
 	INTRINSIC_TELEPATHY,
 	INTRINSIC_NOBREATH,
 	INTRINSIC_LIFESAVE,	// This really sucks on a creature.
-				        // Got axed by a red dragon unique
-				        // with this.
+				// Got axed by a red dragon unique
+				// with this.
 	INTRINSIC_RESISTSLEEP,
 	INTRINSIC_FREEDOM,
 	INTRINSIC_WATERWALK,
 	INTRINSIC_JUMP,
 	INTRINSIC_WARNING,
 	INTRINSIC_LICHFORM,	// I look forward to this triggering!
-				        // This has proven the most fun thing for
-				        // people to discover!
+				// This has proven the most fun thing for
+				// people to discover!
 	INTRINSIC_DIG,		// Likely nerfed as the ai doesn't wander 
-				        // into walls
-	INTRINSIC_MAGICSHIELD,
-	INTRINSIC_CLAIRVOYANCE,
-    INTRINSIC_SKILL_ARMOUR_HELMET,
-	INTRINSIC_SKILL_ARMOUR_SHIELD,
-	INTRINSIC_SKILL_ARMOUR_BODY,
-	INTRINSIC_SKILL_ARMOUR_BOOTS,
-	INTRINSIC_SKILL_ARMOUR_CLOTH,
-	INTRINSIC_SKILL_ARMOUR_LEATHER,
-	INTRINSIC_SKILL_ARMOUR_IRON,
-	INTRINSIC_SKILL_ARMOUR_EXOTIC,
-	INTRINSIC_SKILL_DODGE,
-	INTRINSIC_SKILL_MOVINGTARGET,
-	INTRINSIC_SKILL_EVADETRAP,
-	INTRINSIC_SKILL_TWOWEAPON,
-	INTRINSIC_SKILL_WEAPON_TRUEAIM,
-	INTRINSIC_SKILL_WEAPON_PARRY,
-	INTRINSIC_SKILL_WEAPON_RIPOSTE,
-	INTRINSIC_SKILL_WEAPON_KNOCKOUT,
-	INTRINSIC_SKILL_WEAPON_KNOCKBACK,
-	INTRINSIC_SKILL_WEAPON_STUN,
-	INTRINSIC_SKILL_WEAPON_BLEEDINGWOUND,
-	INTRINSIC_SKILL_WEAPON_DISARM,
-	INTRINSIC_SKILL_WEAPON_IMPALE,
-	INTRINSIC_SKILL_WEAPON_RICOCHET,
-	INTRINSIC_SKILL_WEAPON_SNEAKATTACK,
-	INTRINSIC_SKILL_WEAPON_MULTIATTACK,
-	INTRINSIC_SKILL_WEAPON_POWERATTACK,
-	INTRINSIC_SKILL_WEAPON_CONCUSSION,
-	INTRINSIC_SKILL_WEAPON_RETREAT,
-	INTRINSIC_SKILL_CHARGE,
-	INTRINSIC_SKILL_MASTERTHROWER,
-	INTRINSIC_SPELL_FLASH,
-	INTRINSIC_SPELL_STICKYFLAMES,
-	INTRINSIC_SPELL_MAGICMISSILE,
-	INTRINSIC_SPELL_MAGICSHIELD,
-	INTRINSIC_SPELL_CHILL,
-	INTRINSIC_SPELL_SPARK,
-	INTRINSIC_SPELL_FROSTBOLT,
-	INTRINSIC_SPELL_LIVINGFROST, // No Blizzard, too hard to figure out how to make it work without prereq.
-	INTRINSIC_SPELL_FIREBALL,
-	INTRINSIC_SPELL_FLAMESTRIKE,
-	INTRINSIC_SPELL_LIGHTNINGBOLT,
-	INTRINSIC_SPELL_CHAINLIGHTNING,
-	INTRINSIC_SPELL_SUNFIRE,
-	INTRINSIC_SPELL_ACIDSPLASH,
-	INTRINSIC_SPELL_ACIDICMIST,
-	INTRINSIC_SPELL_CORROSIVEEXPLOSION,
-	INTRINSIC_SPELL_ACIDPOOL,
-	INTRINSIC_SPELL_MINDACID,
-	INTRINSIC_SPELL_DISINTEGRATE,
-	INTRINSIC_SPELL_REGENERATE,
-	INTRINSIC_SPELL_SLOWPOISON,
-	INTRINSIC_SPELL_HEAL,
-	INTRINSIC_SPELL_CUREPOISON,
-	INTRINSIC_SPELL_MAJORHEAL,
-	INTRINSIC_SPELL_FORCEBOLT,
-	INTRINSIC_SPELL_FORCEWALL,
-	INTRINSIC_SPELL_CREATEPIT,
-	INTRINSIC_SPELL_SANDSTORM,
-	INTRINSIC_SPELL_ANIMATEFOREST,
-	INTRINSIC_SPELL_SPLINTERBOLT,
-	INTRINSIC_SPELL_DOWNPOUR,
-	INTRINSIC_SPELL_ROLLINGBOULDER,
-	INTRINSIC_SPELL_ENTOMB,
-	INTRINSIC_SPELL_TRACK,
-	INTRINSIC_SPELL_PRESERVE,
-	INTRINSIC_SPELL_TELEPORT,
-	INTRINSIC_SPELL_BLINK,
-	INTRINSIC_SPELL_FETCH,
-	INTRINSIC_SPELL_PETRIFY,
-	INTRINSIC_SPELL_FINGEROFDEATH,
-	INTRINSIC_SPELL_POISONITEM,
-	INTRINSIC_SPELL_POISONBOLT,
-	INTRINSIC_SPELL_RAISE_UNDEAD,
-	INTRINSIC_SPELL_RECLAIM_SOUL,
-	INTRINSIC_SPELL_DARK_RITUAL,
-	INTRINSIC_SPELL_GHASTIFY,
-	INTRINSIC_SPELL_BINDSOUL,
-	INTRINSIC_SPELL_SOULSUCK,
-	INTRINSIC_SPELL_SUMMON_IMP,
-	INTRINSIC_SPELL_SUMMON_DEMON,
-	INTRINSIC_SPELL_CLOUDKILL,
-	// These probably won't work right for now, so add them once
-	// I figure out how to use them like this.
-	/*INTRINSIC_DRESSED_BARBARIAN,
-	INTRINSIC_DRESSED_CLERIC,
-	INTRINSIC_DRESSED_FIGHTER,
-	INTRINSIC_DRESSED_NECROMANCER,
-	INTRINSIC_DRESSED_RANGER,
-	INTRINSIC_DRESSED_WIZARD,*/
+				// into walls
 	INTRINSIC_NONE
     };
 
     for (n = 0; intrinsics[n] != INTRINSIC_NONE; n++);
 
     setIntrinsic(intrinsics[rand_choice(n)]);
-	
-	// We get less bonus intrinsics with more bonus loot.
-	while (rand_chance(30) && i < 10)
-	{
-	setIntrinsic(intrinsics[rand_choice(n)]);
-	i++;
-	}
 }
 
 MOVE_NAMES
@@ -2525,9 +2409,11 @@ MOB::doHeartbeat()
 		// We want to regen every turn if full even if
 		// ring of regen is on.  Otherwise a ring becomes less
 		// useful when full.
-
+		if (speed_matchheartbeat(2) || (hunger > HUNGER_NORMAL))
+		{
 		    myHP++;
 		    starve(1);
+		}
 	    }
 	}
 	else if (allowregen)
@@ -2540,7 +2426,7 @@ MOB::doHeartbeat()
 		    starve(1);
 		    myHP++;
 		}
-		else if (hunger > HUNGER_NORMAL && speed_matchheartbeat(2))
+		else if (hunger > HUNGER_NORMAL)
 		{
 		    myHP++;
 		    starve(1);
@@ -2550,9 +2436,9 @@ MOB::doHeartbeat()
 
 	if (myHP < getMaxHP() 
 		&& allowregen 
-		&& hasIntrinsic(INTRINSIC_DRESSED_BARBARIAN))
+		&& hasIntrinsic(INTRINSIC_DRESSED_FIGHTER))
 	{
-	    // Barbarians get half regen!  Yowzers!
+	    // Fighters get half regen!  Yowzers!
 	    if (speed_matchheartbeat(2))
 	    {
 		myHP++;
@@ -2948,34 +2834,6 @@ MOB::doHeartbeat()
 		if (item->getMaterial() == MATERIAL_GOLD)
 		{
 		    lived = receiveDamage(ATTACK_GOLDITEM, 0,
-					    item, 0, 
-					    ATTACKSTYLE_MISC);
-
-		    if (!lived)
-			break;
-		    // Note that even if we live, we may delete
-		    // items, ie, items of life saving,
-		    // and thus may end up with a corrupt inventory 
-		    // list.
-		    // Our hacky solution is to detect life saving
-		    // by looking for us having max hp..
-		    if (getHP() == getMaxHP())
-			break;
-		}
-	    }
-	}
-    }
-	
-	// Apply iron damage for anything we are wielding
-    if (lived && hasIntrinsic(INTRINSIC_IRONALLERGY))
-    {
-	for (item = myInventory; item; item = item->getNext())
-	{
-	    if (item->getX() == 0)
-	    {
-		if (item->getMaterial() == MATERIAL_IRON)
-		{
-		    lived = receiveDamage(ATTACK_IRONITEM, 0,
 					    item, 0, 
 					    ATTACKSTYLE_MISC);
 
@@ -3548,7 +3406,7 @@ MOB::getWeaponSkillLevel(const ITEM *weapon, ATTACKSTYLE_NAMES attackstyle) cons
     // Non-avatar are exempt from this.
     // They get maximum skill.
     if (!isAvatar())
-	  return 2;
+	return 2;
 
     // Determine if we have the attack skill.
     SKILL_NAMES		 attackskill;
@@ -3581,8 +3439,6 @@ MOB::getWeaponSkillLevel(const ITEM *weapon, ATTACKSTYLE_NAMES attackstyle) cons
 	if (!misused && hasSkill(weapon->getSpecialSkill()))
 	    skilllevel++;
     }
-    else if (attackstyle == ATTACKSTYLE_MELEE && hasIntrinsic(INTRINSIC_DRESSED_NECROMANCER))
-	  return 2;
 
     // Switch on the attack style.
     switch (attackstyle)
@@ -3667,6 +3523,7 @@ MOB::getArmourSkillLevel(const ITEM *armour) const
 
 	    case MATERIAL_GOLD:
 	    case MATERIAL_GLASS:
+	    case MATERIAL_MITHRIL:
 	    case MATERIAL_SILVER:
 	    case MATERIAL_STONE:
 	    case MATERIAL_FLESH:
@@ -3814,12 +3671,12 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
     // First, we determine those cases where the attacker is guaranteed
     // to hit.
     forcehit = attack->alwayshit;
-    if (src && weapon && launcher && (style == ATTACKSTYLE_THROWN))
+    if (src && weapon && (style == ATTACKSTYLE_THROWN))
     {
 	// Check for true aim ability.
 	if (weapon->defn().specialskill == SKILL_WEAPON_TRUEAIM)
 	{
-	    if (src->hasSkill(SKILL_WEAPON_TRUEAIM) && !src->hasMovedLastTurn())
+	    if (src->hasSkill(SKILL_WEAPON_TRUEAIM))
 		forcehit = true;
 	}
     }
@@ -3882,14 +3739,7 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
     {
 	if (!src->canSense(this))    
 	{
-	  if (modifier > 7)
-	  {
-	    modifier /= 2;
-	  }
-	  else
-	  {
 	    modifier -= 4;
-	  }
 	}
 
 	// If we are the natural foe of the attacker, +4
@@ -3912,71 +3762,18 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 
     acroll = rollAC(src);
     
-	// Crit handling
     if (hitroll == 20)
     {
 	int		threatroll;
-	bool	confirm;
-	bool	sneakattack;
 	
-	// We now have a critical threat.
-	threatroll = rand_range(1, 20);
-	attackroll = threatroll + modifier - 10;
-	confirm = false;
-	sneakattack = false;
-	
-	if (src && weapon && (style == ATTACKSTYLE_MELEE))
-    {
-	// Check for sneak attack ability.
-	if (weapon->defn().specialskill == SKILL_WEAPON_SNEAKATTACK)
-	{
-	    if (src->hasSkill(SKILL_WEAPON_SNEAKATTACK))
-		  sneakattack = true;
-	}
-    }
-	// We check to see if we hit
+	// We now have a critical threat.  We check to see if we hit
 	// a second time.
-	else if (threatroll == 20 || (threatroll != 1 && (attackroll >= acroll)) )
+	threatroll = rand_range(1, 20); 
+	attackroll = threatroll + modifier - 10;
+	if (threatroll == 20 ||
+	    (threatroll != 1 && 
+	            (attackroll >= acroll)) )
 	{
-	  // Confirm crit.
-	  confirm = true;
-	} 
-	if (confirm || sneakattack)
-	{
-	/*
-	 * Daggers with SKILL_WEAPON_SNEAKATTACK get bonus multiplier++ for each condition of target:
-	 *  cannot see them, asleep, paralyzed, off-balance
-	 */
-	  if (sneakattack && !canSense(src)) // We have already checked for src, so this should not crash. Hopefully.
-	  {
-	    multiplier++;
-	  }
-	  if (sneakattack && hasIntrinsic(INTRINSIC_ASLEEP)) // This may cause bonus crit mod on sleeping target, as they might not see us.
-	  {                                                  // If so, good. ;) Daggers need some strong attack.
-	    multiplier++;
-	  }
-	  if (sneakattack && hasIntrinsic(INTRINSIC_PARALYSED) && !hasIntrinsic(INTRINSIC_FREEDOM))
-	  {
-	    multiplier++;
-	  }
-	  if (sneakattack && hasIntrinsic(INTRINSIC_OFFBALANCE))
-	  {
-	    multiplier++;
-	  }
-	  
-      // Maybe add handling for large weapons having brutal crits?
-	  // On a second thought, that might make them too good with their higher base damage...
-	  /*
-	  if (src && weapon && (style == ATTACKSTYLE_MELEE))
-	  {
-	  if (weapon->getSize() == SIZE_LARGE && src->hasSkill(SKILL_WEAPON_LARGE))
-	  {
-	    multiplier++;
-	  }
-	  }
-	  */
-	  
-	  //Finally...
 	    multiplier++;
 	}
     }
@@ -4018,35 +3815,9 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	(!hasIntrinsic(INTRINSIC_PARALYSED) || hasIntrinsic(INTRINSIC_FREEDOM)))
     {
 	abletomove = true;
-	// Check for dodging:
-	//   5% for plate mails
-	//  10% for scale mails
-	//  15% for normal chain mail or robe
-	//  20% for mithril chain mail or studded leather
-	//  25% for tunic
-	//  30% for naked
-	if (!forcehit && hasSkill(SKILL_DODGE) /*&& skillProc(SKILL_DODGE)*/)
+	// Check for dodging: Flat 10%.
+	if (!forcehit && hasSkill(SKILL_DODGE) && skillProc(SKILL_DODGE))
 	{
-	  int  dodgechance = 30; // Unarmored.
-	  
-	  if (getEquippedItem(ITEMSLOT_BODY))
-	  {
-	    int  armourweight = getEquippedItem(ITEMSLOT_BODY)->GetWeight();
-		
-		if (armourweight < 10)
-		  dodgechance = 25;
-		if (armourweight < 15)
-		  dodgechance = 20;
-		if (armourweight < 20)
-		  dodgechance = 15;
-		if (armourweight < 25)
-		  dodgechance = 10;
-		if (armourweight >= 25)
-		  dodgechance = 5;
-	  }
-	  
-	  if (rand_chance(dodgechance))
-	  {
 	    const char *dodgelist[] = 
 	    { 
 		"dodge", 
@@ -4072,59 +3843,17 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 			rand_string(dodgelist), weapname.buffer());
 	    reportMessage(buf);
 	    return true;
-	  }
 	}
 
-	// Check for moving target: must have moved last turn and
-	//   5% for plate mails
-	//  15% for scale mails
-	//  25% for normal chain mail or robe
-	//  35% for mithril chain mail or studded leather
-	//  45% for tunic
-	//  50% for naked
-	// Now works with reduced effect even for melee. --red_kangaroo
+	// Check for moving target: 20% if moved last turn.
 	if (!forcehit && 
+	    (style == ATTACKSTYLE_THROWN || 
+	     style == ATTACKSTYLE_SPELL || 
+	     style == ATTACKSTYLE_WAND) && 
 	    hasMovedLastTurn() && 
-	    hasSkill(SKILL_MOVINGTARGET))
+	    hasSkill(SKILL_MOVINGTARGET) && 
+	    skillProc(SKILL_MOVINGTARGET))
 	{
-	  int  dodgechance = 50; // Unarmored.
-	  
-	  if (getEquippedItem(ITEMSLOT_BODY))
-	  {
-	    int  armourweight = getEquippedItem(ITEMSLOT_BODY)->GetWeight();
-		
-	  if (style == ATTACKSTYLE_THROWN || 
-	      style == ATTACKSTYLE_SPELL || 
-	      style == ATTACKSTYLE_WAND)
-	  {
-	  	if (armourweight < 10)
-		  dodgechance = 45;
-		if (armourweight < 15)
-		  dodgechance = 35;
-		if (armourweight < 20)
-		  dodgechance = 25;
-		if (armourweight < 25)
-		  dodgechance = 15;
-		if (armourweight >= 25)
-		  dodgechance = 5;
-	  }
-	  else
-	  {
-		if (armourweight < 10)
-		  dodgechance = 25;
-		if (armourweight < 15)
-		  dodgechance = 20;
-		if (armourweight < 20)
-		  dodgechance = 15;
-		if (armourweight < 25)
-		  dodgechance = 10;
-		if (armourweight >= 25)
-		  dodgechance = 5;
-	  }
-	  }
-		 
-	  if (rand_chance(dodgechance))
-	  {
 	    // Phew!  Wonder if anyone will do this?
 	    // Yep, I've seen this in practice :>
 	    const char *dodgelist[] = 
@@ -4152,7 +3881,6 @@ MOB::receiveAttack(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 			rand_string(dodgelist), weapname.buffer());
 	    reportMessage(buf);
 	    return true;
-	  }
 	}
 
 	// Check for parry.
@@ -4473,23 +4201,6 @@ MOB::receiveDamage(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	    verb = "sear";
 	}
     }
-	if (hasIntrinsic(INTRINSIC_IRONALLERGY))
-    {
-	if (weapon && weapon->getMaterial() == MATERIAL_IRON)
-	{
-	    multiplier++;
-	    verb = "sear";
-	    goldsafe = true;
-	}
-	// Creatures made of gold that engage in melee do gold
-	// damage.
-	if (!weapon && src && (style == ATTACKSTYLE_MELEE) &&
-	    (src->getMaterial() == MATERIAL_IRON))
-	{
-	    multiplier++;
-	    verb = "sear";
-	}
-    }
 
     // Check if we are to damage silver weapons
     if (!silversafe && weapon && weapon->getMaterial() == MATERIAL_SILVER
@@ -4512,8 +4223,7 @@ MOB::receiveDamage(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 	    && !weapon->isArtifact())
     {
 	// Gold is a lot more malleable
-	// It may be, but it's no fun using gold weapons, then. --red_kangaroo
-	if (rand_chance(1))
+	if (rand_chance(10))
 	{
 	    if (src)
 		src->formatAndReport("%R %Iu <I:dull>.", weapon);
@@ -4750,48 +4460,9 @@ MOB::receiveDamage(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 		}
 	    }
 	}
-	
-	// Unarmed Shadow touch of Tlosh
-	if (src && !weapon)
-	{
-	if (style == ATTACKSTYLE_MELEE && src->hasIntrinsic(INTRINSIC_DRESSED_NECROMANCER))
-	{
-	  if (myMP >= damage)
-	  {
-	    myMP -= damage;
-		src->receiveMana(damage, this);
-		if (rand_chance(30))
-		  src->receiveHeal(damage, this, true);
-	  }
-	  else
-	  {
-	    src->receiveMana(myMP, this);
-		if (rand_chance(30))
-		{
-		  src->receiveHeal(myMP, this, true);
-		}
-		myMP = 0;
-	  }
-	}
-	}
     }
 
-	if (hasIntrinsic(INTRINSIC_MAGICSHIELD))
-	{
-	  if (myMP >= damage)
-	  {
-	    myMP -= damage;
-		damage = 0;
-	  }
-	  else
-	  {
-	    damage -= myMP;
-		myMP = 0;
-	  }
-	}
-	
     myHP -= damage;
-	
     if (myHP <= 0)
     {
 	bool		madecorpse = false;
@@ -4977,7 +4648,6 @@ MOB::receiveDamage(const ATTACK_DEF *attack, MOB *src, ITEM *weapon,
 
 nextattack:
     attackname = (ATTACK_NAMES) attack->sameattack;
-	
     if (attackname != ATTACK_NONE)
 	return receiveDamage(attackname, src, weapon, launcher, 
 			     style, 
@@ -5039,12 +4709,6 @@ MOB::receiveDeathExp(int explevel)
     
     // Round up...
     receiveExp((int)basic + 1);
-	
-	if (hasIntrinsic(INTRINSIC_SKILL_BLOODLUST))
-	{
-	  formatAndReport("%U <feel> a rush of bloodlust!");
-	  receiveHeal(rand_dice(1, 5, 0), this, true);
-	}
 }
 
 SPELL_NAMES
@@ -5666,11 +5330,6 @@ MOB::receiveHeal(int hp, MOB *src, bool vampiric)
     {
 	didanything = true;
 
-	if (src->hasIntrinsic(INTRINSIC_DRESSED_CLERIC))
-	{
-	  hp *= 2; // Double healing for clerics!!!
-	}
-	
 	// Only top up our health.
 	if (myHP + hp > getMaxHP())
 	    hp = getMaxHP() - myHP;
@@ -6737,7 +6396,7 @@ MOB::pageCharacterDump(bool ondeath, bool didwin, int truetime)
     buf.sprintf("AC: %d", getAC());
     gfx_pager_addtext(buf); gfx_pager_newline();
 
-    buf.sprintf("XP: %d/%d", getExpLevel(), getExp());
+    buf.sprintf("X: %d", getExp());
     gfx_pager_addtext(buf); gfx_pager_newline();
 
     if (isAvatar())
@@ -7096,17 +6755,12 @@ MOB::getAC() const
 	    if (slot == ITEMSLOT_LHAND)
 	    {
 		int		parrychance;
-		
 		if (skilllevel <= 0)
 		    parrychance = 25;
 		else if (skilllevel == 1)
 		    parrychance = 50;
 		else
 		    parrychance = 75;
-		
-		// Fighters get bonus because they're good at fighting.
-		if (hasIntrinsic(INTRINSIC_DRESSED_FIGHTER))
-		    parrychance += 25;
 		
 		worn_ac += itemac * parrychance;
 	    }
@@ -7447,11 +7101,8 @@ MOB::getSecondWeaponChance() const
 	return 0;
     }
 
-    // Add one star of effectiveness if ambidextrous.
+    // Add one star of effectiveness if ambidextrous
     if (hasSkill(SKILL_AMBIDEXTROUS))
-	totalskill++;
-	// Let's give rogues a bit of a bonus.
-	if(hasIntrinsic(INTRINSIC_DRESSED_RANGER))
 	totalskill++;
 
     // Build the chance table...
@@ -7460,7 +7111,7 @@ MOB::getSecondWeaponChance() const
 	chance += totalskill * 8;
     else
 	chance += 22 + (totalskill-3)*6;
-	
+
     // If the secondary is not smaller than the primary, only have 2/3
     // chance...
     // Somewhat ironicly, I type this with only my left hand as S---
@@ -8073,13 +7724,11 @@ MOB::safeToDigest(ITEM *item) const
     bool	ignorestone;
     bool	ignoregold;
     bool	ignoresilver;
-	bool	ignoreiron;
 
     ignorepoison = hasIntrinsic(INTRINSIC_RESISTPOISON) || hasSkill(SKILL_BUTCHERY);
     ignorestone = hasIntrinsic(INTRINSIC_UNCHANGING) || hasIntrinsic(INTRINSIC_RESISTSTONING);
     ignoregold = !isWearing(MATERIAL_GOLD);  
-    ignoresilver = !isWearing(MATERIAL_SILVER);
-	ignoreiron = !isWearing(MATERIAL_IRON);
+    ignoresilver = !isWearing(MATERIAL_SILVER);  
 
     // Don't eat intrinsically poisoned stuff
     // Stuff that got poisoned we may still foolishly eat,
@@ -8136,12 +7785,6 @@ MOB::safeToDigest(ITEM *item) const
 		if (intrinsic == INTRINSIC_GOLDALLERGY)
 		{
 		    if (!ignoregold)
-			return false;
-		}
-		
-		if (intrinsic == INTRINSIC_IRONALLERGY)
-		{
-		    if (!ignoreiron)
 			return false;
 		}
 	    }
@@ -8392,8 +8035,7 @@ MOB::determineClassiness(int *srcdressiness)
 	else
 	    dressiness[GOD_BARB]++;
 
-	if (item->getMaterial() != MATERIAL_GOLD &&
-	    item->getMaterial() != MATERIAL_GLASS)
+	if (item->getMaterial() != MATERIAL_GOLD)
 	    necro = false;
 	else
 	    dressiness[GOD_NECRO]++;
@@ -8484,14 +8126,15 @@ MOB::determineClassiness(int *srcdressiness)
 
     // Check for a blunt weapon for clerics
     // I don't think this should be necessary...  Spellbooks suffice, IMO.
-	// I like it. --red_kangaroo
-
-    if (cleric || srcdressiness)
+#if 0
+    if (cleric)
     {
 	item = getEquippedItem(ITEMSLOT_RHAND);
 	if (!item || item->getAttackSkill() != SKILL_WEAPON_BLUNT)
 	    cleric = false;
     }
+#endif
+
     // Check for book wield for clerics.
     if (cleric || srcdressiness)
     {
@@ -8502,11 +8145,8 @@ MOB::determineClassiness(int *srcdressiness)
 	    dressiness[GOD_CLERIC]++;
     }
 
-    // Check for wand or staff for wizards,
-	// because their mana regeneration is
-	// very strong and wizards always should
-	// have a wand/staff. ;) --red_kangaroo
-    if (wizard || srcdressiness)
+    // Check for wand or staff for necromancers
+    if (necro || srcdressiness)
     {
 	item = getEquippedItem(ITEMSLOT_RHAND);
 	if (!item ||
@@ -8518,25 +8158,14 @@ MOB::determineClassiness(int *srcdressiness)
 		(item->getItemType() != ITEMTYPE_STAFF &&
 		 item->getItemType() != ITEMTYPE_WAND))
 	    {
-		wizard = false;
+		necro = false;
 	    }
 	    else
-		dressiness[GOD_WIZARD]++;
+		dressiness[GOD_NECRO]++;
 	}
 	else
-	    dressiness[GOD_WIZARD]++;
-    }
-	
-	// Necromancers look awsome and use unarmed martial arts. --red_kangaroo
-	if (necro || srcdressiness)
-	{
-	  if (getEquippedItem(ITEMSLOT_RHAND) || getEquippedItem(ITEMSLOT_LHAND))
-	  {
-	    necro = false;
-	  }
-	  else
 	    dressiness[GOD_NECRO]++;
-	}
+    }
 
     if (wizard || ranger || fighter || cleric || necro || barb || srcdressiness)
     {
@@ -8544,38 +8173,32 @@ MOB::determineClassiness(int *srcdressiness)
 	if (item)
 	{
 	    itemname = item->getDefinition();
-		
 	    if (itemname != ITEM_ROBE)
 		wizard = false;
 	    else
 		dressiness[GOD_WIZARD]++;
-		
 	    if (itemname != ITEM_STUDDEDLEATHER &&
 		itemname != ITEM_LEATHERTUNIC)
 		ranger = false;
 	    else
 		dressiness[GOD_ROGUE]++;
-		
 	    if (itemname != ITEM_PLATEMAIL)
 		fighter = false;
 	    else
 		dressiness[GOD_FIGHTER]++;
-		
-	    if (itemname != ITEM_CRYSTALPLATE &&
-		    itemname != ITEM_GOLDENPLATE)
+	    if (itemname != ITEM_CRYSTALPLATE)
 		necro = false;
 	    else
 		dressiness[GOD_NECRO]++;
-		
 	    if (itemname != ITEM_CHAINMAIL &&
 		itemname != ITEM_MITHRILMAIL)
 		cleric = false;
 	    else
 		dressiness[GOD_CLERIC]++;
-		
 	    if (itemname != ITEM_STUDDEDLEATHER &&
-		itemname != ITEM_SCALEMAIL &&
-		itemname != ITEM_DRAGONSCALEMAIL)
+		itemname != ITEM_LEATHERTUNIC &&
+		itemname != ITEM_CHAINMAIL &&
+		itemname != ITEM_MITHRILMAIL)
 		barb = false;
 	    else
 		dressiness[GOD_BARB]++;
@@ -8597,27 +8220,22 @@ MOB::determineClassiness(int *srcdressiness)
 	if (item)
 	{
 	    itemname = item->getDefinition();
-		
 	    if (itemname != ITEM_POINTEDSLIPPERS)
 		wizard = false;
 	    else
 		dressiness[GOD_WIZARD]++;
-		
 	    if (itemname != ITEM_HIKINGBOOTS)
 		ranger = false;
 	    else
 		dressiness[GOD_ROGUE]++;
-		
 	    if (itemname != ITEM_IRONSHOES)
 		fighter = false;
 	    else
 		dressiness[GOD_FIGHTER]++;
-		
 	    if (itemname != ITEM_SANDALS)
 		cleric = false;
 	    else
 		dressiness[GOD_CLERIC]++;
-		
 	    if (itemname != ITEM_RIDINGBOOTS)
 		barb = false;
 	    else
@@ -8673,11 +8291,10 @@ MOB::determineClassiness(int *srcdressiness)
     }
 
     // Clerics require the proper amulet to be held.
-    // This should be made a specific amulet as soon as I have one
+    // THis should be made a specific amulet as soon as I have one
     // that looks more like a holy symbol.
     // Necros are similar, but have specific amulets in mind.
-    // Barbarians just want something protecting their neck. Or
-	// maybe they're just so vain. ;)
+    // Barbarians just want something protecting their neck.
     if (cleric || necro || barb || srcdressiness)
     {
 	item = getEquippedItem(ITEMSLOT_AMULET);
@@ -8701,10 +8318,6 @@ MOB::determineClassiness(int *srcdressiness)
 	}
     }
 
-	// We need to make sure uniques who have special dress intrinsics
-	// do not loose them. I will try to think about something more
-	// elegant and less bug-prone than this. --red_kangaroo
-    // TODO: Solution to uniques.
     if (wizard)
 	setIntrinsic(INTRINSIC_DRESSED_WIZARD);
     else
@@ -8803,15 +8416,8 @@ MOB::skillProc(SKILL_NAMES skill) const
 {
     if (skill == SKILL_NONE)
 	return false;
-	
-	int  proc = glb_skilldefs[skill].proc;
-	
-	if (hasIntrinsic(INTRINSIC_DRESSED_FIGHTER))
-	{
-	  proc *= 2;
-	}
 
-    return rand_chance(proc);
+    return rand_chance(glb_skilldefs[skill].proc);
 }
 
 int
@@ -10241,55 +9847,6 @@ MOB::attemptLifeSaving(const char *deathstring)
 	
 	// For now, we disallow items that grant lichform.  This is supposed
 	// to require a proper suicide, after all.
-	// Artifacts can grant lichform now. --red_kangaroo
-	
-	lifesaver = getSourceOfIntrinsic(INTRINSIC_LICHFORM);
-	
-	if (lifesaver)
-	{
-	    // Some cool messages!
-	    formatAndReport(deathstring);
-
-	    formatAndReport("%R %Iu <I:glow> with black light and crumbles to dust!",
-			    lifesaver);
-		
-		formatAndReport("Evil forces intervene!  %U <transform> into a lich!");
-
-	    // Set your id to Lich.
-	    myDefinition = MOB_LICH;
-	    
-	    // Reacquire full HP
-	    setMaximalHP();
-
-	    // Gain all of the Lich intrinsics...
-	    mergeIntrinsicsFromString(glb_mobdefs[MOB_LICH].intrinsic);
-
-	    clearDeathIntrinsics(false);
-
-	    // We become more powerful!
-	    gainLevel();
-
-	    // If the heart grants lichform it could get rather
-	    // embarassing. Since we can't destroy the heart, we won't.
-		// Now I know you will say this is OP, but you can only
-		// become a lich once, plus the heart is evil, so...
-		// I mean, you could use it to create an army of liches from
-		// your pets, but if you can do this, well done, that's the
-		// spirit! --red_kangaroo
-	    if (lifesaver->defn().isquest)
-	    {
-		formatAndReport("The dust reassembles itself into %Iu!", 
-				lifesaver);
-	    }
-        else
-        {
-	    drop = dropItem(lifesaver->getX(), lifesaver->getY());
-	    UT_ASSERT(drop == lifesaver);
-        delete lifesaver;
-		}
-		
-	    return true;
-	}
 	
 	UT_ASSERT(!"UNKNOWN SOURCE OF LICH FORM");
 	// Cute message for this impossible condition.

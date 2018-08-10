@@ -3339,7 +3339,6 @@ MAP::buildHello()
     }
 
     // There is no down stairs from hello.
-	// TODO: You can continue deeper after you kill Belzebub?
 #if 0
     while (1)
     {

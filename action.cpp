@@ -362,7 +362,7 @@ MOB::actionJump(int dx, int dy)
     bool	leapattack = false;
     bool	singlestep = false;
 
-    if (!hasIntrinsic(INTRINSIC_JUMP) && !hasSkill(SKILL_JUMP))
+    if (!hasIntrinsic(INTRINSIC_JUMP))
     {
 	formatAndReport("%U cannot jump very far.");
 	return false;
@@ -456,17 +456,6 @@ MOB::actionJump(int dx, int dy)
     // Clearly jumping should noise your feet.
     makeEquipNoise(ITEMSLOT_FEET);
 
-	// Get hunger cost.
-	if (hasIntrinsic(INTRINSIC_JUMP) && hasSkill(SKILL_JUMP))
-	{
-	  starve(1);
-	}
-	else if (hasSkill(SKILL_JUMP))
-	{
-	 starve(3);
-	}
-	else
-	  starve(5);
 
     if (leapattack)
     {
@@ -699,7 +688,6 @@ bool
 MOB::actionAttack(int dx, int dy, int multiplierbonus)
 {
     int		 nx, ny;
-	int		 nnx, nny;
     MOB		*mob, *thismob;
     ITEM	*weapon;
     BUF		 buf;
@@ -708,7 +696,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
     bool	 firstweapon = true;
     bool	 improvised = true;
     bool	 ischarge = false;
-	bool     retreat = false;
 
     applyConfusionNoSelf(dx, dy);
 
@@ -789,22 +776,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 	attack = &glb_attackdefs[glb_mobdefs[myDefinition].attack];
     
     thismob = this;
-	
-	if (weapon)
-	{
-	  if (weapon->getSpecialSkill() == SKILL_WEAPON_KNOCKOUT &&
-	      hasSkill(SKILL_WEAPON_CLOBBER))
-	  {
-		nnx = nx + SIGN(dx);
-		nny = ny + SIGN(dy);
-			
-		// Creatures pressed against a wall are clobbered for extra damage.
-		if (!glbCurLevel->canMove(nnx, nny, MOVE_STD_FLY))
-		{
-		  multiplierbonus++;
-		}
-	  }
-	}
     
     while (attack)
     {
@@ -821,14 +792,9 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 	    break;
 
 	if (attack->nextattack != ATTACK_NONE)
-	  attack = &glb_attackdefs[attack->nextattack];
-	else if (weapon &&
-	         weapon->getSpecialSkill() == SKILL_WEAPON_MULTIATTACK &&
-	         hasSkill(SKILL_WEAPON_MULTIATTACK) &&
-	         skillProc(SKILL_WEAPON_MULTIATTACK))
-	  attack = weapon->getAttack();
+	    attack = &glb_attackdefs[attack->nextattack];
 	else
-	  attack = 0;
+	    attack = 0;
 
 	// If we have run out of attacks with this weapon, see if
 	// we should break it!
@@ -909,12 +875,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 			{
 			    formatAndReport("%U <stun> %MU!", mob);
 			    mob->setTimedIntrinsic(thismob, INTRINSIC_CONFUSED, rand_range(3,5));
-				
-				// And now cause the poor chap concussion. --red_kangaroo
-				if (hasSkill(SKILL_WEAPON_CONCUSSION)
-			    {
-			      mob->setTimedIntrinsic(thismob, INTRINSIC_AMNESIA, rand_range(10,100));
-			    }
 			}
 			break;
 
@@ -922,15 +882,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 			// Knock the target back
 			// Infinite mass is set as this is an attack.
 			glbCurLevel->knockbackMob(nx, ny, dx, dy, true);
-			
-			// With Mighty Blow, you can paralyse your foes. I wonder how many people
-			// will use in in synergy with Charge... --red_kangaroo
-			if (hasSkill(SKILL_WEAPON_POWERATTACK &&
-			             !mob->hasIntrinsic(INTRINSIC_FREEDOM))
-			{
-			  formatAndReport("%U <smite> %MU!", mob);
-			  mob->setTimedIntrinsic(thismob, INTRINSIC_PARALYSED, rand_range(1,3));
-			}
 			break;
 
 		    case SKILL_WEAPON_IMPALE:
@@ -939,6 +890,7 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 			// creature, possibly impaling whoever is standing
 			// behind!
 			MOB		*nextvictim = 0;
+			int		 nnx, nny;
 
 			nnx = nx + SIGN(dx);
 			nny = ny + SIGN(dy);
@@ -1030,7 +982,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 			// FALL THROUGH
 		    }
 		    case ITEMSLOT_HEAD:
-			case ITEMSLOT_AMULET:
 		    case ITEMSLOT_BODY:
 		    case ITEMSLOT_RRING:
 		    case ITEMSLOT_LRING:
@@ -1055,8 +1006,7 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 		    
 		    // I really can't think of a way that the
 		    // amulet can be used.    
-            // I can. --red_kangaroo
-			
+		    case ITEMSLOT_AMULET:
 		    // The right hand is covered by normal combat.    
 		    case ITEMSLOT_RHAND:
 		    // This ensures we cover all valid code paths
@@ -1120,9 +1070,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 		    case ITEMSLOT_HEAD:
 			formatAndReport("%U head <butt> with %r %Iu.", weapon);
 			break;
-			case ITEMSLOT_AMULET:
-			formatAndReport("%U <bite>, %r %Iu leading the way.", weapon);
-			break;
 		    case ITEMSLOT_BODY:
 			formatAndReport("%U body <slam> with %r %Iu.", weapon);
 			break;
@@ -1138,6 +1085,7 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 			break;
 
 		    // These should not occur.
+		    case ITEMSLOT_AMULET:
 		    case ITEMSLOT_RHAND:
 		    case NUM_ITEMSLOTS:
 			UT_ASSERT(!"Invalid itemslot selected");
@@ -1150,26 +1098,6 @@ MOB::actionAttack(int dx, int dy, int multiplierbonus)
 	    }
 	}
     }
-	
-	weapon = getEquippedItem(ITEMSLOT_RHAND);
-	if (weapon && (thismob == glbCurLevel->getMob(ox, oy)) &&
-	    weapon->getSpecialSkill() == SKILL_WEAPON_MULTIATTACK &&
-	    hasSkill(SKILL_WEAPON_RETREAT) && skillProc(SKILL_WEAPON_RETREAT))
-    {
-	  retreat = true;
-	}
-	weapon = getEquippedItem(ITEMSLOT_LHAND);
-	if (weapon && (thismob == glbCurLevel->getMob(ox, oy)) &&
-	    weapon->getSpecialSkill() == SKILL_WEAPON_MULTIATTACK &&
-	    hasSkill(SKILL_WEAPON_RETREAT) && skillProc(SKILL_WEAPON_RETREAT))
-    {
-	  retreat = true;
-	}
-	// Jump back to safety!
-	if (retreat)
-	{
-	  actionWalk(-dx, -dy);
-	}
 
     return true;
 }
@@ -1317,8 +1245,6 @@ MOB::actionSwap(int dx, int dy)
 	case ATTITUDE_NEUTRAL:
 	    taketurn = true;
 	    // TODO: Chance of becoming hostile?
-		if (!hasSkill(SKILL_TUMBLE))
-		{
 	    switch (strengthCheck(mob->getStrength()))
 	    {
 		case -1:
@@ -1338,28 +1264,12 @@ MOB::actionSwap(int dx, int dy)
 		    doswap = true;
 		    break;
 	    }
-		}
-		else
-		{
-		  doswap = true;
-		  formatAndReport("%U <tumble> past %MU.", mob);
-		}
 	    break;
 
 	case ATTITUDE_HOSTILE:
-	    // Tumble past them, or no go.
-		if (!hasSkill(SKILL_TUMBLE))
-		{
 	    taketurn = false;
 	    doswap = false;
 	    formatAndReport("%U cannot swap places with someone %p <be> fighting!");
-		}
-		else
-		{
-		  taketurn = true;
-		  doswap = true;
-		  formatAndReport("%U <tumble> past %MU.", mob);
-		}
 	    break;
 
 	case NUM_ATTITUDES:
@@ -1404,7 +1314,7 @@ MOB::actionSleep()
 
     if (hasIntrinsic(INTRINSIC_RESISTSLEEP))
     {
-	formatAndReport("%U <stay> wide awake!"); // This is mildly annoying.
+	formatAndReport("%U <stay> wide awake!");
 	return true;
     }
 
@@ -2814,11 +2724,11 @@ MOB::actionEat(int ix, int iy)
 			int		heal;
 
 			if (item->isBlessed())
-			    heal = 50;
+			    heal = rand_dice(1, 10, 10);
 			else if (item->isCursed())
 			    heal = rand_dice(1, 10, 0);
 			else
-			    heal = 20;
+			    heal = rand_dice(1, 20, 0);
 
 			if (receiveHeal(heal, this))
 			{
@@ -2831,13 +2741,13 @@ MOB::actionEat(int ix, int iy)
 			}
 			else
 			{
-			    // Grant bonus health...
+			    // Grant bonus magic...
 			    if (item->isBlessed())
-				heal = rand_dice(1, 5, 0);
+				heal = rand_dice(3, 2, -2);
 			    else if (item->isCursed())
 				heal = 1;
 			    else
-				heal = rand_dice(1, 3, 0);
+				heal = rand_dice(2, 2, -1);
 
 			    incrementMaxHP(heal);
 			    
@@ -2862,13 +2772,11 @@ MOB::actionEat(int ix, int iy)
 		    }
 		    break;
 
-		case POTION_CONFUSION:
+		case POTION_BLIND:
 		    {
 			int		turns;
 			
-			// You get 3d20 turns of confusion.
-			// Why I changed it from blindness to confusion? Blindness is already covered by smoke
-			// and confusion is interesting and way too rare. --red_kangaroo
+			// You get 3d20 turns of blindness.
 			if (item->isBlessed())
 			    turns = rand_dice(3, 10, 30);
 			else if (item->isCursed())
@@ -2877,15 +2785,13 @@ MOB::actionEat(int ix, int iy)
 			    turns = rand_dice(3, 20, 0);
 
 			// Determine if we notice anything...
-			if (isAvatar())
+			if (isAvatar() && 
+			    !hasIntrinsic(INTRINSIC_BLIND))
 			{
 			    item->markIdentified();
 			}
 
-			setTimedIntrinsic(this, INTRINSIC_CONFUSED, turns);
-			// Your head will hurt so much from cursed booze.
-			if (item->isCursed())
-			  setTimedIntrinsic(this, INTRINSIC_AMNESIA, turns);
+			setTimedIntrinsic(this, INTRINSIC_BLIND, turns);
 		    }
 		    break;
 
@@ -2920,7 +2826,7 @@ MOB::actionEat(int ix, int iy)
 			    // We grant poison resistance for a 5 + 1d5 turns.
 			    formatAndReport("%R metabolism stabilizes.");
 			    setTimedIntrinsic(this, INTRINSIC_RESISTPOISON,
-						    rand_dice(1, 5, 6)); // So... Why 1d5 + 6 instead? :D --red_kangaroo
+						    rand_dice(1, 5, 6));
 			}
 			if (cured)
 			{
@@ -2966,9 +2872,6 @@ MOB::actionEat(int ix, int iy)
 			{
 			    glbShowIntrinsic(this);
 			}
-			// Grant some XP, so that player does not hoard them all
-			// for identifying artifacts. --red_kangaroo
-			receiveExp(100 + isBlessed()*50 - isCursed*50);
 			break;
 		    }
 
@@ -2989,14 +2892,12 @@ MOB::actionEat(int ix, int iy)
 		    {
 			int		mana;
 
-			// Mana potions should give enough MP to justify using them in need,
-			// otherwise they are just too good because of the recharging. --red_kangaroo
 			if (item->isBlessed())
-			    mana = 1000;
+			    mana = rand_dice(3, 10, 30);
 			else if (item->isCursed())
-			    mana = rand_dice(3, 10, -10);
+			    mana = rand_dice(3, 10, 0);
 			else
-			    mana = 50;
+			    mana = rand_dice(3, 20, 0);
 
 			if (receiveMana(mana, this))
 			{
@@ -3010,13 +2911,12 @@ MOB::actionEat(int ix, int iy)
 			else
 			{
 			    // Grant bonus magic...
-				// Let's not grant less than the renewable corpses. --red_kangaroo
 			    if (item->isBlessed())
-				mana = rand_dice(2, 10, 0);
+				mana = rand_dice(3, 2, -2);
 			    else if (item->isCursed())
 				mana = 1;
 			    else
-				mana = rand_dice(2, 5, 0);
+				mana = rand_dice(2, 2, -1);
 
 			    incrementMaxMP(mana);
 			    
@@ -3082,7 +2982,6 @@ MOB::actionEat(int ix, int iy)
 	    break;
 	}
 
-	// TODO: Eat any magictype for its intrinsics.
 	case MAGICTYPE_NONE:
 	case MAGICTYPE_SCROLL:
 	case MAGICTYPE_RING:
@@ -3141,7 +3040,7 @@ MOB::actionEat(int ix, int iy)
 	    // If you are undead, should not be a pleasant experience.
 	    if (item->isBlessed() && getMobType() == MOBTYPE_UNDEAD)
 	    {
-		if (!receiveDamage(ATTACK_HOLYWATER, 0, item, 0,
+		if (!receiveDamage(ATTACK_ACIDPOTION, 0, item, 0,
 				ATTACKSTYLE_MISC))
 		{
 		    // Do nothing more if we die.
@@ -3457,11 +3356,6 @@ MOB::actionRead(int ix, int iy)
 				id->markIdentified();
 			}
 		}
-		if (item->isCursed())
-		{
-          setTimedIntrinsic(this, INTRINSIC_CONFUSED, rand_dice(3, 10, 0));
-		  formatAndReport("Too much information!");
-		}
 		break;
 	    }
 	    case SCROLL_REMOVECURSE:
@@ -3502,16 +3396,16 @@ MOB::actionRead(int ix, int iy)
 	    }
 	    case SCROLL_LIGHT:
 	    {
-		int		radius = 8;
+		int		radius = 5;
 		bool		islight = true;
 		
 		if (item->isCursed())
 		{
-		    radius = 12;
+		    radius = 7;
 		    islight = false;
 		}
 		if (item->isBlessed())
-		    radius = 12;
+		    radius = 7;
 
 		if (islight)
 		{
@@ -3558,23 +3452,8 @@ MOB::actionRead(int ix, int iy)
 	    }
 	    case SCROLL_HEAL:
 	    {
-		int		heal;
-
-		if (item->isBlessed()) // Full heal here. TODO: Remove all negative effects?
-		{
-		  heal = 1000;
-		}
-		else if (item->isCursed())
-		{
-		  heal = rand_dice(1, 10, 0);
-		  setTimedIntrinsic(this, INTRINSIC_BLEED, heal);
-		  formatAndReport("Something is not right...");
-		}
-		else
-		  heal = 50;
-				
 		formatAndReport("%R wounds are healed.");
-		receiveHeal(heal, this);
+		receiveHeal(15 - (item->isCursed() * 5) + (item->isBlessed() * 5), this);
 		break;
 	    }
 	    case SCROLL_TELEPORT:
@@ -3609,8 +3488,8 @@ MOB::actionRead(int ix, int iy)
 		{
 		    enchantment = -1;
 		}
-		if (item->isBlessed())  // I find it funny how two ways of increasing enchantment to 50% of +2 was used
-		{                       // literally 10 lines apart. :) --red_kangaroo
+		if (item->isBlessed())
+		{
 		    if (rand_choice(2))
 		    {
 			enchantment++;
@@ -3631,7 +3510,6 @@ MOB::actionRead(int ix, int iy)
 		    formatAndReport("%U <feel> omnipotent!");
 		    formatAndReport("The feeling passes.");
 		    // Do not consume the scroll!  That is just evil!
-			// It would be cool if this made player into unqiue monster... --red_kangaroo
 		    doread = false;
 		    break;
 		}
@@ -4222,7 +4100,8 @@ MOB::actionThrow(int ix, int iy, int dx, int dy, int dz)
     // Check for special skill...
     if (missile->defn().specialskill == SKILL_WEAPON_RICOCHET)
     {
-	if (hasSkill(SKILL_WEAPON_RICOCHET))
+	// Requires a launcher
+	if (launcher && hasSkill(SKILL_WEAPON_RICOCHET))
 	{
 	    ricochet = true;
 	}
@@ -4385,13 +4264,7 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
     bool	 targetself = false;
     bool	 istargetlit = false;
 
-    // applyConfusion(dx, dy, dz);
-	// Let's make confusion more powerful. --red_kangaroo
-    if (hasIntrinsic(INTRINSIC_CONFUSED))
-    {
-	formatAndReport("Being confused, %U cannot concentrate on the spell.");
-	return true; // This should waste a turn, right?
-    }
+    applyConfusion(dx, dy, dz);
 
     // Targetted square.
     int		tx = getX() + dx;
@@ -5076,6 +4949,7 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
 	    
 	    return true;
 	}
+
 	case SPELL_DIG:
 	    formatAndReport("%U magically <excavate> earth.");
 	    pietyCastSpell(spell);
@@ -5507,35 +5381,8 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
 
 	    return true;
 	}
-	case SPELL_SPLINTERBOLT:
-	{
-	    formatAndReport("%U <send> forth a shower of sharp wooden splinters.");
-	    ourZapSpell = spell;
 	    
-	    pietyCastSpell(spell);
-
-	    if (targetself || dz)
-	    {
-		if (dz)
-		{
-		    buf.sprintf("The %s seems unaffected.",
-				((dz < 0) ? "floor" : "ceiling"));
-		    reportMessage(buf);
-		}
-		else
-		    zapCallbackStatic(getX(), getY(), false, &myself);
-	    }
-	    else
-	    {
-		glbCurLevel->fireRay(getX(), getY(),
-				 dx, dy,
-				 4,
-				 MOVE_STD_FLY, false,
-				 zapCallbackStatic,
-				 &myself);
-	    }
-	    return true;
-	}	
+	    
 	case SPELL_FIREBALL:
 	    ourZapSpell = spell;
 	    ourFireBallCount = 0;
@@ -5720,19 +5567,6 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
 	    target->setTimedIntrinsic(this, INTRINSIC_RESISTPOISON,
 				    rand_dice(1, 5, 6));
 #endif
-	    return true;
-		
-	case SPELL_MAGICSHIELD:
-	    if (!target || ((target != this) && !canSense(target)))
-	    {
-		formatAndReport("%U <cast> at thin air.");
-		cancelSpell(spell);
-		return true;
-	    }
-
-	    target->formatAndReport("%U <start> to glow.");
-	    target->setTimedIntrinsic(this, INTRINSIC_MAGICSHIELD, 
-				      rand_dice(3, 10, 30));
 	    return true;
 	    
 	case SPELL_MAJORHEAL:
@@ -6538,18 +6372,18 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
 	    switch (target->getDefinition())
 	    {
 		case MOB_ZOMBIE:
-		    maxhp = 20;
-		    break;
-		case MOB_SKELETON:
 		    maxhp = 10;
 		    break;
+		case MOB_SKELETON:
+		    maxhp = 5;
+		    break;
 		case MOB_GHAST:
-		    maxhp = 30;
+		    maxhp = 20;
 		    break;
 		default:
 		    // I don't think any other type can fall through to here,
 		    // but let us prepare for inevitable programmer error.
-		    maxhp = 50;
+		    maxhp = 30;
 		    break;
 	    }
 
@@ -7029,15 +6863,7 @@ MOB::actionCast(SPELL_NAMES spell, int dx, int dy, int dz)
 
 	    MOB		*imp;
 
-		if (rand_chance(50))
-		{
-	      imp = MOB::create(MOB_DAEMON);
-		}
-		else
-		{
-		  imp = MOB::create(MOB_ICEDAEMON);
-		}
-		
+	    imp = MOB::create(MOB_DAEMON);
 	    // Summoned creatures never have inventory.
 	    imp->destroyInventory();
 

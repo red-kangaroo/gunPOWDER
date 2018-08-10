@@ -8,70 +8,68 @@
 # 	combined, ignite.
 
 GOD::AGNOSTIC - no one god
-    Gods? Let them come to me!
+    Gods?  Let them come to me!
 
-    Adventurers worship no gods. This leaves them safe from their
+    Adventurers worship no one god.  This leaves them safe from their
     meddlings, but also unable to reap the gifts that fall to the
     faithful.
 
-    Adventurers scoff at special conducts!
+    Followers have no special conducts.
 
-    Every level, adventurers receive good health boost and some magic power.
+    Followers receive +5/+5 per level.
 
 GOD::FIGHTER - Klaskov
-    Klaskov the Ironclad is the patron deity of Fighters. He is best
-    known for the burnished set of adamant full plate armour he wears
-    into any battle.
+    Klaskov the Ironclad is the patron deity of fighters.  He is best
+    known for the burnished set of full plate he wears into any
+    battle.
 
-    Followers are encouraged to kill and wear heavy armour.
+    Followers are encouraged to kill, and dress well.
     
     Followers are discouraged from casting spells.
     
-    Every level, followers receive great health boost. 
+    Followers receive +15/+0 per level. 
 
 GOD::WIZARD - Belweir
-    Belweir the Near-sighted is the patron deity of Wizards. Belweir
+    Belweir the Near Sighted is the patron deity of Wizards.  Belweir
     incorporates in the form of a large rock mole.  Belweir's
     knowledge of mystical matters exceeds all other beings.
 
     `Know what is in front of you before seeking that afar.'
 
-    Followers are encouraged to cast spells, identify things and dress
-	in resplendent robes.
+    Followers are encouraged to cast spells, identify things, and dress well.
 
     Followers are discouraged from melee combat.
 
-    Every level, followers receive great magic power.
+    Followers receive +0/+15 per level.
 
 GOD::ROGUE - Quizar
-    Quizar the Black Cloak is the patron deity of rogues. On the mortal
+    Quizar the Black is the patron deity of rogues.  On the mortal
     plane, Quizar takes the form of a large black squirrel.
 
     Followers are encouraged to attack from afar, identify items, find
-    secrets, dress well for the hunt and strike down the helpless.
+    secrets, dress well, and strike the helpless.
 
     Followers are discouraged from making a lot of noise.
 
-	Every level, followers receive good health boost and some magic power.
+    Followers gain +10/+5 per level.
 
 GOD::NECRO - Tlosh
-    Tlosh the Archlich is the patron deity of necromancers. Though
+    The Arch-Lich Tlosh is the patron deity of necromancers.  Though
     not technically a god, Tlosh's power is such that few argue the
     point.
 
     Followers are encouraged to kill at a distance, practice death
-    magic, dress in exquisite and opulent armour and strike down the
-	helpless.
+    magic, dress well, and strike at the helpless.
 
     Followers are discouraged from all forms of healing and melee
     combat.
 
     Followers are forbidden from using healing spells.
 
-    Every level, followers receive some health boost and good magic power.
+    Followers gain +5/+10 per level.
 
 GOD::BARB - H'ruth    
-    The Horselord H'ruth is the patron deity of true warriors. To
+    The Horselord H'ruth is the patron deity of true warriors.  To
     those who measure civilization by cloth or scratches on parchment,
     H'ruth's followers are called barbarians.
 
@@ -82,28 +80,27 @@ GOD::BARB - H'ruth
 
     Followers are forbidden from using any spells.
 
-    Every level, followers receive massive health boost.
+    Followers gain +20/0 per level.
 
 GOD::CLERIC - Pax
     The Principle of Pax guides every move of would-be clerics.
     Violence is the last resort of the incompetent.
 
-    Followers are encouraged to heal, wear appropriate attire and to destroy
+    Followers are encouraged to heal, wear appropriate attire, and to destroy
     the undead.
 
     Followers are discouraged from initiating combat, feasting on the
-    fallen when not hungry and striking the helpless.
+    fallen when not hungry, and striking the helpless.
 
     Followers are forbidden from using death magic or harming those
     who are friendly.
 
-    Every level, followers receive good health boost and good magic power.
+    Followers gain +10/+10 per level.
 
 GOD::CULTIST - ><0|V|
-    Few are so foolish as to be a cultist of xOmXoMxOm.
+    Few are so foolish as to be a cultist of ><0|V|.
 
-    Their fate is either to be envied or pitied - depending entirely on x()M's
-	fancy.
+    Their fate is either to be envied or pitied.
 
 ITEM::KNIFE - knife
     A stout knife suitable for carving meat or throwing.
@@ -120,7 +117,7 @@ ITEM::WARHAMMER - warhammer
     can easily smash through the strongest of armour.
 
 ITEM::SPEAR - spear
-    A wooden spear.
+    An iron-tipped wooden spear.
 
 ITEM::SILVERSPEAR - silver spear
     A silver-tipped wooden spear.
@@ -233,9 +230,9 @@ ITEM::POINTEDSLIPPERS - pointed slippers
     the fire while recounting the glory of your adventures.  Too bad
     you are currently *in* the adventure!
 
-ITEM::LANTERNSHIELD - lantern shield
+ITEM::WOODENSHIELD - wooden shield
     Constructed of several pieces of wood cleverly joined, the wooden
-    shield is intended as disposable protection. XXX
+    shield is intended as disposable protection.
 
 ITEM::BUCKLER - buckler
     A small iron shield designed to be strapped to the arm, the buckler
@@ -309,45 +306,41 @@ ITEM::ROBE - plain robe
     Flowing cloth robes may hide your figure, but aren't very effective
     at blocking blows.  These robes have been dyed a gaudy blue.
 
-ITEM::LEATHERTUNIC - tunic
-    A leather buff jacket deflects many edged attacks and softens the
-    blow of blunt weapons. It is also light and form-fitting enough to
-	allow for the quick and nimble movement many a rogue requires.
+ITEM::LEATHERTUNIC - leather tunic
+    A boiled leather tunic deflects most edged weapons, and softens the
+    blow of blunt weapons.
 
-ITEM::STUDDEDLEATHER - leather armour
+ITEM::STUDDEDLEATHER - studded leather tunic
     This boiled leather tunic has had numerous metal studs riveted to
     its surface for added protection.
 
-ITEM::CHAINMAIL - chain mail
+ITEM::CHAINMAIL - chainmail
     Composed of many tiny loops of metal linked and riveted together,
-    chain mail provides a flexible and effective form of protection.
+    chainmail provides a flexible and effective form of protection.
 
-ITEM::MITHRILMAIL - mithril chain mail
-    Composed of many tiny loops of metal linked and riveted together,
-    chain mail provides a flexible and effective form of protection.
+ITEM::MITHRILMAIL - mithril chainmail
     This chain mail is composed not of mundane iron, but of the
-    very rare alloy known as mithril, or true-silver.
+    very rare metal known as mithril.
 
-ITEM::SCALEMAIL - scale mail
-    Many small armour scales of various shapes are attached to each other
-	and riveted in overlapping rows on top of a leather armour to provide
+ITEM::BANDEDMAIL - banded mail
+    Long strips of metal are riveted on top of a leather tunic to provide
     more consistent protection than that afforded by studded leather
-    armour.
+    tunics.
 
-ITEM::DRAGONSCALEMAIL - dragon scale mail
-    ???
+ITEM::SPLINTMAIL - splint mail
+    Long strips of metal are riveted on top of a leather tunic to provide
+    more consistent protection than that afforded by studded leather
+    tunics.
     
 ITEM::PLATEMAIL - plate mail
-    Composed of solid plates of iron, plate mail provides an effective,
-    if heavy and cumbersome, armour.
+    Composed of solid plates of iron, platemail provides an effective,
+    if heavy, armour.
 
-ITEM::CRYSTALPLATE - crystal plate mail
-    Fashioned in the manner of a plate mail, but with some form of hardened
-    crystal rather than iron. One would expect it to shatter at the first
-    hit, but it seems more resilient than its nature would suggest.
-	
-ITEM::GOLDENPLATE - gold plate mail
-    ???
+ITEM::CRYSTALPLATE - crystal platemail
+    Fashioned in the manner of platemail, but with some form of hardened
+    crystal rather than iron.  One would expect it to shatter at the
+    first hit, but it seems more resilient than its nature would
+    suggest.
 
 ITEM::BOULDER - boulder
     An immense granite boulder that practically fills the dungeon corridors.
@@ -355,7 +348,7 @@ ITEM::BOULDER - boulder
     shove to roll it a few feet.
 
 ITEM::MOUNDFLESH - mound of flesh
-    A disgusting ten-foot diameter mound of unspecified flesh.  You can only
+    A disgusting ten-foot diameter mound of unspecified-flesh.  You can only
     hope it never belonged to a living creature.
 
 ITEM::STATUE - statue
@@ -365,11 +358,11 @@ ITEM::STATUE - statue
 ITEM::CORPSE - corpse
     The main form of sustenance for adventurers deep in the dungeons.
     Many have asked why one would eat a steaming pile of raw flesh,
-    but you will soon acquire a taste for it. It can be quite delicious
-    once you pick the gristle out. Or so you keep telling yourself.
+    but you will soon acquire a taste for it.  It can be quite delicious
+    once you pick the gristle out.  Or so you keep telling yourself.
 
 ITEM::BONES - bones
-    Not as filling as corpses, but just as tasty. Be careful you
+    Not as filling as corpses, but just as tasty.  Be careful you
     don't get bone slivers stuck in your teeth!
 
 ITEM::ROCK - rock
@@ -378,7 +371,7 @@ ITEM::ROCK - rock
 
 ITEM::MEATBALL - meatball
     Small spheroid of meat products.  One is cautioned not to investigate too
-    closely what sort of mystery meat went into its construction.
+    closely what sort of meat went into its construction.
 
     You mouth waters briefly at the thought of Kobe-style meat balls mixed with
     havarti cheese in a bowl of rice.  Sadly, this meatball promises to be a
@@ -394,20 +387,19 @@ ITEM::GOLDNECKLACE - gold necklace
     Styling!
 
 ITEM::RUBYNECKLACE - ruby necklace
-    A clear ruby is in a delicate gold setting. The thin gold chain that
+    A clear ruby is in a delicate gold setting.  The thin gold chain that
     supports the setting looks equally delicate, but feeling it you get the
     impression it could withstand a stronger pull than you'd suspect.
 
 ITEM::IRONTORC - iron torc
     A close fitting neck-piece which is composed of heavy, inflexible, pieces.
-    The clasp closes with a solid *KCHUNK*.  With all the creatures seeking your
+    The clasp closes with a solid KCHUNK.  With all the creatures seeking your
     head, the idea of applying armour to your neck suddenly seems like a good
     idea.
 
 ITEM::STUDDEDGORGET - studded gorget
     A boiled leather collar studded with metal spikes.  You are considering
     wearing it for its protective value.  Not to match your spurred boots.
-	
     Right?
 
 ITEM::FEATHERHELM - feathered helm
@@ -428,9 +420,7 @@ ITEM::YRUNE
     with you.
 
 HELM::DRAIN
-    XXX
-	
-	Experiments with trying to produce the fabled Helm of Brilliance often
+    Experiments with trying to produce the fabled Helm of Brilliance often
     result in creating a Helm of Draining.  Rather than amplifying the 
     wearers magic, they instead drain it, leaving the magician bereft of
     their usual magic regeneration.
@@ -1255,7 +1245,7 @@ SKILL::SEARCH
 
 SKILL::EVADETRAP
     Fast reflexes and nimble feet allow you to leap safely to the pit's
-    edge before falling into the spikes below. The only way for you
+    edge before falling into the spikes below.  The only way for you
     to fall down a hole is to climb into it willingly.
 
 SKILL::ENDUREHUNGER
@@ -1518,7 +1508,7 @@ MOB::COCKATRICE - cockatrice
     spies report she has been making inquiries about rings of acid
     resistance.
 
-MOB::DAEMON - fire daemon
+MOB::DAEMON - daemon
     Hailing from the pits of hell, this minor daemon has been brought
     to the surface to give the living a taste of what they have in
     store.
@@ -1536,14 +1526,14 @@ MOB::BAEZLBUB - Baezl'bub
     take it to the surface.  The devil, as they say, is in the
     details.  This is one *big* detail.
 
-MOB::CRETAN_MINOTAUR - Minotaur
+MOB::CRETAN_MINOTAUR - Cretan Minotaur
     The Minotaur, a fearsome monster half human and half bull, resides
     at the center of a twisted maze.  Daedelus was clever to ensure
     the passages of the maze were too narrow for the minotaur to
     escape.  Hopefully you are equally clever and stick to small
     passages.
 
-MOB::TRIDUDE - green tridude
+MOB::TRIDUDE - tridude
     Exhibiting rare trilateral symmetry, some speculate that the
     green skinned tridudes are not native to our plane.  This doesn't
     stop the tridudes from killing unwary adventurers, however, so
@@ -1558,7 +1548,7 @@ MOB::BLUETRIDUDE - blue tridude
     zaps and crackles with latent electricity.
 
 MOB::PURPLETRIDUDE - purple tridude
-    If W'park the Wonderful had encountered the purple tridude he
+    If Wpark the Wonderful had encountered the purple tridude he
     likely would have dropped his studies on kobolds entirely.  Not
     only are they a more pleasing shade of lavender, but the glint of
     the three eyes shows considerable intelligence.
@@ -1599,51 +1589,23 @@ MOB::GOLDBEETLE - gold beetle
     powerful allergy in flesh and blood creatures, one that makes them
     unable to stand the presence of gold.
 
-MOB::ICESNAKE - blue snake
-    Serpens septentrionalem glacies
-	
-    A rare serpent normally found in glacial caves and snowlands of the far
-	North. Its venom is prized by alchemists for its unique quality of quickly 
-	decreasing in temperature when exposed to air. This causes the snake's bites
-	to inflict sudden frostbite and led to the discovery of an alchemical
-	concoction now known as a potion of frost.
-	
-	-- From 'Vicipaedia de reptilium et dracones'
+MOB::ICESNAKE - ice snake
+    This small serpent is more at home in glaciers than a dungeon.
+    Its bite can still inflict frostbite reminiscent of such
+    glaciers, so be warned.
 
 MOB::GREENSNAKE - green snake
-    Gramine coluber vulgaris
-	
-    This diminuitive snake is common in the yendorian countryside, hunting
-	small prey such as mice, giant beetles and kobolds. It is generally very
-	shy and is not known to attack humans unless threatened. Nonetheless,
-	one should be wary of its poisonous bite and leave it to live on its own.
-	
-	While the well-known 'green tartare' is prepared from this snake's meat,
-	any would-be chef should be warned that safely separating the poison glands
-	from the edible bits requires certain skill and unprofessionally prepared
-	tartare can result in severe food poisoning.
-	
-	-- From 'Vicipaedia de reptilium et dracones'
+    This small snake usually has smaller prey in mind than humans.
+    Nonetheless, one should be wary of its poisonous bite, and leave
+    it to live by its own whim.
 
-MOB::FIRESNAKE - red snake
-    Rubrum deserta anguis ignis
-	
-    A snake measuring 30 to 50 centimeters in length with scales coloured
-    in an impressive red and yellow pattern, ubiquitous in the Red Desert
-	of Utabi. Many people in countries bordering the Red Desert, such as
-	Qurac and Klach, value the scales for the creation of fancy-looking
-	boots. If it wasn't for the snake's venom, aptly named 'liquid fire',
-	this demand	could have spelt its extinction.
-	
-	-- From 'Vicipaedia de reptilium et dracones'
+MOB::FIRESNAKE - fire snake
+    A snake measuring 30 to 50 centimeters in length with scales
+    coloured in an impressive red and yellow pattern.  Many people in
+    the surface world value the scales for the creation of
+    fancy-looking boots.  If it weren't for the snake's fiery bite,
+    this demand could have spelt its extinction.
 
-MOB::SHIMMERINGSNAKE - shimmering snake
-    Serpens mortuus magicae
-	
-   XXX
-	
-	-- From 'Vicipaedia de reptilium et dracones'
-	
 MOB::MOUSE - mouse
     Small mice scurry anywhere that food scraps may be found.  To the
     novice, their movement may seem chaotic and random.  The skilled
@@ -1652,19 +1614,17 @@ MOB::MOUSE - mouse
     As a Hero on a Great Quest, you surely don't care about becoming a
     better mouser.
 
-MOB::RAT - large rat
-    This is a big rat.
-	
-    Rats live where humans live, but that doesn't stop humans from hating
-    them. While excuses like "spreaders of filth and disease" are usually
-	provided, the cynical point out that if rats had nice, bushy tails
-	rather than ugly, naked tails, the cohabitation may have been more
-	peaceful.
+MOB::RAT - rat
+    Rats live where humans live.  That doesn't stop humans from hating
+    them.  While excuses like "spreaders of filth and disease" are
+    usually provided, the cynical point out that if rats had nice
+    bushy tails rather than ugly naked tails, the cohabitation may
+    have been more peaceful.
 
 MOB::GIANTRAT - giant rat
-    This is a REALLY BIG rat. It likely weights as much as you do!
+    This is a BIG rat.  It likely weighs as much as you do!
 
-    Giant rats generally hate humans. While excuses like "spreaders of
+    Giant rats generally hate humans.  While excuses like "spreaders of
     filth and disease" are usually provided, the cynical point out that
     if humans had nice fur covering their bodies rather than being
     almost entirely naked, the cohabitation may have been more
@@ -1683,19 +1643,19 @@ MOB::GRIDBUG - grid bug
     fresh.
 
 MOB::SHITOMI - shitomi
-    The friendly shitomi is a large rat with lavender fur. The
+    The friendly shitomi is a large rat with lavender fur.  The
     shitomi's pleasant disposition endears most dungeon goers and only
     the most rabid would seek to do battle.
 
 MOB::TRICERATOP - triceratops
-    The triceratops is an animal long-extinct in places not lost in time
-	and forgotten to the world. As such, what we know about it comes from
-	the occasional fossilized bones. The size and strength of these bones
-	suggests a powerful creature. No doubt it also had a cruel and barbaric
-	demeanour - living, as it did, in the pre-civilised jungles of antiquity.
+    The triceratops is a long extinct animal.  As such, what we know
+    about it comes from the occasional fossilized bones.  The size
+    and strength of these bones suggests a powerful creature.  No doubt 
+    it also had a cruel and barbaric demeanour - living, as it did, in 
+    the pre-civilised jungles of antiquity.
 
     In summary: if you should see such a beast, make sure you attack 
-    first! And do try to preseve the corpse as the scientific community
+    first!  And do try to preserve the corpse as the scientific community
     will appreciate the research material.
 
 MOB::LUX - lux
@@ -1751,10 +1711,10 @@ MOB::FLOATINGEYE - floating eye
     that went awry.  This does not explain why those that try to hit
     the eye in melee often find themselves paralysed by its gaze.
 
-MOB::WIZARDSEYE - arcane eye
+MOB::WIZARDSEYE - wizard's eye
     While it is generally believed that the floating eye is a result
-    of a magic experiment, it wasn't until P'qar the Prudent developed
-    the Wizard's Eye spell that there was any proof.  Her spell was
+    of a magic experiment, it wasn't until Pqar the Prudent developed
+    the wizard's eye spell that there was any proof.  Her spell was
     created by studying the existent floating eyes so possess the same
     unusual attack ability.  She further augmented the summoned
     creatures by shifting their phase so they can float through solid
@@ -1786,21 +1746,14 @@ MOB::GIANTSPIDER - giant spider
     and sucked into its gullet.
 
 MOB::KIWI - kiwi
-    This large bird native to the beautiful island Zal Aden is peculiar
-	in that it is not just flightless, but wingless as well. While its
-	name could invoke connections to the extremely dangerous, carnivorous
-	kiwi plant, there is no connection between the two species except for
-	T'rus the Traveller's apparent fondness of the word 'kiwi'. The kiwi is
-	indeed peaceful by nature, as T'rus recorded in his Zal Aden journal:
-	
-	"XXX"
-	
-	The kiwi, being nocturnal, easily adapted to the sunless life in the
-	depths, feasting on	insects snuffled out with its long beak. Monsters
-	tend to avoid antagonizing the kiwi for that same beak can inflict a
-	devastating piercing attack.
+    The kiwi, native to New Zealand, is peculiar in that it is not just a
+    flightless bird, but a wingless bird as well.  Its nocturnal habit
+    allows it to live peacefully in the depths, feasting on insects
+    snuffled out with its long beak.  Antagonizing the kiwi is strongly 
+    discouraged for that same snout can inflict a devastating piercing
+    attack.
 
-MOB::BAT - small bat
+MOB::BAT - bat
     Explorers of dungeon depths should be thankful for bats for their part
     in minimizing the buzzing insects that would otherwise mar the 
     spelunking adventure.  Naysayers point out that bats do most of their
@@ -1855,9 +1808,9 @@ MOB::LICH - lich
     the undead lich.  In their new form they fear not the concerns
     that once plagued them.
 
-MOB::SOULSUCKER - ascended mage
+MOB::SOULSUCKER - soul sucker
     Adventurers who escape the deepest levels of the dungeon report of
-    hideously powerful creatures. One that haunts the memory of any
+    hideously powerful creatures.  One that haunts the memory of any
     who hears of it is the dreaded soul sucker.  Most creatures
     imperil only your physical body, but the soul sucker can use
     necromantic magic to absorb your soul!
@@ -1884,16 +1837,16 @@ MOB::KOBOLD - kobold
     stature.
 
 MOB::KOBOLDMAGE - kobold mage
-    In W'park the Wonderful's youth he believed that the kobold species
+    In Wpark the Wonderful's youth he believed that the kobold species
     held great promise.  It was only their lack of higher knowledge
     that prevented them from being accepted as equals among civilized
     nations.  He set out on a pilgrimage to teach the kobolds the
     wisdom of the world.
 
-    While W'park has refused to ever speak of his experiences, it was
+    While Wpark has refused to ever speak of his experiences, it was
     only after then that blue-robed kobold mages began to terrorize
     the underworld.  Their use of modern magic spells and wearing of
-    the signature blue wizard robe suggest W'park may have been at
+    the signature blue wizard robe suggest Wpark may have been at
     least partly successful.
 
 MOB::KOBOLDASSASSIN - kobold assassin
@@ -1911,7 +1864,7 @@ MOB::KOBOLDASSASSIN - kobold assassin
     Kobold Assassin is nothing more than hearsay spread to discredit
     kobold kind."
 
-    From an early journal of W'park the Wonderful.
+    From an early journal of Wpark the Wonderful.
 
 MOB::KOBOLDFIGHTER - kobold fighter
     While any kobold is willing to pick up a sword to take what they
@@ -1927,13 +1880,13 @@ MOB::KOBOLDTHIEF - kobold thief
     kobold-kind.  Those encountering the kobold thief should keep a close eye
     on their valuables or they may win the fight only to lose their wallet.
 
-MOB::TROLL - cave troll
+MOB::TROLL - troll
     The brutish nature of a troll cannot be understated.  They attack
-    with clumsy, but devastating force.  They have thick skins able
+    with clumsy, but devastating, force.  They have thick skins able
     to withstand the sharpest barbs.  And the worst part?  When you
     finally think you have killed them... they come back!
 
-MOB::CAVETROLL - rock troll
+MOB::CAVETROLL
     When Prakal the Earth Mage was faced with a large band of trolls,
     he did what seemed reasonable to him at the time.  A few quick
     casts of petrify would, he thought, result in a nice addition to
@@ -1943,45 +1896,44 @@ MOB::CAVETROLL - rock troll
     stone didn't make them any more tractable, however.
 
     Unfortunately for the world at large, Prakal took the better part
-    of valour and ran away.  This left the rock trolls to breed and
-    multiply and slowly infest the caves and dungeons of the world.
+    of valour and ran away.  This left the stone trolls to breed and
+    multiply into what are now properly termed as Cave Trolls.
 
-MOB::LIZARDMAN - gatoran
-    The cold blood of lizardfolk seems to lead to cool thinking.
-    Lizardfolk show no mercy to the weak.  Their native habitat is the
+MOB::LIZARDMAN - lizardman
+    The cold blood of a lizardman seems to lead to cool thinking.
+    Lizardmen show no mercy to the weak.  Their native habitat is the
     swamplands of the surface world, but they have adapted well to the
     underground depths.
 
-MOB::TURTLOID - gamoran
+MOB::TURTLOID - turtloid
     The thick armour shell of these turtle people makes them
     formidable opponents in a fight.
 
-MOB::LARGETURTLOID - gamoran warrior
-    It is said that gamorans never die of old age, but instead just
+MOB::LARGETURTLOID - large turtloid
+    It is said that turtloids never die of old age, but instead just
     keep growing to ever larger sizes.  Perhaps it is a good idea to
     slay them when they are still only this small?
 
 MOB::ORC - orc
     The filthy orcs are disdained by all species that have developed a
-    language sophisticated enough to include the word "disdain". They
-	are often used as a scape goat for any local problems.
+    language sophisticated enough to include the word "disdain".
 
-MOB::HILLORC - orc soldier
-    The filthy orcs are disdained by all species that have developed a
-    language sophisticated enough to include the word "disdain". They
-	are often used as a scape goat for any local problems. Indeed,
-	most army leaders enlist a token squad of orc soldiers. At the end
-	of combat, the orc squad is accused of all the various war crimes
-	that occurred and summarily executed. Scholars debate if the fact that
-    orcs still eagerly apply for such positions is a sign of their lack
-	of mental acuity or overriding desire to commit war crimes.
+MOB::HILLORC - hill orc
+    Native to the hills of Abr'po, the vicious hill orc is often used
+    as a scape goat for any local problems.  Indeed, most army leaders
+    of Abr'po enlist a token hill orc squad.  At the end of combat,
+    the hill orc squad is accused of all the various war crimes that
+    occurred and summarily executed.  Scholars debate if the fact that
+    hill orcs still eagerly apply for such positions is a sign of
+    their lack of mental acuity or overriding desire to commit war
+    crimes.
 
 MOB::HEADLESS - headless
     The origin of these abominations is unknown.  Well, it is pretty
     clear that some mad wizard was responsible, but WHICH mad wizard
     remains in doubt.  Rheo the Book Eater certainly wouldn't have had
     the foresight to provide them with a crude form of telepathy to
-    compensate for their lack of eyes.  W'park the Wonderful's
+    compensate for their lack of eyes.  Wpark the Wonderful's
     fascination with the colour puce rules him out - he'd have surely
     dyed their hide.  And Treska of the Seven Alphabets?  Her prudish
     nature would have ensured there was no second generation of
@@ -2005,7 +1957,7 @@ MOB::LIVINGTREE - animated tree
     harder to run away from an animate tree!
 
     There is good news for adventurers beset by tree problems.  The animate
-    trees are the result of a spell that hastens the natural life forces. When
+    trees are the result of a spell that hastens the natural life forces.  When
     the spell's power is used up the trees will revert once again to the
     pleasant shade-giving plants one is used to.
 
@@ -2042,7 +1994,7 @@ MOB::WATERELEMENTAL - water elemental
 
 MOB::FLESHGOLEM - flesh golem
     Anyone can take a mound of flesh and fashion it in a crude mockery
-    of a biped. The trick is to get it to walk under its own power.
+    of a biped.  The trick is to get it to walk under its own power.
     While golems themselves possess no soul or life, it is said that
     necromancers who make them require a soul of a creature to power
     the animation process.
@@ -2050,23 +2002,23 @@ MOB::FLESHGOLEM - flesh golem
 MOB::STONEGOLEM - stone golem
     A stone golem consists of a collection of ten to twenty boulders.
     Strange magics can be seen flickering between the boulders,
-    holding them into a vaguely man-like shape. No soul or life is
+    holding them into a vaguely man like shape.  No soul or life is
     detectable in the resulting creation, but it is rumoured that one
     was consumed to power their creation.
 
 MOB::IRONGOLEM - iron golem
     The grinding of gears and clanking of metal precedes the arrival
     of an iron golem.  Wise adventurers use the warning to flee.
-    Unwise adventurers die. No soul can reside in this deadly machinery,
-	but it is rumoured that one was consumed to power its creation.
+    Unwise adventurers die.
 
 MOB::GHOST - ghost
-    Death, they say, is but the start of a new journey. Some, it
+    Death, they say, is but the start of a new journey.  Some, it
     would seem, are not yet interested in that new journey, but remain
     in this world to plague the living.
 
-    Ghosts are the incorporeal souls of the restless dead. They
+    Ghosts are the incorporeal souls of the restless dead.  They
     possess a hatred of those who still enjoy the feel of fresh air.
+    
     Warriors tell of trying to fight ghosts, but being overcome by
     fright at their hideous appearance, or finding that their weapons
     seemed to have no effect.
@@ -2080,7 +2032,7 @@ MOB::LIVINGFROST - living frost
     see the frost dissipate.
 
 MOB::ELDER - village elder
-    An old woman, bent double with age, who is well respected in the
+    An old woman. bent double with age, who is well respected in the
     local village for her wisdom.  She is the one that led you to the
     cave when you volunteered to defeat the evil within.  No doubt she
     can now lead you back where hopefully celebrations await!

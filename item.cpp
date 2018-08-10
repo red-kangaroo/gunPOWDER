@@ -1153,14 +1153,10 @@ bool
 ITEM::canLaunchThis(ITEM *launcher) const
 {
     if (!launcher)
-	  return false;
+	return false;
 
-	if (glb_itemdefs[myDefinition].launcher == ITEM_BOW &&
-	   (launcher->getDefinition() == ITEM_BOW ||
-	    launcher->getDefinition() == ITEM_BLADEBOW))
-	  return true;
-    else if (launcher->getDefinition() == glb_itemdefs[myDefinition].launcher)
-	  return true;
+    if (launcher->getDefinition() == glb_itemdefs[myDefinition].launcher)
+	return true;
 
     return false;
 }
@@ -3026,33 +3022,10 @@ ITEM::actionDip(MOB *dipper, ITEM *dippee,
 		    }
 		    break;
 		}
-		case POTION_SMOKE:
-		    // Smoke should work as if thrown, you uncorked it, after all.
-		{
-		    buf = MOB::formatToString("%MU <M:dip> %IU into %U. Smoke billows out of the bottle!",
-				0, this, dipper, dippee);
-		    dipper->reportMessage(buf);
 
-			setZapper(dipper);
-
-			// Identification is handled by the grenadecallback.
-			glbCurLevel->fireBall(dipper->getX(), dipper->getY(), 1, true,
-					grenadeCallbackStatic,
-					this);
-					
-			newpotion = ITEM::create(ITEM_BOTTLE, false, true);
-			// Delete self
-			delete this;
-			
-			possible = true;
-			consumed = true;
-			break;
-		}
 		case POTION_HEAL:
-		    // If we ever get item damage, heal potion will mend it.
-		case POTION_CONFUSION:
-		    // Booze should recharge wands of fire.
-
+		case POTION_BLIND:
+		case POTION_SMOKE:
 		    buf = MOB::formatToString("%MU <M:dip> %IU into %U.  Nothing happens.",
 				0, this, dipper, dippee);
 		    dipper->reportMessage(buf);
@@ -3065,23 +3038,7 @@ ITEM::actionDip(MOB *dipper, ITEM *dippee,
 				0, this, dipper, dippee);
 		    dipper->reportMessage(buf);
 
-			if (dippee->getDefinition() == ITEM_SHORTSWORD)
-			{
-			// Short sword becomes vorpal.
-			dipper->formatAndReport("%IU hungrily <I:drink> the liquid!", dippee);
-
-			dippee->myDefinition = ITEM_VORPALSWORD;
-			newpotion = ITEM::create(ITEM_BOTTLE, false, true);
-
-			markIdentified();
-			// Delete self
-			delete this;
-
-			possible = true;
-			consumed = true;
-			}
-	
-		    else if (dippee->getMagicType() == MAGICTYPE_WAND)
+		    if (dippee->getMagicType() == MAGICTYPE_WAND)
 		    {
 			// Dipping a wand into a mana potion recharges it.
 			dipper->formatAndReport("%IU hungrily <I:drink> the liquid!", dippee);
@@ -3630,7 +3587,7 @@ ITEM::actionZap(MOB *zapper, int dx, int dy, int dz)
 		    glbCurLevel->applyFlag(SQUAREFLAG_LIT,
 			    zx + dx,
 			    zy + dy,
-			    5+isBlessed()-isCursed(), false, true);
+			    5, false, true);
 		    zapper->pietyZapWand(this);
 
 		    // Blind the target, if any.
@@ -4254,9 +4211,8 @@ ITEM::grenadeCallback(int x, int y)
 
 		int		heal;
 		
-		// Less than drinking.
 		if (isBlessed())
-		    heal = rand_dice(1, 20, 10);
+		    heal = rand_dice(1, 10, 10);
 		else if (isCursed())
 		    heal = rand_dice(1, 10, 0);
 		else
@@ -4282,7 +4238,7 @@ ITEM::grenadeCallback(int x, int y)
 		int		magic;
 		
 		if (isBlessed())
-		    magic = rand_dice(1, 20, 50);
+		    magic = rand_dice(1, 20, 20);
 		else if (isCursed())
 		    magic = rand_dice(1, 20, 0);
 		else
@@ -4373,14 +4329,14 @@ ITEM::grenadeCallback(int x, int y)
 		break;
 	    }
 
-	    case POTION_CONFUSION:
+	    case POTION_BLIND:
 	    {
 		if (!victim)
 		    break;
 
 		int		turns;
 
-		// You get 3d20 turns of confusion.
+		// You get 3d20 turns of blindness.
 		if (isBlessed())
 		    turns = rand_dice(3, 10, 30);
 		else if (isCursed())
@@ -4397,10 +4353,7 @@ ITEM::grenadeCallback(int x, int y)
 		}
 
 		victim->setTimedIntrinsic(ourZapper.getMob(), 
-					    INTRINSIC_CONFUSED, turns);
-		if (isCursed())
-		  victim->setTimedIntrinsic(ourZapper.getMob(), 
-					    INTRINSIC_AMNESIA, turns);
+					    INTRINSIC_BLIND, turns);
 		break;
 	    }
 

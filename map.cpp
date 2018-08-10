@@ -2024,10 +2024,6 @@ MAP::isTransparent(int x, int y) const
 
     bool	forcetrans = false;
 
-	if (MOB::getAvatar() && MOB::getAvatar()->hasIntrinsic(INTRINSIC_CLAIRVOYANCE))
-	{
-	    forcetrans = true;
-	}
     // If the avatar is in a tree trees don't block sight.
     // This is wrong as it lets creatures see through the trees
     // as soon as the avatar does.  However, creatures still can't
@@ -2036,9 +2032,7 @@ MAP::isTransparent(int x, int y) const
     // notice.  Pet/mob is retconned by the avatar directing the pets.
     if (square == SQUARE_FOREST || square == SQUARE_FORESTFIRE)
     {
-	if (MOB::getAvatar() &&
-	   (MOB::getAvatar()->hasIntrinsic(INTRINSIC_INTREE) ||
-	    MOB::getAvatar()->hasIntrinsic(INTRINSIC_SKILL_FORESTRY)))
+	if (MOB::getAvatar() && MOB::getAvatar()->hasIntrinsic(INTRINSIC_INTREE))
 	{
 	    forcetrans = true;
 	}
@@ -2964,11 +2958,6 @@ MAP::throwItem(int x, int y, int dx, int dy,
 
     range = attack->range;
     oldoverlay = -1;
-	
-	if (!launcher && thrower->hasSkill(SKILL_MASTERTHROWER))
-	{
-	  range *= 2;
-	}
     
     didhit = false;
     while (canMove(x, y, MOVE_STD_FLY) && range > 0)

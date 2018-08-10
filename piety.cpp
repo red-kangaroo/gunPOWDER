@@ -206,9 +206,8 @@ MOB::pietyEat(ITEM *item, int foodval)
 void
 MOB::pietyDress(INTRINSIC_NAMES intrinsic)
 {
-    // Only one in 10 chance of actually responding to this state.
-	// Let's make it less varied. --red_kangaroo
-    if (rand_choice(10))
+    // Only one in 5 chance of actually responding to this state.
+    if (rand_choice(5))
 	return;
     
     if (intrinsic == INTRINSIC_DRESSED_WIZARD)
@@ -218,11 +217,26 @@ MOB::pietyDress(INTRINSIC_NAMES intrinsic)
     if (intrinsic == INTRINSIC_DRESSED_RANGER)
 	pietyGrant(GOD_ROGUE, 1);
     if (intrinsic == INTRINSIC_DRESSED_CLERIC)
+    {
+	// Pax isn't too impressed by all this..
+	if (rand_choice(8))
+	    return;
 	pietyGrant(GOD_CLERIC, 1);
+    }
     if (intrinsic == INTRINSIC_DRESSED_NECROMANCER)
+    {
+	// Necros should not be about piety.
+	if (rand_choice(4))
+	    return;
 	pietyGrant(GOD_NECRO, 1);
+    }
     if (intrinsic == INTRINSIC_DRESSED_BARBARIAN)
+    {
+	// H'ruth isn't into fashion.
+	if (rand_choice(8))
+	    return;
 	pietyGrant(GOD_BARB, 1);
+    }
 }
 
 void
@@ -285,9 +299,6 @@ MOB::pietyCastSpell(SPELL_NAMES spell)
     if (val <= 0) val = 1;
 
     pietyGrant(GOD_WIZARD, val);
-	pietyGrant(GOD_FIGHTER, -1);	// It says in description that followers are discouraged from casting spells,
-	                                // plus everyone should really get at least something to be mad about. It's
-									// boring otherwise. --red_kangaroo
 
     if (glb_spelldefs[spell].type == SPELLTYPE_DEATH)
     {
@@ -368,14 +379,7 @@ MOB::pietyAttack(MOB *mob, const ATTACK_DEF *attack, ATTACKSTYLE_NAMES style)
 	if (!rand_choice(5))
 	{
 	    pietyGrant(GOD_WIZARD, -1);
-		
-	// Tlosh doesn't mind unarmed melee attacks, because you are considered using his special martial arts.
-	// Yes, following Tlosh makes you a crystal and gold wearing, spell-slinging martial artist / death mage.
-	// Why do you think all the cool kids want to be necromancers? --red_kangaroo
-	if (getEquippedItem(ITEMSLOT_RHAND) || getEquippedItem(ITEMSLOT_LHAND))
-	{
 	    pietyGrant(GOD_NECRO, -1);
-	}
 	}
     }
 }
@@ -1336,7 +1340,7 @@ MOB::pietyGainLevel()
 	"Welcome to the next level.  ",
 	"Level Up!  ",
 	"You learn from experience.  ",
-	"Another kill, another level.  "
+	"Another kill, Another level.  "
     };
     // This message announce helps avoid accidental button presses.
     msg_announce(gainmsg[rand_choice(5)]);
