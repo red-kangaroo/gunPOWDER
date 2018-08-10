@@ -1,0 +1,151 @@
+General
+=======
+* spell failure -> negative slots, shields, heavy armor
+  * Combat Casting?
+* spells of Ench Weapon / Armor, costs maxMP equal to how high you enchant the item
+* add huge floor?
+* new damage: SOUND, MIND, DARK
+* XP to chardump
+* new vents?
+  * frost vapour
+
+Items
+=====
+* remove wand of nothing, wand of wonder instead
+* wand of create door
+* spear causing inronvuln
+* cursed spellbooks
+  * chance to waste a charge on bad effect (confusion, amneisa, manaburn, ...)
+* enchantment for wands, scrolls etc.
+* crystal weapons
+* thrown ?fire explodes
+* remove ring of searching, light radius/search helm?
+
+Mobs
+====
+* mobs that cause
+   MAGICDRAIN
+   TELEPORTFIXED
+   TIRED
+   DEAF + NOISY
+* NEUTRAL kobold whelp
+* super strong monster with mouse ai
+* kobold king with gold plate and gilded rapier
+* lich attack causes unhealing/manadrain?
+* chill bug
+
+Intrinsics
+==========
+* Energized - half MP costs
+* Vulnerable to Poison
+* Fear
+* Pinned
+* Nausea
+
+* new skills:
+  * Bending (?) - increases AC after being hit
+  * Medical Knowledge - exact enemy HP
+  * Poison Tolerance
+  * Sneaky
+     decreases noise
+     makeNoise creature.cpp
+  * Multiple Opponents
+  * Wall Vault
+  * Meditate - Breathe for HP
+  * secondary special weapon skills?
+    * can only be learned once you have the base special skill
+     Lunge - rapier
+     Strafe - short sword
+     Reach - spear
+     Coup de Grace - dagger
+     Juke - knife + Tumble
+     Multishot
+     Cleave, Decapitate (?)
+
+* new spells:
+  * Summon Elemental
+  * randomize Summon Daemon
+  * Death Ripple
+  * Sticks to Snakes
+  * explode from Reclaim Soul
+  * Teleportation Circle - create tele trap
+  * Poison Rain
+
+Vaults
+======
+Kobold Kollege
+* kobold mage with staff
+
+* orc army
+* turtloid army
+* ice room
+* trap room
+* acid smoke generator
+* hill room
+
+* mountain and forest room
+  ^: SQUARE_MOUNTAIN, SQUAREFLAG_LIT
+  &: SQUARE_FOREST, SQUAREFLAG_LIT
++----------+
+|##########|
+|#^^^^^^^^#|
+|#^&&^&&^^#|
+|#^&&&&&&^#|
+|#^&&^&&&&+|
+|#^^^&&&&^#|
+|#^&&&&&^^#|
+|#^&&^&&&^#|
+|#^&^^^^^^#|
+|##+#######|
++----------+
+
+* soul suckers
+  1: SS + scroll
+  2: unique SS + book
+#####
+#111#
+#121#
+#111#
+#####
+
+Quests
+======
+* enter through portal only while following given god
+
+Atheist
+  It is so silent in here.
+* empty room
+
+Klaskov
+  Kill the Kobold King in the Kastle!
+* whelps in secret room with loot
+* king boss
+
+Belweir
+  Behold the power of the elements!
+* now old Quizar quest, with more dragons and elementals
+* black dragon boss?
+
+Quizar
+  Save the village!
+* old Klaskov quest with more orcs and some villagers
+
+Tlosh
+  Destroy my enemies!
+* crypt
+* boss Animated Hand of Tlosh
+  * lost it some ages ago, now it's evil
+  * MINDACIDHAND tile
+
+H'ruth
+* more monsters, more uniques
+
+Pax
+  Your devotion shall be rewarded!
+* tranquil pond
+* map with no enemies, only loot
+* shitmoi, kiwi, triceratops
+
+Xom
+  Expand your horizons!
+* tridudes
